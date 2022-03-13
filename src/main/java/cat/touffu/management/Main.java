@@ -1,4 +1,4 @@
-package main.java.cat.touffu.management.app;
+package cat.touffu.management;
 
 public class Main {
     public static void main(String[] args) {
