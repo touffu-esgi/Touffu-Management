@@ -11,26 +11,26 @@ class SimpleStringValidatorTest {
     @Test
     void shouldValidateNotEmptyString() {
         String notEmpty = "Not Empty !";
-        assertTrue(validator.isEmpty(notEmpty));
+        assertFalse(validator.isEmpty(notEmpty));
     }
 
     @Test
     void shouldNotValidateEmptyString() {
         String empty = "";
-        assertFalse(validator.isEmpty(empty));
+        assertTrue(validator.isEmpty(empty));
     }
 
     @Test
     void shouldNotValidateBlankString() {
         // blank string is filled with spaces or tabs or other white spaces
         String blank = "  \t \n";
-        assertFalse(validator.isEmpty(blank));
+        assertTrue(validator.isEmpty(blank));
     }
 
     @Test
     void shouldValidateNotTrimmedString() {
         String notEmptyNotTrimmed = "       Not Empty !           ";
-        assertTrue(validator.isEmpty(notEmptyNotTrimmed));
+        assertFalse(validator.isEmpty(notEmptyNotTrimmed));
     }
 
 }
