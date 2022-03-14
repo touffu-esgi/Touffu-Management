@@ -6,10 +6,15 @@ import cat.touffu.management.shared_kernel.NotEmptyString;
 import java.util.Objects;
 
 public record Project(
-        EntityId projectId,
-        NotEmptyString projectTitle
+        EntityId id,
+        NotEmptyString title
 ) {
     public Project {
-        Objects.requireNonNull(projectTitle);
+        Objects.requireNonNull(title);
+    }
+
+
+    public static Project of(EntityId id, NotEmptyString title) {
+        return new Project(id, title);
     }
 }
