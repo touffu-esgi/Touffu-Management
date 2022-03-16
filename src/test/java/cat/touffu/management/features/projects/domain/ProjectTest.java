@@ -10,7 +10,7 @@ class ProjectTest {
 
     @Test
     void shouldCreateAProjectObject() {
-        Project project = Project.of(EntityId.of("id"), new NotEmptyString("title"));
+        Project project = Project.of(ProjectId.of("id"), new NotEmptyString("title"));
         assertEquals("id", project.id().value());
         assertEquals("title", project.title().value());
     }
