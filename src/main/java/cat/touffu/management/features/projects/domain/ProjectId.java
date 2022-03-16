@@ -1,11 +1,9 @@
 package cat.touffu.management.features.projects.domain;
 
-import cat.touffu.management.shared_kernel.EntityId;
-
 import java.util.Objects;
 import java.util.UUID;
 
-public class ProjectId implements EntityId{
+public final class ProjectId {
 
     private final String _value;
 
@@ -13,7 +11,6 @@ public class ProjectId implements EntityId{
         this._value = value;
     }
 
-    @Override
     public String value() {
         return this._value;
     }
