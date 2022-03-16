@@ -6,7 +6,7 @@ import cat.touffu.management.shared_kernel.NotEmptyString;
 import java.util.Objects;
 
 public record Project(
-        EntityId id,
+        ProjectId id,
         NotEmptyString title
 ) {
     public Project {
@@ -14,7 +14,7 @@ public record Project(
     }
 
 
-    public static Project of(EntityId id, NotEmptyString title) {
+    public static Project of(ProjectId id, NotEmptyString title) {
         return new Project(id, title);
     }
 }

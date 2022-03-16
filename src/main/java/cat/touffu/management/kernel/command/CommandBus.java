@@ -1,5 +1,5 @@
 package cat.touffu.management.kernel.command;
 
 public interface CommandBus {
-    <C extends Command, R> R send(C command);
+    <TCommand extends Command, TResponse> TResponse send(TCommand command);
 }
