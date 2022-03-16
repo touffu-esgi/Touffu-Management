@@ -1,6 +1,6 @@
 package cat.touffu.management.features.projects.application.command.create_new_project;
 
-import cat.touffu.management.features.projects.domain.Project;
+import cat.touffu.management.features.projects.domain.ProjectId;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,8 +12,9 @@ class CreateNewProjectHandlerTest {
         MockProjectRepository repository = new MockProjectRepository();
         CreateNewProjectHandler handler = new CreateNewProjectHandler(repository);
 
-        handler.handle(new CreateNewProject("Title of your amazing project"));
+        ProjectId createdId = handler.handle(new CreateNewProject("Title of your amazing project"));
 
-        assertTrue(repository.store.containsKey("Title of your amazing project"));
+        assertTrue(repository.store.containsKey(createdId));
+        assertEquals("Title of your amazing project", repository.store.get(createdId).title());
     }
 }
