@@ -4,6 +4,7 @@ import cat.touffu.management.features.projects.application.command.create_new_pr
 import cat.touffu.management.features.projects.application.command.create_new_project.CreateNewProjectHandler;
 import cat.touffu.management.features.projects.domain.ProjectRepository;
 import cat.touffu.management.features.projects.infrastructure.InMemoryProjectRepository;
+import cat.touffu.management.features.projects.infrastructure.SqliteProjectRepository;
 import cat.touffu.management.kernel.command.Command;
 import cat.touffu.management.kernel.command.CommandBus;
 import cat.touffu.management.kernel.command.CommandHandler;
@@ -18,7 +19,7 @@ public class ProjectModule {
 
     @Singleton
     public static ProjectRepository projectRepository() {
-        return InMemoryProjectRepository.getInstance();
+        return SqliteProjectRepository.getInstance();
     }
 
     @Dependent
