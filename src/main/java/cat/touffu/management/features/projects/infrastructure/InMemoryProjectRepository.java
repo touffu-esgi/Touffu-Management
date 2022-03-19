@@ -13,7 +13,7 @@ public class InMemoryProjectRepository implements ProjectRepository {
     private static final ProjectRepository INSTANCE = new InMemoryProjectRepository();
     private final Map<ProjectId, Project> projectStore;
 
-    public InMemoryProjectRepository() {
+    private InMemoryProjectRepository() {
         this.projectStore = new ConcurrentHashMap<>();
     }
 
