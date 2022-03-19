@@ -1,8 +1,12 @@
 package cat.touffu.management.features.projects.exposition.cli;
 
+import cat.touffu.management.Cli;
+import cat.touffu.management.configuration.CDIFactory;
+import cat.touffu.management.features.projects.ProjectModule;
 import cat.touffu.management.features.projects.application.command.create_new_project.CreateNewProject;
 import cat.touffu.management.features.projects.domain.ProjectId;
 import cat.touffu.management.kernel.command.CommandBus;
+import cat.touffu.management.kernel.command.SimpleCommandBus;
 import com.google.inject.Inject;
 import picocli.CommandLine;
 
@@ -14,8 +18,7 @@ public class NewProject implements Runnable{
     @CommandLine.Parameters(index = "0", paramLabel = "title", description = "Project title")
     String title;
 
-    @Inject
-    CommandBus commandBus;
+    CommandBus commandBus = ProjectModule.commandBus();
 
     @Override
     public void run() {

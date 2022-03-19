@@ -13,16 +13,13 @@ import picocli.CommandLine;
         }
 )
 public class Cli implements Runnable{
-    @Inject CommandBus commandBus;
 
     public static void main(String[] args) {
-        new CommandLine(Cli.class, new CDIFactory()).execute(args);
+        CommandLine.run(new Cli(), args);
     }
 
     @Override
     public void run() {
         System.out.println("Touffu management CLI.");
-        System.out.println(this.commandBus);
-        assert commandBus instanceof SimpleCommandBus;
     }
 }
