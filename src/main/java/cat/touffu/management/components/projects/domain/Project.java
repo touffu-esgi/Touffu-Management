@@ -1,4 +1,4 @@
-package cat.touffu.management.features.projects.domain;
+package cat.touffu.management.components.projects.domain;
 import java.util.Objects;
 
 public record Project(

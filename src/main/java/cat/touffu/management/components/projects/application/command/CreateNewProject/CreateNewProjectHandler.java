@@ -1,9 +1,9 @@
-package cat.touffu.management.features.projects.application.command.create_new_project;
+package cat.touffu.management.components.projects.application.command.CreateNewProject;
 
 
-import cat.touffu.management.features.projects.domain.Project;
-import cat.touffu.management.features.projects.domain.ProjectId;
-import cat.touffu.management.features.projects.domain.ProjectRepository;
+import cat.touffu.management.components.projects.domain.Project;
+import cat.touffu.management.components.projects.domain.ProjectId;
+import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.kernel.command.CommandHandler;
 
 public class CreateNewProjectHandler implements CommandHandler<CreateNewProject, ProjectId> {

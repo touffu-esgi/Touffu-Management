@@ -1,6 +1,6 @@
-package cat.touffu.management.features.projects.application.command.create_new_project;
+package cat.touffu.management.components.projects.application.command.CreateNewProject;
 
-import cat.touffu.management.features.projects.domain.ProjectId;
+import cat.touffu.management.components.projects.domain.ProjectId;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

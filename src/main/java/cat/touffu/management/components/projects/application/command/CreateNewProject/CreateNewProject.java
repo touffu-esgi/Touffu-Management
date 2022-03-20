@@ -1,4 +1,4 @@
-package cat.touffu.management.features.projects.application.command.create_new_project;
+package cat.touffu.management.components.projects.application.command.CreateNewProject;
 
 import cat.touffu.management.kernel.command.Command;
 

@@ -1,8 +1,8 @@
-package cat.touffu.management.features.projects.infrastructure;
+package cat.touffu.management.components.projects.infrastructure;
 
-import cat.touffu.management.features.projects.domain.Project;
-import cat.touffu.management.features.projects.domain.ProjectId;
-import cat.touffu.management.features.projects.domain.ProjectRepository;
+import cat.touffu.management.components.projects.domain.Project;
+import cat.touffu.management.components.projects.domain.ProjectId;
+import cat.touffu.management.components.projects.domain.ProjectRepository;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.List;

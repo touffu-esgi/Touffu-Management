@@ -1,8 +1,8 @@
-package cat.touffu.management.features.projects.exposition.cli;
+package cat.touffu.management.components.projects.exposition.cli;
 
-import cat.touffu.management.features.projects.ProjectModule;
-import cat.touffu.management.features.projects.application.command.create_new_project.CreateNewProject;
-import cat.touffu.management.features.projects.domain.ProjectId;
+import cat.touffu.management.components.projects.ProjectModule;
+import cat.touffu.management.components.projects.application.command.CreateNewProject.CreateNewProject;
+import cat.touffu.management.components.projects.domain.ProjectId;
 import cat.touffu.management.kernel.command.CommandBus;
 import picocli.CommandLine;
 

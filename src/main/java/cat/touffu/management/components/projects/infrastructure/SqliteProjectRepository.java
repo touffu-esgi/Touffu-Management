@@ -1,14 +1,13 @@
-package cat.touffu.management.features.projects.infrastructure;
+package cat.touffu.management.components.projects.infrastructure;
 
-import cat.touffu.management.features.projects.domain.Project;
-import cat.touffu.management.features.projects.domain.ProjectId;
-import cat.touffu.management.features.projects.domain.ProjectRepository;
+import cat.touffu.management.components.projects.domain.Project;
+import cat.touffu.management.components.projects.domain.ProjectId;
+import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.kernel.database.SqliteJdbc;
 import org.apache.commons.lang3.NotImplementedException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SqliteProjectRepository implements ProjectRepository {
@@ -47,7 +46,20 @@ public class SqliteProjectRepository implements ProjectRepository {
 
     @Override
     public List<Project> findAll() {
-        throw new NotImplementedException();
+        List<Project> projects = new ArrayList<>();
+        try {
+            Statement statement = sqlite.createStatement();
+            ResultSet result = statement.executeQuery("select id, title from project");
+            while (result.next()) {
+                projects.add(new Project(
+                        ProjectId.of(result.getString("id")),
+                        result.getString("title")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return projects;
     }
 
     @Override
