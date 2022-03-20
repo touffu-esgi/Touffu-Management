@@ -1,1 +1,17 @@
 *.DS_Store
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+
+# Dirty
+*~
+*.swp
+*.class
+*.core
+target/
