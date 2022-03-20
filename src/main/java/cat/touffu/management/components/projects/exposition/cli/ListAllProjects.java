@@ -18,8 +18,7 @@ public class ListAllProjects implements Runnable{
     @Override
     public void run() {
         final List<Project> projects = queryBus.send(new RetrieveProjects());
-        projects.stream().forEach(project -> System.out.println(
-                project.id().value() + "\t" + project.title()
-        ));
+        final String response = CliProjectsListResponseAdapter.adapt(projects);
+        System.out.println(response);
     }
 }
