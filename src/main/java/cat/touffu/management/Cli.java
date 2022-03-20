@@ -8,7 +8,9 @@ import picocli.CommandLine;
         subcommands = {
                 NewProject.class,
                 ListAllProjects.class
-        }
+        },
+        mixinStandardHelpOptions = true,
+        version = "Touffu Management CLI 0.1.0"
 )
 public class Cli implements Runnable{
 
