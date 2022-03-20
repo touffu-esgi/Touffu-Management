@@ -3,7 +3,7 @@ package cat.touffu.management.features.list.infrastructure;
 import cat.touffu.management.features.list.domain.ListId;
 import cat.touffu.management.features.list.domain.ListRepository;
 import cat.touffu.management.kernel.database.SqliteJdbc;
-import cat.touffu.management.features.list.domain.AList;
+import cat.touffu.management.features.list.domain.ListOfCard;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.sql.Connection;
@@ -28,7 +28,7 @@ public class SqliteListRepository implements ListRepository {
     }
 
     @Override
-    public void save(AList project) {
+    public void save(ListOfCard project) {
         try {
             PreparedStatement statement = sqlite.prepareStatement("insert into list(id, content, id_project) VALUES (?, ?, ?)");
             statement.setString(1, project.id().value());
@@ -41,17 +41,17 @@ public class SqliteListRepository implements ListRepository {
     }
 
     @Override
-    public AList findById(ListId projectId) {
+    public ListOfCard findById(ListId projectId) {
         throw new NotImplementedException();
     }
 
     @Override
-    public java.util.List<AList> findAll() {
+    public java.util.List<ListOfCard> findAll() {
         throw new NotImplementedException();
     }
 
     @Override
-    public void remove(AList item) {
+    public void remove(ListOfCard item) {
         throw new NotImplementedException();
     }
 }

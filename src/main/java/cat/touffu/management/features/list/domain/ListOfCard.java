@@ -2,17 +2,17 @@ package cat.touffu.management.features.list.domain;
 
 import java.util.Objects;
 
-public record AList(
+public record ListOfCard(
         ListId id,
         String content,
         String project_id
 ) {
-    public AList {
+    public ListOfCard {
         Objects.requireNonNull(content, project_id);
     }
 
 
-    public static AList of(ListId id, String content, String project_id) {
-        return new AList(id, content, project_id);
+    public static ListOfCard of(ListId id, String content, String project_id) {
+        return new ListOfCard(id, content, project_id);
     }
 }

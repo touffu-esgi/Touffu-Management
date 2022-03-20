@@ -1,6 +1,6 @@
 package cat.touffu.management.features.list.exposition.cli;
 
-import cat.touffu.management.features.list.application.command.create_new_list_in_project.CreateNewList;
+import cat.touffu.management.features.list.application.command.create_new_list_in_project.CreateNewListOfCards;
 import cat.touffu.management.features.list.domain.ListId;
 import cat.touffu.management.kernel.command.CommandBus;
 import cat.touffu.management.features.list.ListModule;
@@ -10,7 +10,7 @@ import picocli.CommandLine;
         name = "new-list",
         description = "Create a new list in a project."
 )
-public class NewProjectList implements Runnable{
+public class NewListOfCard implements Runnable{
     @CommandLine.Parameters(index = "0", paramLabel = "content", description = "List title")
     String content;
 
@@ -20,9 +20,8 @@ public class NewProjectList implements Runnable{
 
     @Override
     public void run() {
-        System.out.println(content);
-        CreateNewList createNewProject = new CreateNewList(content, id_project);
-        ListId listId = this.commandBus.send(createNewProject);
+        CreateNewListOfCards createNewListOfCard = new CreateNewListOfCards(content, id_project);
+        ListId listId = this.commandBus.send(createNewListOfCard);
         System.out.println("New list of project '" + this.content + "' have been created in list with uuid = " + listId.value());
     }
 }

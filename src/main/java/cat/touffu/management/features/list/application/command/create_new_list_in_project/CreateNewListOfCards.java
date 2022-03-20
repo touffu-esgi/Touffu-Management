@@ -2,7 +2,7 @@ package cat.touffu.management.features.list.application.command.create_new_list_
 
 import cat.touffu.management.kernel.command.Command;
 
-public record CreateNewList(
+public record CreateNewListOfCards(
         String content, String id_project
 ) implements Command {
 }

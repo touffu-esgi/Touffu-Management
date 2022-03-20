@@ -1,6 +1,6 @@
 package cat.touffu.management.features.list.infrastructure;
 
-import cat.touffu.management.features.list.domain.AList;
+import cat.touffu.management.features.list.domain.ListOfCard;
 import cat.touffu.management.features.list.domain.ListId;
 import cat.touffu.management.features.list.domain.ListRepository;
 import org.apache.commons.lang3.NotImplementedException;
@@ -8,11 +8,11 @@ import org.apache.commons.lang3.NotImplementedException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class InMemoryListOfProjectRepository implements ListRepository {
-    private static final ListRepository INSTANCE = new InMemoryListOfProjectRepository();
-    private final Map<ListId, AList> projectStore;
+public class InMemoryListOCardRepository implements ListRepository {
+    private static final ListRepository INSTANCE = new InMemoryListOCardRepository();
+    private final Map<ListId, ListOfCard> projectStore;
 
-    private InMemoryListOfProjectRepository() {
+    private InMemoryListOCardRepository() {
         this.projectStore = new ConcurrentHashMap<>();
     }
 
@@ -21,22 +21,22 @@ public class InMemoryListOfProjectRepository implements ListRepository {
     }
 
     @Override
-    public void save(AList project) {
+    public void save(ListOfCard project) {
         projectStore.put(project.id(), project);
     }
 
     @Override
-    public AList findById(ListId projectId) {
+    public ListOfCard findById(ListId projectId) {
         throw new NotImplementedException();
     }
 
     @Override
-    public java.util.List<AList> findAll() {
+    public java.util.List<ListOfCard> findAll() {
         throw new NotImplementedException();
     }
 
     @Override
-    public void remove(AList item) {
+    public void remove(ListOfCard item) {
         throw new NotImplementedException();
     }
 }

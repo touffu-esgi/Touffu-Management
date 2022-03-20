@@ -4,19 +4,19 @@ package cat.touffu.management.features.list.application.command.create_new_list_
 import cat.touffu.management.features.list.domain.ListId;
 import cat.touffu.management.features.list.domain.ListRepository;
 import cat.touffu.management.kernel.command.CommandHandler;
-import cat.touffu.management.features.list.domain.AList;
+import cat.touffu.management.features.list.domain.ListOfCard;
 
-public class CreateNewListOfProjectHandler implements CommandHandler<CreateNewList, ListId> {
+public class CreateNewListOfCardsHandler implements CommandHandler<CreateNewListOfCards, ListId> {
 
     private final ListRepository listRepository;
 
-    public CreateNewListOfProjectHandler(ListRepository listRepository) {
+    public CreateNewListOfCardsHandler(ListRepository listRepository) {
         this.listRepository = listRepository;
     }
 
     @Override
-    public ListId handle(CreateNewList command) {
-        final AList list = new AList(
+    public ListId handle(CreateNewListOfCards command) {
+        final ListOfCard list = new ListOfCard(
                 listRepository.nextId(),
                 command.content(),
                 command.id_project()

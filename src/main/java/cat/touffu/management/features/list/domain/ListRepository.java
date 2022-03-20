@@ -4,14 +4,14 @@ import cat.touffu.management.kernel.Repository;
 
 import java.util.UUID;
 
-public interface ListRepository extends Repository<AList, ListId> {
+public interface ListRepository extends Repository<ListOfCard, ListId> {
     default ListId nextId() {
         return ListId.fromUUID(UUID.randomUUID());
     }
 
-    void save(AList listOfProject);
+    void save(ListOfCard listOfProject);
 
-    AList findById(ListId listId);
+    ListOfCard findById(ListId listId);
 
-    void remove(AList item);
+    void remove(ListOfCard item);
 }
