@@ -3,7 +3,6 @@ package cat.touffu.management.features.projects;
 import cat.touffu.management.features.projects.application.command.create_new_project.CreateNewProject;
 import cat.touffu.management.features.projects.application.command.create_new_project.CreateNewProjectHandler;
 import cat.touffu.management.features.projects.domain.ProjectRepository;
-import cat.touffu.management.features.projects.infrastructure.InMemoryProjectRepository;
 import cat.touffu.management.features.projects.infrastructure.SqliteProjectRepository;
 import cat.touffu.management.kernel.command.Command;
 import cat.touffu.management.kernel.command.CommandBus;
