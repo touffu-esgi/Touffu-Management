@@ -17,9 +17,8 @@ public class SqliteProjectRepository implements ProjectRepository {
 
     private SqliteProjectRepository() {
         try {
-            Class.forName("org.sqlite.JDBC");
             this.sqlite = SqliteJdbc.getInstance().getConnection();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

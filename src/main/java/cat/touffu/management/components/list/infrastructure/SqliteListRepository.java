@@ -16,9 +16,8 @@ public class SqliteListRepository implements ListRepository {
 
     private SqliteListRepository() {
         try {
-            Class.forName("org.sqlite.JDBC");
             this.sqlite = SqliteJdbc.getInstance().getConnection();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
