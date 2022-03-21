@@ -1,7 +1,7 @@
 package cat.touffu.management.components.list.application.command.CreateNewListOfCard;
 
-import cat.touffu.management.components.list.application.command.create_new_list_in_project.CreateNewListOfCards;
-import cat.touffu.management.components.list.application.command.create_new_list_in_project.CreateNewListOfCardsHandler;
+import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCards;
+import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsHandler;
 import cat.touffu.management.components.list.domain.ListId;
 import org.junit.jupiter.api.Test;
 

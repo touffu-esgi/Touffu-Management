@@ -1,6 +1,6 @@
 package cat.touffu.management.components.list.exposition.cli;
 
-import cat.touffu.management.components.list.application.command.create_new_list_in_project.CreateNewListOfCards;
+import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCards;
 import cat.touffu.management.components.list.domain.ListId;
 import cat.touffu.management.kernel.command.CommandBus;
 import cat.touffu.management.components.list.ListModule;

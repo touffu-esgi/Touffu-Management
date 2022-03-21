@@ -1,4 +1,4 @@
-package cat.touffu.management.components.list.application.command.create_new_list_in_project;
+package cat.touffu.management.components.list.application.command.CreateNewListInProject;
 
 
 import cat.touffu.management.components.list.domain.ListId;

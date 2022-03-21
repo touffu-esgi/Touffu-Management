@@ -1,13 +1,13 @@
 package cat.touffu.management.components.list;
 
-import cat.touffu.management.components.list.application.command.create_new_list_in_project.CreateNewListOfCardsHandler;
+import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsHandler;
 import cat.touffu.management.components.list.domain.ListRepository;
 import cat.touffu.management.components.list.infrastructure.SqliteListRepository;
 import cat.touffu.management.kernel.command.Command;
 import cat.touffu.management.kernel.command.CommandBus;
 import cat.touffu.management.kernel.command.CommandHandler;
 import cat.touffu.management.kernel.command.SimpleCommandBus;
-import cat.touffu.management.components.list.application.command.create_new_list_in_project.CreateNewListOfCards;
+import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCards;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Singleton;
