@@ -1,18 +1,16 @@
 package cat.touffu.management.features.projects.domain;
 
-import cat.touffu.management.shared_kernel.EntityId;
-import cat.touffu.management.shared_kernel.NotEmptyString;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProjectTest {
 
     @Test
     void shouldCreateAProjectObject() {
-        Project project = Project.of(EntityId.of("id"), new NotEmptyString("title"));
+        Project project = Project.of(ProjectId.of("id"), "title");
         assertEquals("id", project.id().value());
-        assertEquals("title", project.title().value());
+        assertEquals("title", project.title());
     }
 
 }
