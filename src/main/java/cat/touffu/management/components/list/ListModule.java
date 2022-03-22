@@ -7,7 +7,7 @@ import cat.touffu.management.kernel.command.Command;
 import cat.touffu.management.kernel.command.CommandBus;
 import cat.touffu.management.kernel.command.CommandHandler;
 import cat.touffu.management.kernel.command.SimpleCommandBus;
-import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCards;
+import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsInProject;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Singleton;
@@ -24,7 +24,7 @@ public class ListModule {
     @Dependent
     public static CommandBus commandBus() {
         final Map<Class<? extends Command>, CommandHandler> commandHandlerMap = new HashMap<>();
-        commandHandlerMap.put(CreateNewListOfCards.class, new CreateNewListOfCardsHandler(ListModule.listRepository()));
+        commandHandlerMap.put(CreateNewListOfCardsInProject.class, new CreateNewListOfCardsHandler(ListModule.listRepository()));
         return new SimpleCommandBus(commandHandlerMap);
     }
 }

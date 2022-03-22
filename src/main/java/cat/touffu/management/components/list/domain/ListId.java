@@ -1,9 +1,11 @@
 package cat.touffu.management.components.list.domain;
 
+import cat.touffu.management.shared_kernel.EntityId;
+
 import java.util.Objects;
 import java.util.UUID;
 
-public final class ListId {
+public final class ListId implements EntityId<String> {
 
     private final String _value;
 

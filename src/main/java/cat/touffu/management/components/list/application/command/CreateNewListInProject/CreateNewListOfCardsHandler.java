@@ -6,7 +6,7 @@ import cat.touffu.management.components.list.domain.ListRepository;
 import cat.touffu.management.kernel.command.CommandHandler;
 import cat.touffu.management.components.list.domain.ListOfCard;
 
-public class CreateNewListOfCardsHandler implements CommandHandler<CreateNewListOfCards, ListId> {
+public class CreateNewListOfCardsHandler implements CommandHandler<CreateNewListOfCardsInProject, ListId> {
 
     private final ListRepository listRepository;
 
@@ -15,7 +15,7 @@ public class CreateNewListOfCardsHandler implements CommandHandler<CreateNewList
     }
 
     @Override
-    public ListId handle(CreateNewListOfCards command) {
+    public ListId handle(CreateNewListOfCardsInProject command) {
         final ListOfCard list = new ListOfCard(
                 listRepository.nextId(),
                 command.content(),
