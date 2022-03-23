@@ -11,16 +11,16 @@ import java.util.Map;
 
 public class MockProjectRepository implements ProjectRepository {
 
-    public Map<ProjectId, Project> store = new HashMap<>();
+    public Map<String, Project> store = new HashMap<>();
 
     @Override
     public void save(Project project) {
-        this.store.put(project.id(), project);
+        this.store.put(project.id().value(), project);
     }
 
     @Override
     public Project findById(ProjectId projectId) {
-        throw new NotImplementedException("find project by id");
+        return store.get(projectId.value());
     }
 
     @Override

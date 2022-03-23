@@ -26,6 +26,16 @@ public class InMemoryListOCardRepository implements ListRepository {
     }
 
     @Override
+    public void add(ListOfCard listOfCard) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public void update(ListOfCard listOfCard) {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public ListOfCard findById(ListId projectId) {
         throw new NotImplementedException();
     }

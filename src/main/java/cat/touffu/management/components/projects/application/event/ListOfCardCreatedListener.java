@@ -1,4 +1,4 @@
-package cat.touffu.management.components.projects.domain.event;
+package cat.touffu.management.components.projects.application.event;
 
 import cat.touffu.management.components.list.domain.event.ListOfCardCreated;
 import cat.touffu.management.components.projects.domain.CardListId;
@@ -7,13 +7,9 @@ import cat.touffu.management.components.projects.domain.ProjectId;
 import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.kernel.event.Subscriber;
 
-public class ListOfCardCreatedListener implements Subscriber<ListOfCardCreated> {
-    private final ProjectRepository repository;
-
-    public ListOfCardCreatedListener(ProjectRepository repository) {
-        this.repository = repository;
-    }
-
+public record ListOfCardCreatedListener(
+        ProjectRepository repository
+) implements Subscriber<ListOfCardCreated> {
     @Override
     public void accept(ListOfCardCreated listOfCardCreated) {
         ProjectId projectId = ProjectId.of(listOfCardCreated.projectId().value());

@@ -33,6 +33,7 @@ public class SqliteProjectRepository implements ProjectRepository {
     public void save(Project project) {
         try {
             PreparedStatement statement = sqlite.prepareStatement("select id from project where id = ?");
+            statement.setString(1, project.id().value());
             ResultSet resultSet = statement.executeQuery();
             boolean idExists = resultSet.next();
             if (idExists) {
@@ -45,26 +46,30 @@ public class SqliteProjectRepository implements ProjectRepository {
         }
     }
 
-    private void add(Project project) {
+    @Override
+    public void add(Project project) {
         try {
             PreparedStatement statement = sqlite.prepareStatement(
-                    "insert into project(id, title) VALUES (?, ?)"
+                    "insert into project(id, title, lists) VALUES (?, ?, ?)"
             );
             statement.setString(1, project.id().value());
             statement.setString(2, project.title());
+            statement.setString(3, project.cardListIdsToString());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void update(Project project) {
+    @Override
+    public void update(Project project) {
         try {
             PreparedStatement statement = sqlite.prepareStatement(
-                    "update project set title = ? where id = ?"
+                    "update project set title = ?, lists = ? where id = ?"
             );
             statement.setString(1, project.title());
-            statement.setString(2, project.id().value());
+            statement.setString(2, project.cardListIdsToString());
+            statement.setString(3, project.id().value());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,6 +82,9 @@ public class SqliteProjectRepository implements ProjectRepository {
             PreparedStatement statement = sqlite.prepareStatement("select id, title, lists from project where id = ?");
             statement.setString(1, projectId.value());
             ResultSet resultSet = statement.executeQuery();
+            if(!resultSet.next()) {
+                return null;
+            }
             return Project.of(
                     ProjectId.of(resultSet.getString("id")),
                     resultSet.getString("title"),

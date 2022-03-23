@@ -1,6 +1,6 @@
 package cat.touffu.management.components.list.domain.event;
 
-import cat.touffu.management.kernel.event.DomainEvent;
+import cat.touffu.management.kernel.event.ApplicationEvent;
 import cat.touffu.management.kernel.event.EventId;
 import cat.touffu.management.shared_kernel.EntityId;
 
@@ -11,7 +11,7 @@ public record ListOfCardCreated(
         ZonedDateTime occurredDate,
         EntityId<String> listId,
         EntityId<String> projectId
-) implements DomainEvent {
+) implements ApplicationEvent {
 
     public static ListOfCardCreated of(
             EntityId<String> listId,

@@ -27,6 +27,16 @@ public class InMemoryProjectRepository implements ProjectRepository {
     }
 
     @Override
+    public void add(Project project) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public void update(Project project) {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public Project findById(ProjectId projectId) {
         throw new NotImplementedException();
     }

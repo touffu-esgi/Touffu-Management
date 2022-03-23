@@ -16,6 +16,11 @@ public class CardListId implements EntityId<String> {
         return this._value;
     }
 
+    @Override
+    public boolean equals(EntityId<String> id) {
+        return Objects.equals(this._value, id.value());
+    }
+
     public static CardListId of(String id) {
         return new CardListId(id);
     }

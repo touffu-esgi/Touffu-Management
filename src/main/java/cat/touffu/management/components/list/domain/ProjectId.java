@@ -1,4 +1,4 @@
-package cat.touffu.management.components.projects.domain;
+package cat.touffu.management.components.list.domain;
 
 import cat.touffu.management.shared_kernel.EntityId;
 

@@ -1,7 +1,10 @@
 package cat.touffu.management.components.projects.domain;
+import org.json.JSONArray;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public record Project(
         ProjectId id,
@@ -20,5 +23,13 @@ public record Project(
 
     public void addCardList(CardListId cardListId) {
         cardListIds.add(cardListId);
+    }
+
+    public String cardListIdsToString() {
+        return new JSONArray(
+                this.cardListIds.stream()
+                        .map(CardListId::value)
+                        .collect(Collectors.toList())
+        ).toString();
     }
 }

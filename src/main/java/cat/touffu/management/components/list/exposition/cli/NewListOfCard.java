@@ -22,6 +22,6 @@ public class NewListOfCard implements Runnable{
     public void run() {
         CreateNewListOfCardsInProject createNewListOfCard = new CreateNewListOfCardsInProject(content, id_project);
         ListId listId = this.commandBus.send(createNewListOfCard);
-        System.out.println("New list of project '" + this.content + "' have been created in list with uuid = " + listId.value());
+        System.out.println("New list of cards '" + this.content + "' have been created with id : " + listId.value());
     }
 }
