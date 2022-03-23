@@ -42,7 +42,7 @@ class CreateNewListOfCardInProjectHandlerTest {
 
         ListId createdId = handler.handle(new CreateNewListOfCardsInProject("To Do", project.id().value()));
 
-        assertTrue(listRepository.store.containsKey(createdId));
-        assertEquals("To Do", listRepository.store.get(createdId).content());
+        assertTrue(listRepository.store.containsKey(createdId.value()));
+        assertEquals("To Do", listRepository.store.get(createdId.value()).content());
     }
 }

@@ -19,6 +19,16 @@ public class MockProjectRepository implements ProjectRepository {
     }
 
     @Override
+    public void add(Project project) {
+        store.put(project.id().value(), project);
+    }
+
+    @Override
+    public void update(Project project) {
+        store.replace(project.id().value(), project);
+    }
+
+    @Override
     public Project findById(ProjectId projectId) {
         return store.get(projectId.value());
     }

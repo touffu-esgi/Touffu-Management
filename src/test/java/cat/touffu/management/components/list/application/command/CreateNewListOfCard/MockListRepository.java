@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class MockListRepository implements ListRepository {
 
-    public Map<ListId, ListOfCard> store = new HashMap<>();
+    public Map<String, ListOfCard> store = new HashMap<>();
 
     @Override
     public ListOfCard findById(ListId listId) {
@@ -18,8 +18,18 @@ public class MockListRepository implements ListRepository {
     }
 
     @Override
-    public void save(ListOfCard listOfProject) {
-        this.store.put(listOfProject.id(), listOfProject);
+    public void save(ListOfCard listOfCards) {
+        this.store.put(listOfCards.id().value(), listOfCards);
+    }
+
+    @Override
+    public void add(ListOfCard listOfCard) {
+        store.put(listOfCard.id().value(), listOfCard);
+    }
+
+    @Override
+    public void update(ListOfCard listOfCard) {
+        store.replace(listOfCard.id().value(), listOfCard);
     }
 
     @Override
