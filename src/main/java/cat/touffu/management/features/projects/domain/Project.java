@@ -1,20 +1,16 @@
 package cat.touffu.management.features.projects.domain;
-
-import cat.touffu.management.shared_kernel.EntityId;
-import cat.touffu.management.shared_kernel.NotEmptyString;
-
 import java.util.Objects;
 
 public record Project(
-        EntityId id,
-        NotEmptyString title
+        ProjectId id,
+        String title
 ) {
     public Project {
         Objects.requireNonNull(title);
     }
 
 
-    public static Project of(EntityId id, NotEmptyString title) {
+    public static Project of(ProjectId id, String title) {
         return new Project(id, title);
     }
 }
