@@ -17,7 +17,7 @@ public class CreateNewProjectHandler implements CommandHandler<CreateNewProject,
     @Override
     public ProjectId handle(CreateNewProject command) {
         final Project project = new Project(
-                projectRepository.nextId(),
+                projectRepository.newId(),
                 command.title()
         );
         projectRepository.save(project);

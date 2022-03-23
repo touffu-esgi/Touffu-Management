@@ -5,7 +5,7 @@ import cat.touffu.management.kernel.Repository;
 import java.util.UUID;
 
 public interface ProjectRepository extends Repository<Project, ProjectId> {
-    default ProjectId nextId() {
+    default ProjectId newId() {
         return ProjectId.fromUUID(UUID.randomUUID());
     }
 }
