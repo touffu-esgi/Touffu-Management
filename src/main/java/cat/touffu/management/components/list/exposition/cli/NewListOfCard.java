@@ -16,6 +16,7 @@ public class NewListOfCard implements Runnable{
 
     @CommandLine.Parameters(index = "1", paramLabel = "id_project", description = "id of a project")
     String id_project;
+    
     CommandBus commandBus = ListModule.commandBus();
 
     @Override

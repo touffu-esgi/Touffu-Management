@@ -5,7 +5,7 @@ import cat.touffu.management.kernel.Repository;
 import java.util.UUID;
 
 public interface ListRepository extends Repository<ListOfCard, ListId> {
-    default ListId nextId() {
+    default ListId newId() {
         return ListId.fromUUID(UUID.randomUUID());
     }
 

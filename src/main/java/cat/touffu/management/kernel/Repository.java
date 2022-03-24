@@ -15,5 +15,5 @@ public interface Repository<Entity, EntityId> {
 
     void remove(Entity item);
 
-    EntityId nextId();
+    EntityId newId();
 }

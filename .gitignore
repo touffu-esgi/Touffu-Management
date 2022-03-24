@@ -27,3 +27,6 @@ out/
 
 # Local environment
 .env
+
+# Database
+db.sqlite

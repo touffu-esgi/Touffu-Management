@@ -1,4 +1,4 @@
-package cat.touffu.management.components.projects.domain;
+package cat.touffu.management.features.projects.domain;
 
 import cat.touffu.management.kernel.Repository;
 
