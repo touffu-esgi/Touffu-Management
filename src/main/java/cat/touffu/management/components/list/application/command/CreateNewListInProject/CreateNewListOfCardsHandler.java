@@ -23,7 +23,7 @@ public class CreateNewListOfCardsHandler implements CommandHandler<CreateNewList
     @Override
     public ListId handle(CreateNewListOfCardsInProject command) {
         final ListOfCard list = new ListOfCard(
-                listRepository.nextId(),
+                listRepository.newId(),
                 command.content(),
                 command.id_project()
         );

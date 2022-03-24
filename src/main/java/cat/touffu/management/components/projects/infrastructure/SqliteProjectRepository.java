@@ -1,15 +1,19 @@
 package cat.touffu.management.components.projects.infrastructure;
 
 import cat.touffu.management.components.projects.adapter.CardListIdAdapter;
+import cat.touffu.management.components.projects.domain.CardListId;
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.components.projects.domain.ProjectId;
 import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.kernel.database.SqliteJdbc;
 import org.apache.commons.lang3.NotImplementedException;
+import org.json.JSONArray;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SqliteProjectRepository implements ProjectRepository {
     private static final ProjectRepository INSTANCE = new SqliteProjectRepository();
@@ -98,7 +102,23 @@ public class SqliteProjectRepository implements ProjectRepository {
 
     @Override
     public List<Project> findAll() {
-        throw new NotImplementedException();
+        List<Project> projects = new ArrayList<>();
+        try {
+            Statement statement = sqlite.createStatement();
+            ResultSet result = statement.executeQuery("select id, title, lists from project");
+            while (result.next()) {
+                projects.add(new Project(
+                        ProjectId.of(result.getString("id")),
+                        result.getString("title"),
+                        new JSONArray(result.getString("lists")).toList().stream()
+                                .map(id -> CardListId.of((String) id))
+                                .collect(Collectors.toSet())
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return projects;
     }
 
     @Override

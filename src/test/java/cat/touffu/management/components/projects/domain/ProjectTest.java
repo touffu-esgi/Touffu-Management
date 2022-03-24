@@ -39,4 +39,12 @@ class ProjectTest {
         );
     }
 
+    @Test
+    void shouldSerializeEmptyCardListIdsInEmptyJsonArray() {
+        Project project = Project.of( ProjectId.of("id"),"title",
+                new HashSet<>()
+        );
+        assertEquals("[]", project.cardListIdsToString());
+    }
+
 }

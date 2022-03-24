@@ -24,9 +24,9 @@ public class CreateNewProjectHandler implements CommandHandler<CreateNewProject,
     public ProjectId handle(CreateNewProject command) {
         Set<CardListId> emptyCardListId = Collections.emptySet();
         final Project project = new Project(
-                projectRepository.nextId(),
+                projectRepository.newId(),
                 command.title(),
-                new HashSet<CardListId>()
+                new HashSet<>()
         );
         projectRepository.save(project);
         return project.id();
