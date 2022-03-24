@@ -16,7 +16,6 @@ public record SimpleCommandBus(
         if (commandHandler == null) {
             throw new RuntimeException("No such command handler for " + command.getClass().getName());
         }
-
         return (TResponse) commandHandler.handle(command);
     }
 }
