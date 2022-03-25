@@ -23,7 +23,7 @@ public class CreateNewProjectHandler implements CommandHandler<CreateNewProject,
     @Override
     public ProjectId handle(CreateNewProject command) {
         Set<CardListId> emptyCardListId = Collections.emptySet();
-        final Project project = new Project(
+        final Project project = Project.of(
                 projectRepository.newId(),
                 command.title(),
                 new HashSet<>()

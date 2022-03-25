@@ -22,15 +22,15 @@ public class CreateNewListOfCardsHandler implements CommandHandler<CreateNewList
 
     @Override
     public ListId handle(CreateNewListOfCardsInProject command) {
-        final ListOfCard list = new ListOfCard(
+        final ListOfCard list = ListOfCard.of(
                 listRepository.newId(),
-                command.content(),
+                command.title(),
                 command.id_project()
         );
         listRepository.save(list);
         applicationEventBus.send(ListOfCardCreated.of(
                 list.id(),
-                ProjectId.of(list.project_id())
+                list.projectId()
                 ));
         return list.id();
     }

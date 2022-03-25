@@ -11,7 +11,7 @@ import picocli.CommandLine;
         description = "Create a new list in a project."
 )
 public class NewListOfCard implements Runnable{
-    @CommandLine.Parameters(index = "0", paramLabel = "content", description = "List title")
+    @CommandLine.Parameters(index = "0", paramLabel = "title", description = "List title")
     String content;
 
     @CommandLine.Parameters(index = "1", paramLabel = "id_project", description = "id of a project")

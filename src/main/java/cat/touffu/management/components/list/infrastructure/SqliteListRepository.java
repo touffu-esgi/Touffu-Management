@@ -31,8 +31,8 @@ public class SqliteListRepository implements ListRepository {
         try {
             PreparedStatement statement = sqlite.prepareStatement("insert into list(id, content, id_project) VALUES (?, ?, ?)");
             statement.setString(1, project.id().value());
-            statement.setString(2, project.content());
-            statement.setString(3, project.project_id());
+            statement.setString(2, project.title());
+            statement.setString(3, project.projectId().value());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

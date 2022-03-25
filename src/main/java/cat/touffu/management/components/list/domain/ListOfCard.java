@@ -4,15 +4,16 @@ import java.util.Objects;
 
 public record ListOfCard(
         ListId id,
-        String content,
-        String project_id
+        String title,
+        ProjectId projectId
 ) {
     public ListOfCard {
-        Objects.requireNonNull(content, project_id);
+        Objects.requireNonNull(title);
+        Objects.requireNonNull(projectId);
     }
 
 
-    public static ListOfCard of(ListId id, String content, String project_id) {
-        return new ListOfCard(id, content, project_id);
+    public static ListOfCard of(ListId id, String content, String projectId) {
+        return new ListOfCard(id, content, ProjectId.of(projectId));
     }
 }

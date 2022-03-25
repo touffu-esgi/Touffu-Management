@@ -1,13 +1,17 @@
-package cat.touffu.management.kernel.event;
+package cat.touffu.management.components.list.application.command.CreateNewListOfCard;
+
+import cat.touffu.management.kernel.event.Event;
+import cat.touffu.management.kernel.event.EventBus;
+import cat.touffu.management.kernel.event.Subscriber;
 
 import java.util.List;
 import java.util.Map;
 
-public class SimpleEventBus<E extends Event> implements EventBus<E> {
+public class MockEventBus<E extends Event> implements EventBus<E> {
 
     private final Map<Class<E>, List<Subscriber<E>>> subscribers;
 
-    public SimpleEventBus(Map<Class<E>, List<Subscriber<E>>> subscribers) {
+    public MockEventBus(Map<Class<E>, List<Subscriber<E>>> subscribers) {
         this.subscribers = subscribers;
     }
 
