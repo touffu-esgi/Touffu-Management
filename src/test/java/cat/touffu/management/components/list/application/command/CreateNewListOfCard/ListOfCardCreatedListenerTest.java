@@ -1,6 +1,6 @@
 package cat.touffu.management.components.list.application.command.CreateNewListOfCard;
 
-import cat.touffu.management.components.list.domain.event.ListOfCardCreated;
+import cat.touffu.management.components.list.application.event.ListOfCardCreated;
 import cat.touffu.management.components.projects.domain.CardListId;
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.components.projects.domain.ProjectId;

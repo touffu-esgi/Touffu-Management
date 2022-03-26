@@ -1,4 +1,4 @@
-package cat.touffu.management.components.list.domain.event;
+package cat.touffu.management.components.list.application.event;
 
 import cat.touffu.management.kernel.event.ApplicationEvent;
 import cat.touffu.management.kernel.event.EventId;
