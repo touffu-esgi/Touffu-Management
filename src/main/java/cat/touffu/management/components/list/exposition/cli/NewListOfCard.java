@@ -12,7 +12,7 @@ import picocli.CommandLine;
 )
 public class NewListOfCard implements Runnable{
     @CommandLine.Parameters(index = "0", paramLabel = "title", description = "List title")
-    String content;
+    String title;
 
     @CommandLine.Parameters(index = "1", paramLabel = "id_project", description = "id of a project")
     String id_project;
@@ -21,8 +21,8 @@ public class NewListOfCard implements Runnable{
 
     @Override
     public void run() {
-        CreateNewListOfCardsInProject createNewListOfCard = new CreateNewListOfCardsInProject(content, id_project);
+        CreateNewListOfCardsInProject createNewListOfCard = new CreateNewListOfCardsInProject(title, id_project);
         ListId listId = this.commandBus.send(createNewListOfCard);
-        System.out.println("New listId of cards '" + this.content + "' have been created with id : " + listId.value());
+        System.out.println("New list of cards '" + this.title + "' have been created with id : " + listId.value());
     }
 }
