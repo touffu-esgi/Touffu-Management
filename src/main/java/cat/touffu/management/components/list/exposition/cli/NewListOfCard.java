@@ -7,8 +7,8 @@ import cat.touffu.management.components.list.ListModule;
 import picocli.CommandLine;
 
 @CommandLine.Command(
-        name = "new-list",
-        description = "Create a new list in a project."
+        name = "new-listId",
+        description = "Create a new listId in a project."
 )
 public class NewListOfCard implements Runnable{
     @CommandLine.Parameters(index = "0", paramLabel = "title", description = "List title")
@@ -23,6 +23,6 @@ public class NewListOfCard implements Runnable{
     public void run() {
         CreateNewListOfCardsInProject createNewListOfCard = new CreateNewListOfCardsInProject(content, id_project);
         ListId listId = this.commandBus.send(createNewListOfCard);
-        System.out.println("New list of cards '" + this.content + "' have been created with id : " + listId.value());
+        System.out.println("New listId of cards '" + this.content + "' have been created with id : " + listId.value());
     }
 }

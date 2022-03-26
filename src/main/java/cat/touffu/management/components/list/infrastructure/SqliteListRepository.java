@@ -41,12 +41,12 @@ public class SqliteListRepository implements ListRepository {
 
     @Override
     public void add(ListOfCard listOfCard) {
-        throw new NotImplementedException("add list of card");
+        throw new NotImplementedException("add listId of card");
     }
 
     @Override
     public void update(ListOfCard listOfCard) {
-        throw new NotImplementedException("update list of card");
+        throw new NotImplementedException("update listId of card");
     }
 
     @Override
