@@ -6,7 +6,7 @@ import cat.touffu.management.components.cards.domain.CardRepository;
 import cat.touffu.management.components.cards.domain.ListId;
 import cat.touffu.management.kernel.command.CommandHandler;
 
-public class CreateCardInListHandler implements CommandHandler<CreateCardInList, CardId> {
+public class CreateCardInListHandler implements CommandHandler<CreateCardInList, Void> {
     private final CardRepository cardRepository;
 
     public CreateCardInListHandler(CardRepository cardRepository) {
@@ -14,13 +14,13 @@ public class CreateCardInListHandler implements CommandHandler<CreateCardInList,
     }
 
     @Override
-    public CardId handle(CreateCardInList command) {
+    public Void handle(CreateCardInList command) {
         CardId cardId = cardRepository.newId();
         cardRepository.add(Card.of(
                 cardId,
                 command.title(),
                 ListId.of(command.listId())
         ));
-        return cardId;
+        return null;
     }
 }
