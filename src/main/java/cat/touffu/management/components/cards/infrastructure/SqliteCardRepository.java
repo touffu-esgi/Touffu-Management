@@ -7,6 +7,8 @@ import cat.touffu.management.kernel.database.SqliteJdbc;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -28,12 +30,34 @@ public class SqliteCardRepository implements CardRepository {
     
     @Override
     public void save(Card card) {
-        throw new NotImplementedException("save");
+        try {
+            PreparedStatement statement = sqlite.prepareStatement("select id from card where id = ?");
+            statement.setString(1, card.id().value());
+            ResultSet resultSet = statement.executeQuery();
+            boolean idExists = resultSet.next();
+            if (idExists) {
+                update(card);
+            } else {
+                add(card);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void add(Card card) {
-        throw new NotImplementedException("add");
+        try {
+            PreparedStatement statement = sqlite.prepareStatement(
+                    "insert into card(id, title, list) VALUES (?, ?, ?)"
+            );
+            statement.setString(1, card.id().value());
+            statement.setString(2, card.title());
+            statement.setString(3, card.listId().value());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

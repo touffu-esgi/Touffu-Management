@@ -14,7 +14,11 @@ public class MockCardRepository implements CardRepository {
 
     @Override
     public void save(Card card) {
-        throw new NotImplementedException();
+        if(store.containsKey(card.id().value())){
+            this.update(card);
+        } else {
+            this.add(card);
+        }
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SqliteListRepository implements ListRepository {
@@ -27,21 +28,37 @@ public class SqliteListRepository implements ListRepository {
     }
 
     @Override
-    public void save(ListOfCard project) {
+    public void save(ListOfCard list) {
         try {
-            PreparedStatement statement = sqlite.prepareStatement("insert into list(id, content, id_project) VALUES (?, ?, ?)");
-            statement.setString(1, project.id().value());
-            statement.setString(2, project.title());
-            statement.setString(3, project.projectId().value());
+            PreparedStatement statement = sqlite.prepareStatement("select id from list where id = ?");
+            statement.setString(1, list.id().value());
+            ResultSet resultSet = statement.executeQuery();
+            boolean idExists = resultSet.next();
+            if (idExists) {
+                update(list);
+            } else {
+                add(list);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void add(ListOfCard list) {
+        try {
+            PreparedStatement statement = sqlite.prepareStatement("""
+insert into list(id, content, id_project, cards) VALUES (?, ?, ?, ?)
+""");
+            statement.setString(1, list.id().value());
+            statement.setString(2, list.title());
+            statement.setString(3, list.projectId().value());
+            statement.setString(4, list.cardIdsToString());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void add(ListOfCard listOfCard) {
-        throw new NotImplementedException("add listId of card");
     }
 
     @Override

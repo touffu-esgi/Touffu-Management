@@ -31,7 +31,7 @@ public class CreateCardInListHandler implements CommandHandler<CreateCardInList,
         }
         CardId cardId = cardRepository.newId();
         ListId listId = ListId.of(command.listId());
-        cardRepository.add(Card.of(
+        cardRepository.save(Card.of(
                 cardId,
                 command.title(),
                 listId

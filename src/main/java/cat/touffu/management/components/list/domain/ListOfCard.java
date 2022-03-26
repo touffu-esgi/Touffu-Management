@@ -1,8 +1,12 @@
 package cat.touffu.management.components.list.domain;
 
+import cat.touffu.management.components.projects.domain.CardListId;
+import org.json.JSONArray;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public record ListOfCard(
         ListId id,
@@ -23,5 +27,13 @@ public record ListOfCard(
 
     public void addCard(CardId cardId) {
         this.cardIds.add(cardId);
+    }
+
+    public String cardIdsToString() {
+        return new JSONArray(
+                this.cardIds.stream()
+                        .map(CardId::value)
+                        .collect(Collectors.toList())
+        ).toString();
     }
 }
