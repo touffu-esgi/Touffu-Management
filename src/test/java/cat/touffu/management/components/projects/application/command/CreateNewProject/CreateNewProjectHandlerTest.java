@@ -3,7 +3,8 @@ package cat.touffu.management.components.projects.application.command.CreateNewP
 import cat.touffu.management.components.projects.domain.ProjectId;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CreateNewProjectHandlerTest {
 

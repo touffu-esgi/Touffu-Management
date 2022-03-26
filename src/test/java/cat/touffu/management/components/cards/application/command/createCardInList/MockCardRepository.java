@@ -3,8 +3,6 @@ package cat.touffu.management.components.cards.application.command.createCardInL
 import cat.touffu.management.components.cards.domain.Card;
 import cat.touffu.management.components.cards.domain.CardId;
 import cat.touffu.management.components.cards.domain.CardRepository;
-import cat.touffu.management.components.projects.domain.Project;
-import cat.touffu.management.kernel.Repository;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.HashMap;

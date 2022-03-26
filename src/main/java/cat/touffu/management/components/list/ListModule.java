@@ -1,17 +1,17 @@
 package cat.touffu.management.components.list;
 
 import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsHandler;
+import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsInProject;
 import cat.touffu.management.components.list.domain.ListRepository;
 import cat.touffu.management.components.list.domain.event.ListOfCardCreated;
 import cat.touffu.management.components.list.infrastructure.SqliteListRepository;
 import cat.touffu.management.components.projects.ProjectModule;
+import cat.touffu.management.components.projects.application.event.ListOfCardCreatedListener;
 import cat.touffu.management.kernel.command.Command;
 import cat.touffu.management.kernel.command.CommandBus;
 import cat.touffu.management.kernel.command.CommandHandler;
 import cat.touffu.management.kernel.command.SimpleCommandBus;
-import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsInProject;
 import cat.touffu.management.kernel.event.*;
-import cat.touffu.management.components.projects.application.event.ListOfCardCreatedListener;
 
 import javax.inject.Singleton;
 import java.util.HashMap;

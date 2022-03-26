@@ -1,9 +1,9 @@
 package cat.touffu.management.components.list.exposition.cli;
 
+import cat.touffu.management.components.list.ListModule;
 import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsInProject;
 import cat.touffu.management.components.list.domain.ListId;
 import cat.touffu.management.kernel.command.CommandBus;
-import cat.touffu.management.components.list.ListModule;
 import picocli.CommandLine;
 
 @CommandLine.Command(

@@ -3,7 +3,8 @@ package cat.touffu.management.components.cards.application.command.createCardInL
 import cat.touffu.management.components.cards.domain.CardId;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CreateCardInListHandlerTest {
     @Test

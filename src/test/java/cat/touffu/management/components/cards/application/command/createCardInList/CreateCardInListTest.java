@@ -2,7 +2,7 @@ package cat.touffu.management.components.cards.application.command.createCardInL
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CreateCardInListTest {
     @Test
