@@ -15,6 +15,6 @@ public class DoesProjectExistsHandler implements QueryHandler<DoesProjectExists,
     @Override
     public Boolean handle(DoesProjectExists query) {
         Project project = projectRepository.findById(ProjectId.of(query.projectId()));
-        return project == null;
+        return project != null;
     }
 }

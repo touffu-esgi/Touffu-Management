@@ -8,6 +8,8 @@ import cat.touffu.management.components.projects.application.command.CreateNewPr
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.components.projects.domain.ProjectId;
 import cat.touffu.management.kernel.event.*;
+import cat.touffu.management.kernel.exception.NotFoundException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -18,7 +20,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CreateNewListOfCardInProjectHandlerTest {
+class CreateNewListOfCardHandlerTest {
 
     @Test
     void shouldCreateANewListOfCard() {
@@ -36,11 +38,32 @@ class CreateNewListOfCardInProjectHandlerTest {
                 List.of(new ListOfCardCreatedListenerTest(projectRepository))
         );
         EventBus<ApplicationEvent> eventBus = new SimpleEventBus(mapEvent);
-        CreateNewListOfCardsHandler handler = new CreateNewListOfCardsHandler(listRepository, eventBus);
+        CreateNewListOfCardsHandler handler = new CreateNewListOfCardsHandler(
+                listRepository,
+                eventBus,
+                new MockQueryBusForCreateNewListOfCard(true)
+                );
 
         ListId createdId = handler.handle(new CreateNewListOfCardsInProject("To Do", project.id().value()));
 
         assertTrue(listRepository.store.containsKey(createdId.value()));
         assertEquals("To Do", listRepository.store.get(createdId.value()).title());
+    }
+
+    @Test
+    void shouldThrowNotFoundExceptionForUnknownProjectId() {
+        MockProjectRepository projectRepository = new MockProjectRepository();
+        Map<Class<? extends Event>, List<Subscriber<? extends Event>>> mapEvent = new HashMap<>();
+        CreateNewListOfCardsHandler handler = new CreateNewListOfCardsHandler(
+                new MockListRepository(),
+                new MockEventBus<ApplicationEvent>(new HashMap<>()),
+                new MockQueryBusForCreateNewListOfCard(false)
+        );
+
+        Assertions.assertThrows(
+                NotFoundException.class,
+                () -> handler.handle(new CreateNewListOfCardsInProject("To Do", "unknown_id"))
+        );
+
     }
 }

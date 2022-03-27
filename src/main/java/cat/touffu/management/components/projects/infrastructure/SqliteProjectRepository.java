@@ -7,6 +7,7 @@ import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.components.projects.domain.ProjectId;
 import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.kernel.database.SqliteJdbc;
+import cat.touffu.management.kernel.exception.NotFoundException;
 import org.apache.commons.lang3.NotImplementedException;
 import org.json.JSONArray;
 
@@ -83,6 +84,7 @@ public class SqliteProjectRepository implements ProjectRepository {
 
     @Override
     public Project findById(ProjectId projectId) {
+
         try {
             PreparedStatement statement = sqlite.prepareStatement("select id, title, lists from project where id = ?");
             statement.setString(1, projectId.value());

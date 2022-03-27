@@ -91,7 +91,7 @@ update list set title = ?, id_project = ?, cards = ? where id = ?
             statement.setString(1, listId.value());
             ResultSet resultSet = statement.executeQuery();
             if(!resultSet.next()) {
-                throw new NotFoundException("List with id " + listId.value());
+                return null;
             }
             return ListOfCard.of(
                     ListId.of(resultSet.getString("id")),
