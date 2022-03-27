@@ -9,6 +9,7 @@ import cat.touffu.management.components.list.application.query.DoesListExists.Do
 import cat.touffu.management.kernel.command.CommandHandler;
 import cat.touffu.management.kernel.event.ApplicationEvent;
 import cat.touffu.management.kernel.event.EventBus;
+import cat.touffu.management.kernel.exception.ListNotFoundException;
 import cat.touffu.management.kernel.exception.NotFoundException;
 import cat.touffu.management.kernel.query.QueryBus;
 
@@ -24,10 +25,10 @@ public class CreateCardInListHandler implements CommandHandler<CreateCardInList>
     }
 
     @Override
-    public void handle(CreateCardInList command) {
+    public void handle(CreateCardInList command) throws Exception {
         Boolean listExists = queryBus.send(new DoesListExists(command.listId()));
         if(!listExists) {
-            throw new NotFoundException("List " + command.listId());
+            throw new ListNotFoundException(command.listId());
         }
         CardId cardId = cardRepository.newId();
         ListId listId = ListId.of(command.listId());

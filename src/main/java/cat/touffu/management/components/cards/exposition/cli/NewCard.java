@@ -21,7 +21,7 @@ public class NewCard implements Runnable{
     @Override
     public void run() {
         CreateCardInList command = CreateCardInList.of(title, list_id);
+        this.commandBus.setExceptionFilter(new CardCliExceptionFilter());
         this.commandBus.send(command);
-        System.out.println("New card '" + this.title + "' have been created.");
     }
 }

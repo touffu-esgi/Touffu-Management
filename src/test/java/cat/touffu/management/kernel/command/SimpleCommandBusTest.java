@@ -1,5 +1,6 @@
 package cat.touffu.management.kernel.command;
 
+import cat.touffu.management.components.cards.exposition.cli.CardCliExceptionFilter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,11 +31,4 @@ class SimpleCommandBusTest {
         Assertions.assertDoesNotThrow(() -> simpleCommandBus.send(new MockCommand()));
     }
 
-    @Test
-    void shouldThrowRunTimeExceptionForUnknownCommand() {
-        commandMap = new HashMap<>();
-        simpleCommandBus = new SimpleCommandBus(commandMap);
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> simpleCommandBus.send(new MockCommand()));
-        assertEquals("No such command handler for cat.touffu.management.kernel.command.MockCommand", exception.getMessage());
-    }
 }

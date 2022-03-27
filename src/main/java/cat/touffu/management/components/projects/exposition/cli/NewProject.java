@@ -20,6 +20,5 @@ public class NewProject implements Runnable{
     public void run() {
         CreateNewProject createNewProject = new CreateNewProject(title);
         this.commandBus.send(createNewProject);
-        System.out.println("New project '" + this.title + "' have been created.");
     }
 }
