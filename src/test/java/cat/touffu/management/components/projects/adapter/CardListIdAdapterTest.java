@@ -17,7 +17,7 @@ class CardListIdAdapterTest {
     @Test
     void shouldParseListOfCardListId() {
         Set<CardListId> list = new HashSet<>(Arrays.asList(CardListId.of("id1"), CardListId.of("id2"), CardListId.of("id3")));
-        CardListIdAdapter adapter = new CardListIdAdapter();
+        StringToCardListIdsAdapter adapter = new StringToCardListIdsAdapter();
         Set<CardListId> adapted = adapter.adapt("[\"id1\", \"id2\", \"id3\"]");
         assertEquals(3, adapted.size());
 

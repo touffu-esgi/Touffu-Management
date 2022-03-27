@@ -1,10 +1,7 @@
 package cat.touffu.management.components.list.domain;
 
-import org.json.JSONArray;
-
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public record ListOfCard(
         ListId id,
@@ -27,11 +24,4 @@ public record ListOfCard(
         this.cardIds.add(cardId);
     }
 
-    public String cardIdsToString() {
-        return new JSONArray(
-                this.cardIds.stream()
-                        .map(CardId::value)
-                        .collect(Collectors.toList())
-        ).toString();
-    }
 }

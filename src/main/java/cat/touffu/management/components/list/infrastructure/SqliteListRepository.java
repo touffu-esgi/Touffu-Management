@@ -1,6 +1,7 @@
 package cat.touffu.management.components.list.infrastructure;
 
-import cat.touffu.management.components.list.adapter.CardIdsAdapter;
+import cat.touffu.management.components.list.adapter.CardIdsToStringAdapter;
+import cat.touffu.management.components.list.adapter.StringToCardIdsAdapter;
 import cat.touffu.management.components.list.domain.ListId;
 import cat.touffu.management.components.list.domain.ListOfCard;
 import cat.touffu.management.components.list.domain.ListRepository;
@@ -17,7 +18,8 @@ public class SqliteListRepository implements ListRepository {
     private static final ListRepository INSTANCE = new SqliteListRepository();
     private Connection sqlite;
 
-    private final CardIdsAdapter cardIdsAdapter = new CardIdsAdapter();
+    private final StringToCardIdsAdapter stringToCardIdsAdapter = new StringToCardIdsAdapter();
+    private final CardIdsToStringAdapter cardIdsToStringAdapter = new CardIdsToStringAdapter();
 
     private SqliteListRepository() {
         try {
@@ -58,7 +60,7 @@ insert into list(id, title, id_project, cards) VALUES (?, ?, ?, ?)
             statement.setString(1, list.id().value());
             statement.setString(2, list.title());
             statement.setString(3, list.projectId().value());
-            statement.setString(4, list.cardIdsToString());
+            statement.setString(4, cardIdsToStringAdapter.adapt(list.cardIds()));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -74,7 +76,7 @@ update list set title = ?, id_project = ?, cards = ? where id = ?
 
             statement.setString(1, list.title());
             statement.setString(2, list.projectId().value());
-            statement.setString(3, list.cardIdsToString());
+            statement.setString(3, cardIdsToStringAdapter.adapt(list.cardIds()));
             statement.setString(4, list.id().value());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -95,7 +97,7 @@ update list set title = ?, id_project = ?, cards = ? where id = ?
                     ListId.of(resultSet.getString("id")),
                     resultSet.getString("title"),
                     resultSet.getString("id_project"),
-                    cardIdsAdapter.adapt(resultSet.getString("cards"))
+                    stringToCardIdsAdapter.adapt(resultSet.getString("cards"))
             );
         } catch (SQLException e) {
             e.printStackTrace();

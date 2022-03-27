@@ -1,8 +1,8 @@
 package cat.touffu.management.components.list.application.event;
 
+import cat.touffu.management.kernel.EntityId;
 import cat.touffu.management.kernel.event.ApplicationEvent;
 import cat.touffu.management.kernel.event.EventId;
-import cat.touffu.management.shared_kernel.EntityId;
 
 import java.time.ZonedDateTime;
 

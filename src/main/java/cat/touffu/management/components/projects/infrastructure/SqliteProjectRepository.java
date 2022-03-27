@@ -1,6 +1,7 @@
 package cat.touffu.management.components.projects.infrastructure;
 
-import cat.touffu.management.components.projects.adapter.CardListIdAdapter;
+import cat.touffu.management.components.projects.adapter.CardListIdsToStringAdapter;
+import cat.touffu.management.components.projects.adapter.StringToCardListIdsAdapter;
 import cat.touffu.management.components.projects.domain.CardListId;
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.components.projects.domain.ProjectId;
@@ -18,7 +19,8 @@ public class SqliteProjectRepository implements ProjectRepository {
     private static final ProjectRepository INSTANCE = new SqliteProjectRepository();
     private Connection sqlite;
 
-    private final CardListIdAdapter cardListIdAdapter = new CardListIdAdapter();
+    private final StringToCardListIdsAdapter stringToCardListIdsAdapter = new StringToCardListIdsAdapter();
+    private final CardListIdsToStringAdapter cardListIdsToStringAdapter = new CardListIdsToStringAdapter();
 
     private SqliteProjectRepository() {
         try {
@@ -57,7 +59,7 @@ public class SqliteProjectRepository implements ProjectRepository {
             );
             statement.setString(1, project.id().value());
             statement.setString(2, project.title());
-            statement.setString(3, project.cardListIdsToString());
+            statement.setString(3, cardListIdsToStringAdapter.adapt(project.cardListIds()));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,7 +73,7 @@ public class SqliteProjectRepository implements ProjectRepository {
                     "update project set title = ?, lists = ? where id = ?"
             );
             statement.setString(1, project.title());
-            statement.setString(2, project.cardListIdsToString());
+            statement.setString(2, cardListIdsToStringAdapter.adapt(project.cardListIds()));
             statement.setString(3, project.id().value());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -91,7 +93,7 @@ public class SqliteProjectRepository implements ProjectRepository {
             return Project.of(
                     ProjectId.of(resultSet.getString("id")),
                     resultSet.getString("title"),
-                    cardListIdAdapter.adapt(resultSet.getString("lists"))
+                    stringToCardListIdsAdapter.adapt(resultSet.getString("lists"))
             );
         } catch (SQLException e) {
             e.printStackTrace();

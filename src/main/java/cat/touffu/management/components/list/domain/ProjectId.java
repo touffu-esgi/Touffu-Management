@@ -1,6 +1,6 @@
 package cat.touffu.management.components.list.domain;
 
-import cat.touffu.management.shared_kernel.EntityId;
+import cat.touffu.management.kernel.EntityId;
 
 import java.util.Objects;
 import java.util.UUID;

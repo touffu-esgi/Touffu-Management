@@ -1,4 +1,4 @@
-package cat.touffu.management.shared_kernel;
+package cat.touffu.management.kernel;
 
 import cat.touffu.management.kernel.validators.string.StringValidator;
 
