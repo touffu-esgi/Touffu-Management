@@ -1,5 +1,6 @@
 package cat.touffu.management;
 
+import cat.touffu.management.components.cards.exposition.cli.NewCard;
 import cat.touffu.management.components.list.exposition.cli.NewListOfCard;
 import cat.touffu.management.components.projects.exposition.cli.ListAllProjects;
 import cat.touffu.management.components.projects.exposition.cli.NewProject;
@@ -9,7 +10,8 @@ import picocli.CommandLine;
         subcommands = {
                 NewProject.class,
                 ListAllProjects.class,
-                NewListOfCard.class
+                NewListOfCard.class,
+                NewCard.class
         },
         mixinStandardHelpOptions = true,
         version = "Touffu Management CLI 0.1.0"

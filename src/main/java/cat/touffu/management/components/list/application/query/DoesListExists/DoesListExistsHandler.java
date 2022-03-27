@@ -15,6 +15,6 @@ public class DoesListExistsHandler implements QueryHandler<DoesListExists, Boole
     @Override
     public Boolean handle(DoesListExists query) {
         ListOfCard list = listRepository.findById(ListId.of(query.listId()));
-        return list == null;
+        return list != null;
     }
 }

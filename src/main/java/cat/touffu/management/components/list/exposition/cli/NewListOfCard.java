@@ -7,8 +7,8 @@ import cat.touffu.management.kernel.command.CommandBus;
 import picocli.CommandLine;
 
 @CommandLine.Command(
-        name = "new-listId",
-        description = "Create a new listId in a project."
+        name = "new-list",
+        description = "Create a new list in a project."
 )
 public class NewListOfCard implements Runnable{
     @CommandLine.Parameters(index = "0", paramLabel = "title", description = "List title")

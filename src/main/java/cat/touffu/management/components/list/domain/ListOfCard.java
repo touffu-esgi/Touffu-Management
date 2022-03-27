@@ -2,7 +2,6 @@ package cat.touffu.management.components.list.domain;
 
 import org.json.JSONArray;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,7 +19,7 @@ public record ListOfCard(
     }
 
 
-    public static ListOfCard of(ListId id, String title, String projectId, HashSet<CardId> cardIds) {
+    public static ListOfCard of(ListId id, String title, String projectId, Set<CardId> cardIds) {
         return new ListOfCard(id, title, ProjectId.of(projectId), cardIds);
     }
 

@@ -1,7 +1,7 @@
 package cat.touffu.management.components.cards.exposition.cli;
 
+import cat.touffu.management.components.cards.CardsModule;
 import cat.touffu.management.components.cards.application.command.createCardInList.CreateCardInList;
-import cat.touffu.management.components.list.ListModule;
 import cat.touffu.management.kernel.command.CommandBus;
 import picocli.CommandLine;
 
@@ -13,10 +13,10 @@ public class NewCard implements Runnable{
     @CommandLine.Parameters(index = "0", paramLabel = "title", description = "Card title")
     String title;
 
-    @CommandLine.Parameters(index = "1", paramLabel = "list id", description = "Id of a list")
+    @CommandLine.Parameters(index = "1", paramLabel = "list-id", description = "Id of a list")
     String list_id;
 
-    CommandBus commandBus = ListModule.commandBus();
+    CommandBus commandBus = CardsModule.commandBus();
 
     @Override
     public void run() {
