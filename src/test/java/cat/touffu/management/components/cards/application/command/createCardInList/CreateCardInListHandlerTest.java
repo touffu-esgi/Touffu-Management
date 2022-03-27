@@ -2,7 +2,6 @@ package cat.touffu.management.components.cards.application.command.createCardInL
 
 import cat.touffu.management.components.list.application.command.CreateNewListOfCard.MockEventBus;
 import cat.touffu.management.components.list.application.query.DoesListExists.DoesListExists;
-import cat.touffu.management.components.projects.application.query.DoesProjectExists.DoesProjectExists;
 import cat.touffu.management.kernel.event.ApplicationEvent;
 import cat.touffu.management.kernel.event.EventBus;
 import cat.touffu.management.kernel.exception.NotFoundException;

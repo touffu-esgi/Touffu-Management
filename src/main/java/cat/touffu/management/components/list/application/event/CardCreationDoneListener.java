@@ -5,10 +5,6 @@ import cat.touffu.management.components.list.domain.CardId;
 import cat.touffu.management.components.list.domain.ListId;
 import cat.touffu.management.components.list.domain.ListOfCard;
 import cat.touffu.management.components.list.domain.ListRepository;
-import cat.touffu.management.components.projects.domain.CardListId;
-import cat.touffu.management.components.projects.domain.Project;
-import cat.touffu.management.components.projects.domain.ProjectId;
-import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.kernel.event.Subscriber;
 
 public record CardCreationDoneListener(

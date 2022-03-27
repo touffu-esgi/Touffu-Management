@@ -2,8 +2,8 @@ package cat.touffu.management.components.list.application.command.CreateNewListO
 
 import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsHandler;
 import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsInProject;
-import cat.touffu.management.components.list.domain.ListId;
 import cat.touffu.management.components.list.application.event.ListOfCardCreated;
+import cat.touffu.management.components.list.domain.ListId;
 import cat.touffu.management.components.projects.application.command.CreateNewProject.MockProjectRepository;
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.components.projects.domain.ProjectId;

@@ -2,8 +2,8 @@ package cat.touffu.management.components.list;
 
 import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsHandler;
 import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsInProject;
-import cat.touffu.management.components.list.domain.ListRepository;
 import cat.touffu.management.components.list.application.event.ListOfCardCreated;
+import cat.touffu.management.components.list.domain.ListRepository;
 import cat.touffu.management.components.list.infrastructure.SqliteListRepository;
 import cat.touffu.management.components.projects.ProjectModule;
 import cat.touffu.management.components.projects.application.event.ListOfCardCreatedListener;

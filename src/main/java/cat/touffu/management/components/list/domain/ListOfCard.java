@@ -1,6 +1,5 @@
 package cat.touffu.management.components.list.domain;
 
-import cat.touffu.management.components.projects.domain.CardListId;
 import org.json.JSONArray;
 
 import java.util.HashSet;

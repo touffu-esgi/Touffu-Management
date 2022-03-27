@@ -1,11 +1,11 @@
 package cat.touffu.management.components.list.application.command.CreateNewListInProject;
 
 
+import cat.touffu.management.components.list.application.event.ListOfCardCreated;
 import cat.touffu.management.components.list.domain.CardId;
 import cat.touffu.management.components.list.domain.ListId;
 import cat.touffu.management.components.list.domain.ListOfCard;
 import cat.touffu.management.components.list.domain.ListRepository;
-import cat.touffu.management.components.list.application.event.ListOfCardCreated;
 import cat.touffu.management.kernel.command.CommandHandler;
 import cat.touffu.management.kernel.event.ApplicationEvent;
 import cat.touffu.management.kernel.event.EventBus;
