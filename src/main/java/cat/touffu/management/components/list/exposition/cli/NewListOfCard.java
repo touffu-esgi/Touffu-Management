@@ -4,6 +4,7 @@ import cat.touffu.management.components.list.ListModule;
 import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsInProject;
 import cat.touffu.management.components.list.domain.ListId;
 import cat.touffu.management.kernel.command.CommandBus;
+import cat.touffu.management.kernel.exception.NotFoundException;
 import picocli.CommandLine;
 
 @CommandLine.Command(
@@ -22,7 +23,12 @@ public class NewListOfCard implements Runnable{
     @Override
     public void run() {
         CreateNewListOfCardsInProject createNewListOfCard = new CreateNewListOfCardsInProject(title, id_project);
-        ListId listId = this.commandBus.send(createNewListOfCard);
-        System.out.println("New list of cards '" + this.title + "' have been created with id : " + listId.value());
+        try {
+            this.commandBus.send(createNewListOfCard);
+        } catch (NotFoundException e) {
+            System.out.println("Project with id " + id_project + " not found.");
+        }
+
+        System.out.println("New list of cards '" + this.title + "' have been created");
     }
 }
