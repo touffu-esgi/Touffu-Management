@@ -19,7 +19,7 @@ public class NewProject implements Runnable{
     @Override
     public void run() {
         CreateNewProject createNewProject = new CreateNewProject(title);
-        ProjectId projectId = this.commandBus.send(createNewProject);
-        System.out.println("New project '" + this.title + "' have been created with id : " + projectId.value());
+        this.commandBus.send(createNewProject);
+        System.out.println("New project '" + this.title + "' have been created.");
     }
 }

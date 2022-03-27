@@ -1,8 +1,8 @@
 package cat.touffu.management.kernel.command;
 
-public class MockCommandHandler implements CommandHandler<MockCommand, String>{
+public class MockCommandHandler implements CommandHandler<MockCommand>{
     @Override
-    public String handle(MockCommand command) {
-        return "response";
+    public void handle(MockCommand command) {
+        // do nothing
     }
 }

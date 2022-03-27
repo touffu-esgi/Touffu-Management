@@ -15,7 +15,7 @@ import cat.touffu.management.kernel.query.QueryBus;
 
 import java.util.HashSet;
 
-public class CreateNewListOfCardsHandler implements CommandHandler<CreateNewListOfCardsInProject, ListId> {
+public class CreateNewListOfCardsHandler implements CommandHandler<CreateNewListOfCardsInProject> {
 
     private final ListRepository listRepository;
     private final EventBus<ApplicationEvent> applicationEventBus;
@@ -28,7 +28,7 @@ public class CreateNewListOfCardsHandler implements CommandHandler<CreateNewList
     }
 
     @Override
-    public ListId handle(CreateNewListOfCardsInProject command) {
+    public void handle(CreateNewListOfCardsInProject command) {
         Boolean projectExists = queryBus.send(new DoesProjectExists(command.id_project()));
         if(!projectExists) {
             throw new NotFoundException("Project " + command.id_project());
@@ -43,6 +43,5 @@ public class CreateNewListOfCardsHandler implements CommandHandler<CreateNewList
                 list.id(),
                 list.projectId()
                 ));
-        return list.id();
     }
 }

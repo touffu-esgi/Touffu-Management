@@ -12,7 +12,7 @@ import cat.touffu.management.kernel.event.EventBus;
 import cat.touffu.management.kernel.exception.NotFoundException;
 import cat.touffu.management.kernel.query.QueryBus;
 
-public class CreateCardInListHandler implements CommandHandler<CreateCardInList, Void> {
+public class CreateCardInListHandler implements CommandHandler<CreateCardInList> {
     private final CardRepository cardRepository;
     private final QueryBus queryBus;
     private final EventBus<ApplicationEvent> applicationEventBus;
@@ -24,7 +24,7 @@ public class CreateCardInListHandler implements CommandHandler<CreateCardInList,
     }
 
     @Override
-    public Void handle(CreateCardInList command) {
+    public void handle(CreateCardInList command) {
         Boolean listExists = queryBus.send(new DoesListExists(command.listId()));
         if(!listExists) {
             throw new NotFoundException("List " + command.listId());
@@ -38,6 +38,5 @@ public class CreateCardInListHandler implements CommandHandler<CreateCardInList,
                 )
         );
         applicationEventBus.send(CardCreationDone.of(command.title(), cardId, listId));
-        return null;
     }
 }

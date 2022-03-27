@@ -44,10 +44,10 @@ class CreateNewListOfCardHandlerTest {
                 new MockQueryBusForCreateNewListOfCard(true)
                 );
 
-        ListId createdId = handler.handle(new CreateNewListOfCardsInProject("To Do", project.id().value()));
+        handler.handle(new CreateNewListOfCardsInProject("To Do", project.id().value()));
 
-        assertTrue(listRepository.store.containsKey(createdId.value()));
-        assertEquals("To Do", listRepository.store.get(createdId.value()).title());
+        assertEquals(1, listRepository.store.size());
+        assertEquals("To Do", listRepository.store.values().iterator().next().title());
     }
 
     @Test

@@ -13,9 +13,9 @@ class CreateNewProjectHandlerTest {
         MockProjectRepository repository = new MockProjectRepository();
         CreateNewProjectHandler handler = new CreateNewProjectHandler(repository);
 
-        ProjectId createdId = handler.handle(new CreateNewProject("Title of your amazing project"));
+        handler.handle(new CreateNewProject("Title of your amazing project"));
 
-        assertTrue(repository.store.containsKey(createdId.value()));
-        assertEquals("Title of your amazing project", repository.store.get(createdId.value()).title());
+        assertEquals(1, repository.store.size());
+        assertEquals("Title of your amazing project", repository.store.values().iterator().next().title());
     }
 }

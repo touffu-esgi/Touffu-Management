@@ -29,6 +29,6 @@ public class NewListOfCard implements Runnable{
             System.out.println("Project with id " + id_project + " not found.");
         }
 
-        System.out.println("New list of cards '" + this.title + "' have been created");
+        System.out.println("New list of cards '" + this.title + "' have been created.");
     }
 }

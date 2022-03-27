@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CreateNewProjectHandler implements CommandHandler<CreateNewProject, ProjectId> {
+public class CreateNewProjectHandler implements CommandHandler<CreateNewProject> {
 
     private final ProjectRepository projectRepository;
 
@@ -20,7 +20,7 @@ public class CreateNewProjectHandler implements CommandHandler<CreateNewProject,
     }
 
     @Override
-    public ProjectId handle(CreateNewProject command) {
+    public void handle(CreateNewProject command) {
         Set<CardListId> emptyCardListId = Collections.emptySet();
         final Project project = Project.of(
                 projectRepository.newId(),
@@ -28,6 +28,5 @@ public class CreateNewProjectHandler implements CommandHandler<CreateNewProject,
                 new HashSet<>()
         );
         projectRepository.save(project);
-        return project.id();
     }
 }
