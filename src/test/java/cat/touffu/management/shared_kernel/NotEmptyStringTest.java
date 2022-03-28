@@ -11,37 +11,37 @@ class NotEmptyStringTest {
     private StringValidator stringValidator;
 
     @Test
-    void shouldCreateANotEmptyString() {
+    void itShouldCreateANotEmptyString() {
         NotEmptyString str = new NotEmptyString("not empty");
         assertEquals("not empty", str.value());
     }
 
     @Test
-    void shouldCreateAnEmptyStringWithDefaultConstructor() {
+    void itShouldCreateAnEmptyStringWithDefaultConstructor() {
         // No verifications on the default constructor
         NotEmptyString str = new NotEmptyString("");
         assertEquals("", str.value());
     }
 
     @Test
-    void shouldThrowNPEWhenNullGiven() {
+    void itShouldThrowNPEWhenNullGiven() {
         Assertions.assertThrows(NullPointerException.class, () -> new NotEmptyString(null));
     }
 
     @Test
-    void shouldCreateANotEmptyStringWithValidator() {
+    void itShouldCreateANotEmptyStringWithValidator() {
         NotEmptyString str = NotEmptyString.of("not empty", new MockStringValidator());
         assertEquals("not empty", str.value());
     }
 
     @Test
-    void shouldThrowIllegalArgumentWhenEmptyStringIsGivenWithValidator() {
+    void itShouldThrowIllegalArgumentWhenEmptyStringIsGivenWithValidator() {
         String empty = "";
         Assertions.assertThrows(IllegalArgumentException.class, () -> NotEmptyString.of(empty, new MockStringValidator()));
     }
 
     @Test
-    void shouldThrowNPEWhenNullIsGivenWithValidator() {
+    void itShouldThrowNPEWhenNullIsGivenWithValidator() {
         String nullString = null;
         Assertions.assertThrows(NullPointerException.class, () -> NotEmptyString.of(nullString, new MockStringValidator()));
     }

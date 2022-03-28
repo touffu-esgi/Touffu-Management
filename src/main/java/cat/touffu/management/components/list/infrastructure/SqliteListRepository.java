@@ -16,9 +16,8 @@ public class SqliteListRepository implements ListRepository {
 
     private SqliteListRepository() {
         try {
-            Class.forName("org.sqlite.JDBC");
             this.sqlite = SqliteJdbc.getInstance().getConnection();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -38,6 +37,16 @@ public class SqliteListRepository implements ListRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void add(ListOfCard listOfCard) {
+        throw new NotImplementedException("add list of card");
+    }
+
+    @Override
+    public void update(ListOfCard listOfCard) {
+        throw new NotImplementedException("update list of card");
     }
 
     @Override

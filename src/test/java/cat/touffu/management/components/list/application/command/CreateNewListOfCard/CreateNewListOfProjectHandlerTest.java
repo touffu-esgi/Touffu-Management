@@ -17,7 +17,7 @@ class CreateNewListOfProjectHandlerTest {
 
         ListId createdId = handler.handle(new CreateNewListOfCards("Title of your amazing project", "0308eb60-bb8c-422e-a356-a0f5434a5325"));
 
-        assertTrue(repository.store.containsKey(createdId));
-        assertEquals("Title of your amazing project", repository.store.get(createdId).content());
+        assertTrue(repository.store.containsKey(createdId.value()));
+        assertEquals("Title of your amazing project", repository.store.get(createdId.value()).content());
     }
 }

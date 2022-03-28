@@ -20,6 +20,6 @@ public class NewProject implements Runnable{
     public void run() {
         CreateNewProject createNewProject = new CreateNewProject(title);
         ProjectId projectId = this.commandBus.send(createNewProject);
-        System.out.println("New project '" + this.title + "' have been created with id " + projectId.value());
+        System.out.println("New project '" + this.title + "' have been created with id : " + projectId.value());
     }
 }

@@ -11,10 +11,10 @@ public class SqliteJdbc {
 
     private SqliteJdbc() throws SQLException{
         try {
+            Class.forName("org.sqlite.JDBC");
             this.connection = DriverManager.getConnection(url);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
             System.out.println("Database Connection Creation Failed : " + e.getMessage());
         }
     }

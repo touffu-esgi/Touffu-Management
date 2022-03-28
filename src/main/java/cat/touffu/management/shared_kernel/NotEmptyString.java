@@ -1,7 +1,6 @@
 package cat.touffu.management.shared_kernel;
 
 import cat.touffu.management.kernel.validators.string.StringValidator;
-
 import java.util.Objects;
 
 public record NotEmptyString(String value) {
