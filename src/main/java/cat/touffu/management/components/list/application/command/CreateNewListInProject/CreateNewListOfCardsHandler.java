@@ -9,7 +9,6 @@ import cat.touffu.management.components.projects.application.query.DoesProjectEx
 import cat.touffu.management.kernel.command.CommandHandler;
 import cat.touffu.management.kernel.event.ApplicationEvent;
 import cat.touffu.management.kernel.event.EventBus;
-import cat.touffu.management.kernel.exception.NotFoundException;
 import cat.touffu.management.kernel.exception.ProjectNotFoundException;
 import cat.touffu.management.kernel.query.QueryBus;
 

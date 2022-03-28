@@ -1,6 +1,5 @@
 package cat.touffu.management.kernel.command;
 
-import cat.touffu.management.kernel.exception.CommandException;
 import cat.touffu.management.kernel.exception.ExceptionFilter;
 import cat.touffu.management.kernel.exception.NoSuchCommandHandlerException;
 

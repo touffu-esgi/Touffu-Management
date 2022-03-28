@@ -6,7 +6,6 @@ import cat.touffu.management.components.list.domain.ListId;
 import cat.touffu.management.components.list.domain.ListOfCard;
 import cat.touffu.management.components.list.domain.ListRepository;
 import cat.touffu.management.kernel.database.SqliteJdbc;
-import cat.touffu.management.kernel.exception.NotFoundException;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.sql.Connection;

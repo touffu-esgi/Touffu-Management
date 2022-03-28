@@ -2,9 +2,6 @@ package cat.touffu.management.components.list.application.command.CreateNewListO
 
 import cat.touffu.management.kernel.query.Query;
 import cat.touffu.management.kernel.query.QueryBus;
-import cat.touffu.management.kernel.query.QueryHandler;
-
-import java.util.Map;
 
 public record MockQueryBusForCreateNewListOfCard(
         Boolean projectExists

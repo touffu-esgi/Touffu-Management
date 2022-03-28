@@ -3,7 +3,6 @@ package cat.touffu.management.components.projects.application.command.CreateNewP
 
 import cat.touffu.management.components.projects.domain.CardListId;
 import cat.touffu.management.components.projects.domain.Project;
-import cat.touffu.management.components.projects.domain.ProjectId;
 import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.kernel.command.CommandHandler;
 
