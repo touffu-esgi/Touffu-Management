@@ -11,6 +11,6 @@ module touffu.management {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens cat.touffu.management to javafx.fxml;
+    opens cat.touffu.management.javafx to javafx.fxml;
     exports cat.touffu.management;
 }
