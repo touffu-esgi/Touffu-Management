@@ -9,7 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class BoardControler {
+public class BoardController {
     @FXML
     public Text title_of_board;
     public HBox HboxOfList;
