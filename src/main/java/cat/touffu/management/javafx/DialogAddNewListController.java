@@ -1,5 +1,10 @@
 package cat.touffu.management.javafx;
 
+import cat.touffu.management.components.list.ListModule;
+import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsInProject;
+import cat.touffu.management.components.projects.ProjectModule;
+import cat.touffu.management.components.projects.application.command.CreateNewProject.CreateNewProject;
+import cat.touffu.management.kernel.command.CommandBus;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -25,6 +30,8 @@ public class DialogAddNewListController implements EventHandler<ActionEvent> {
     private TextField textField;
     private VBox global;
 
+    private final CommandBus commandBus = ListModule.commandBus();
+
     public void saveNewList(){
         firstList = new VBox();
         HBox title = new HBox();
@@ -44,7 +51,9 @@ public class DialogAddNewListController implements EventHandler<ActionEvent> {
         counterOfCardInAList.setTranslateX(25);
         counterOfCardInAList.setTranslateY(6);
 
-        Text TitleOfAList = new Text(list_name.getText());
+        String listTitle = list_name.getText();
+        addNewList();
+        Text TitleOfAList = new Text(listTitle);
         TitleOfAList.setStyle("-fx-font-size: 18; -fx-fill: white");
         TitleOfAList.setTranslateX(25);
         TitleOfAList.setTranslateY(6);
@@ -70,6 +79,30 @@ public class DialogAddNewListController implements EventHandler<ActionEvent> {
         stage.close();
     }
 
+    private void addNewList() {
+        try {
+            String listTitle = list_name.getText();
+            checkListTitleInput(listTitle);
+            sendCreateListCommandWithTitle(listTitle);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void checkListTitleInput(String listTitle) throws Exception {
+        if(listTitle.trim().length() == 0) {
+            throw new Exception("Empty List Title");
+        }
+    }
+
+    private void sendCreateListCommandWithTitle(String title) {
+        CreateNewListOfCardsInProject command = new CreateNewListOfCardsInProject(title, "0308eb60-bb8c-422e-a356-a0f5434a5325");
+        this.commandBus.send(command);
+    }
+
+
+
     public void initData(HBox hboxOfList, Stage stage){
         this.HboxOfList = hboxOfList;
         this.stage = stage;
@@ -84,7 +117,6 @@ public class DialogAddNewListController implements EventHandler<ActionEvent> {
         if(actionEvent.getSource() == save){
             firstList.getChildren().remove(firstList.getChildren().size() - 1);
             firstList.getChildren().remove(firstList.getChildren().size() - 1);
-            setCard();
         }
     }
 
