@@ -16,7 +16,7 @@
 
 <Pane maxHeight="982.0" maxWidth="1512.0" minHeight="982.0" minWidth="1512.0" prefHeight="982.0" prefWidth="1512.0" xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="cat.touffu.management.javafx.BoardController">
+      fx:controller="cat.touffu.management.javafx.BoardControler">
    <children>
       <HBox layoutY="-2.0" prefHeight="984.0" prefWidth="257.0" style="-fx-background-color: #303030 #303030;">
          <children>
@@ -74,7 +74,7 @@
                <children>
                   <ImageView fitHeight="197.0" fitWidth="1255.0" pickOnBounds="true">
                      <image>
-                        <Image url="@Jan_Davidszoon_de_Heem_-_Still-Life_of_Books_banner.jpg" />
+                        <Image url="@still_life_with_flowers_and_a_watch.jpg" />
                      </image>
                   </ImageView>
                   <Button id="change_cover" fx:id="change_cover" layoutX="1106.0" layoutY="148.0" minHeight="35.0" minWidth="135.0" mnemonicParsing="false" style="-fx-background-color: #E5E5E5;" text="Change cover" textOverrun="CLIP">

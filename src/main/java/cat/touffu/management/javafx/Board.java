@@ -16,8 +16,8 @@ public class Board extends Application {
 
         FXMLLoader root = new FXMLLoader(getClass().getResource("board.fxml"));
         stack.getChildren().add(root.load());
-        BoardController boardController = root.getController();
-        boardController.initData(stack);
+        BoardControler boardControler = root.getController();
+        boardControler.initData(stack);
         Scene scene = new Scene(stack,1512,982, true);
         stage.setMinWidth(1512);
         stage.setMinHeight(982);
