@@ -31,7 +31,7 @@ Organisation globale : [touffu-esgi](https://github.com/touffu-esgi)
 
 ### Architecture globale
 
-<img src="Ressources/Architecture.png" alt="Architecture" style="zoom:70%;" />
+<img src="resources/Architecture.png" alt="Architecture" style="zoom:70%;" />
 
 ### Documentation complémentaire
 
