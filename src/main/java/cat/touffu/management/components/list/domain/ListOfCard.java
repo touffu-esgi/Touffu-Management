@@ -1,18 +1,27 @@
 package cat.touffu.management.components.list.domain;
 
 import java.util.Objects;
+import java.util.Set;
 
 public record ListOfCard(
         ListId id,
-        String content,
-        String project_id
+        String title,
+        ProjectId projectId,
+        Set<CardId> cardIds
 ) {
+
     public ListOfCard {
-        Objects.requireNonNull(content, project_id);
+        Objects.requireNonNull(title);
+        Objects.requireNonNull(projectId);
     }
 
 
-    public static ListOfCard of(ListId id, String content, String project_id) {
-        return new ListOfCard(id, content, project_id);
+    public static ListOfCard of(ListId id, String title, String projectId, Set<CardId> cardIds) {
+        return new ListOfCard(id, title, ProjectId.of(projectId), cardIds);
     }
+
+    public void addCard(CardId cardId) {
+        this.cardIds.add(cardId);
+    }
+
 }

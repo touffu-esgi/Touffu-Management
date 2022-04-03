@@ -14,10 +14,10 @@ public class SimpleEventBus<E extends Event> implements EventBus<E> {
     @Override
     public void send(E event) {
         final List<Subscriber<E>> subscribers = this.subscribers.get(event.getClass());
-        if (subscribers == null || subscribers.isEmpty()) {
-            throw new IllegalStateException("No subscriber for " + event.getClass().getSimpleName());
+        final boolean subscribersExists = subscribers != null && !subscribers.isEmpty();
+        if (subscribersExists) {
+            subscribers.forEach(subscriber -> subscriber.accept(event));
         }
-        subscribers.forEach(subscriber -> subscriber.accept(event));
     }
 
     @Override

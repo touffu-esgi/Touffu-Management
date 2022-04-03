@@ -3,6 +3,6 @@ package cat.touffu.management.components.list.application.command.CreateNewListI
 import cat.touffu.management.kernel.command.Command;
 
 public record CreateNewListOfCardsInProject(
-        String content,
+        String title,
         String id_project
 ) implements Command {}

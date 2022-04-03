@@ -2,7 +2,6 @@ package cat.touffu.management.components.projects.exposition.cli;
 
 import cat.touffu.management.components.projects.ProjectModule;
 import cat.touffu.management.components.projects.application.command.CreateNewProject.CreateNewProject;
-import cat.touffu.management.components.projects.domain.ProjectId;
 import cat.touffu.management.kernel.command.CommandBus;
 import picocli.CommandLine;
 
@@ -19,7 +18,6 @@ public class NewProject implements Runnable{
     @Override
     public void run() {
         CreateNewProject createNewProject = new CreateNewProject(title);
-        ProjectId projectId = this.commandBus.send(createNewProject);
-        System.out.println("New project '" + this.title + "' have been created with id : " + projectId.value());
+        this.commandBus.send(createNewProject);
     }
 }

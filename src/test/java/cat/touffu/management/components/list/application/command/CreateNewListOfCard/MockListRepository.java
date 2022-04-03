@@ -14,7 +14,7 @@ public class MockListRepository implements ListRepository {
 
     @Override
     public ListOfCard findById(ListId listId) {
-        throw new NotImplementedException("find List by id");
+        return store.get(listId.value());
     }
 
     @Override
