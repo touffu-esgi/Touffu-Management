@@ -1,7 +1,7 @@
 package cat.touffu.management.components.projects.adapter;
 
 import cat.touffu.management.components.projects.domain.CardListId;
-import cat.touffu.management.shared_kernel.Adapter;
+import cat.touffu.management.kernel.Adapter;
 import org.json.JSONArray;
 
 import java.util.HashSet;
