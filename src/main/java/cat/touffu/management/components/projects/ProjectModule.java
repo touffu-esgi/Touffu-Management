@@ -15,19 +15,15 @@ import cat.touffu.management.kernel.query.QueryBus;
 import cat.touffu.management.kernel.query.QueryHandler;
 import cat.touffu.management.kernel.query.SimpleQueryBus;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProjectModule {
 
-    @Singleton
     public static ProjectRepository projectRepository() {
         return SqliteProjectRepository.getInstance();
     }
 
-    @Dependent
     public static CommandBus commandBus() {
         final Map<Class<? extends Command>, CommandHandler> commandHandlerMap = new HashMap<>();
         ProjectRepository repository = ProjectModule.projectRepository();
@@ -35,7 +31,6 @@ public class ProjectModule {
         return new SimpleCommandBus(commandHandlerMap);
     }
 
-    @Dependent
     public static QueryBus queryBus() {
         final Map<Class<? extends Query>, QueryHandler> queryHandlerMap = new HashMap<>();
         ProjectRepository repository = ProjectModule.projectRepository();

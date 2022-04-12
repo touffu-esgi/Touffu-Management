@@ -19,14 +19,12 @@ import cat.touffu.management.kernel.query.QueryBus;
 import cat.touffu.management.kernel.query.QueryHandler;
 import cat.touffu.management.kernel.query.SimpleQueryBus;
 
-import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ListModule {
 
-    @Singleton
     public static ListRepository listRepository() {
         return SqliteListRepository.getInstance();
     }
