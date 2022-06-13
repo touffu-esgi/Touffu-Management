@@ -43,4 +43,16 @@ public class BoardController {
     public void initData(StackPane stack){
         this.stack = stack;
     }
+
+    public void onClickToCreateNewProject(ActionEvent actionEvent) {
+        Platform.runLater(() -> {
+            try {
+                Stage stage = new Stage();
+                Application createProject = new DialogCreateNewProject();
+                createProject.start(stage);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+    }
 }

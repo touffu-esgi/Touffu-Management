@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="365.0" prefWidth="511.0" style="-fx-background-color: #4D4B52;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="cat.touffu.management.javafx.DialogCreateNewProjectController">
+   <children>
+      <Pane prefHeight="93.0" prefWidth="511.0" style="-fx-background-color: #252525;">
+         <children>
+            <Text fill="WHITE" layoutX="34.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a project">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Pane prefHeight="274.0" prefWidth="511.0" style="-fx-background-color: #3d3b40;">
+         <children>
+            <Text fill="WHITE" layoutX="46.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Project name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="list_name" layoutX="46.0" layoutY="73.0" prefHeight="38.0" prefWidth="417.0" promptText="Enter a project name" style="-fx-background-color: #252525; -fx-background-radius: 5; -fx-padding: 10; -fx-text-fill: white;">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
+            <Line endX="392.0" layoutX="119.0" layoutY="208.0" startX="-119.0" stroke="#4d4b52" strokeWidth="3.0" />
+            <Button layoutX="213.0" layoutY="225.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="131.0" style="-fx-background-color: #4d4b52;" text="Cancel" textAlignment="CENTER" textFill="#aba7b8">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="359.0" layoutY="225.0" mnemonicParsing="false" onAction="#saveNewList" prefHeight="28.0" prefWidth="131.0" style="-fx-background-color: #fbc95c;" text="Save" textFill="#252525">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</VBox>
