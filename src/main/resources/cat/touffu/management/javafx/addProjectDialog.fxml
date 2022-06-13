@@ -33,7 +33,7 @@
                </font>
             </TextField>
             <Line endX="392.0" layoutX="119.0" layoutY="208.0" startX="-119.0" stroke="#4d4b52" strokeWidth="3.0" />
-            <Button layoutX="213.0" layoutY="225.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="131.0" style="-fx-background-color: #4d4b52;" text="Cancel" textAlignment="CENTER" textFill="#aba7b8">
+            <Button layoutX="213.0" layoutY="225.0" mnemonicParsing="false" onAction="#onCancel" prefHeight="28.0" prefWidth="131.0" style="-fx-background-color: #4d4b52;" text="Cancel" textAlignment="CENTER" textFill="#aba7b8">
                <font>
                   <Font size="14.0" />
                </font>
