@@ -85,6 +85,7 @@ public class DialogAddNewListController implements EventHandler<ActionEvent> {
             checkListTitleInput(listTitle);
             sendCreateListCommandWithTitle(listTitle);
         } catch (Exception e) {
+            // TODO error view
             e.printStackTrace();
         }
 
@@ -97,7 +98,9 @@ public class DialogAddNewListController implements EventHandler<ActionEvent> {
     }
 
     private void sendCreateListCommandWithTitle(String title) {
-        CreateNewListOfCardsInProject command = new CreateNewListOfCardsInProject(title, "0308eb60-bb8c-422e-a356-a0f5434a5325");
+        // TODO get the id of the project we are in.
+        final String projectId = "0308eb60-bb8c-422e-a356-a0f5434a5325";
+        CreateNewListOfCardsInProject command = new CreateNewListOfCardsInProject(title, projectId);
         this.commandBus.send(command);
     }
 
