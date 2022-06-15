@@ -11,16 +11,16 @@ public record CardCreationDone(
         ZonedDateTime occurredDate,
         String cardTitle,
         EntityId<String> cardId,
-        EntityId<String> listId
+        EntityId<String> projectId
 ) implements ApplicationEvent {
 
-    public static CardCreationDone of(String cardTitle, EntityId<String> cardId, EntityId<String> listId) {
+    public static CardCreationDone of(String cardTitle, EntityId<String> cardId, EntityId<String> projectId) {
         return new CardCreationDone(
                 EventId.create(),
                 ZonedDateTime.now(),
                 cardTitle,
                 cardId,
-                listId
+                projectId
         );
     }
 }

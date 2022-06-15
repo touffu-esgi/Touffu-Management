@@ -2,6 +2,8 @@ package cat.touffu.management.components.projects;
 
 import cat.touffu.management.components.projects.application.command.CreateNewProject.CreateNewProject;
 import cat.touffu.management.components.projects.application.command.CreateNewProject.CreateNewProjectHandler;
+import cat.touffu.management.components.projects.application.query.DoesProjectExists.DoesProjectExists;
+import cat.touffu.management.components.projects.application.query.DoesProjectExists.DoesProjectExistsHandler;
 import cat.touffu.management.components.projects.application.query.RetrieveProjects.RetrieveProjects;
 import cat.touffu.management.components.projects.application.query.RetrieveProjects.RetrieveProjectsHandler;
 import cat.touffu.management.components.projects.domain.ProjectRepository;
@@ -35,6 +37,7 @@ public class ProjectModule {
         final Map<Class<? extends Query>, QueryHandler> queryHandlerMap = new HashMap<>();
         ProjectRepository repository = ProjectModule.projectRepository();
         queryHandlerMap.put(RetrieveProjects.class, new RetrieveProjectsHandler(repository));
+        queryHandlerMap.put(DoesProjectExists.class, new DoesProjectExistsHandler(repository));
         return new SimpleQueryBus(queryHandlerMap);
     }
 }

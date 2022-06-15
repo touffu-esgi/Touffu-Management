@@ -17,7 +17,7 @@ public class SimpleCommandBus implements CommandBus {
     public <TCommand extends Command> void send(TCommand command) {
         try {
             dispatch(command);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             if(exceptionFilter != null) {
                 exceptionFilter.grab(e);
             } else {
@@ -31,7 +31,7 @@ public class SimpleCommandBus implements CommandBus {
         this.exceptionFilter = exceptionFilter;
     }
 
-    private <TCommand extends Command> void dispatch(TCommand command) throws Exception {
+    private <TCommand extends Command> void dispatch(TCommand command) throws RuntimeException {
         final CommandHandler commandHandler = commandMap.get(command.getClass());
         if (commandHandler == null) {
             throw new NoSuchCommandHandlerException(command.getClass());

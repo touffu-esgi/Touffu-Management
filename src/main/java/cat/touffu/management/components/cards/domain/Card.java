@@ -1,19 +1,13 @@
 package cat.touffu.management.components.cards.domain;
 
-import java.util.Objects;
-
 public record Card(
         CardId id,
         String title,
-        ListId listId
+        ProjectId projectId,
+        CardStatus cardStatus
 ){
-    public Card {
-        Objects.requireNonNull(title);
-        Objects.requireNonNull(id);
-        Objects.requireNonNull(listId);
-    }
 
-    public static Card of(CardId id, String title, ListId listId) {
-        return new Card(id, title, listId);
+    public static Card of(CardId id, String title, ProjectId projectId, CardStatus status) {
+        return new Card(id, title, projectId, status);
     }
 }

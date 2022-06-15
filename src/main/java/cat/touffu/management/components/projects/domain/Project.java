@@ -1,25 +1,23 @@
 package cat.touffu.management.components.projects.domain;
 
-import java.util.Objects;
 import java.util.Set;
 
 public record Project(
         ProjectId id,
         String title,
-        Set<CardListId> cardListIds
+        Set<CardId> cards
 ) {
-    public Project {
-        Objects.requireNonNull(title);
-        Objects.requireNonNull(cardListIds);
+
+
+    public static Project of(ProjectId id, String title, Set<CardId> cards) {
+        return new Project(id, title, cards);
     }
 
-
-    public static Project of(ProjectId id, String title, Set<CardListId> cardListIds) {
-        return new Project(id, title, cardListIds);
+    public boolean contains(CardId cardCreated) {
+        return this.cards.contains(cardCreated);
     }
 
-    public void addCardList(CardListId cardListId) {
-        cardListIds.add(cardListId);
+    public void addCard(CardId card) {
+        this.cards.add(card);
     }
-
 }

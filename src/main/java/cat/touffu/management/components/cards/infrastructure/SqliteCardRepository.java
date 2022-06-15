@@ -1,5 +1,6 @@
 package cat.touffu.management.components.cards.infrastructure;
 
+import cat.touffu.management.components.cards.adapter.CardStatusToStringAdapter;
 import cat.touffu.management.components.cards.domain.Card;
 import cat.touffu.management.components.cards.domain.CardId;
 import cat.touffu.management.components.cards.domain.CardRepository;
@@ -15,6 +16,7 @@ import java.util.List;
 public class SqliteCardRepository implements CardRepository {
     private static final CardRepository INSTANCE = new SqliteCardRepository();
     private Connection sqlite;
+    private final CardStatusToStringAdapter cardStatusToStringAdapter = new CardStatusToStringAdapter();
 
     private SqliteCardRepository() {
         try {
@@ -49,11 +51,12 @@ public class SqliteCardRepository implements CardRepository {
     public void add(Card card) {
         try {
             PreparedStatement statement = sqlite.prepareStatement(
-                    "insert into card(id, title, list) VALUES (?, ?, ?)"
+                    "insert into card(id, title, project, status) VALUES (?, ?, ?, ?)"
             );
             statement.setString(1, card.id().value());
             statement.setString(2, card.title());
-            statement.setString(3, card.listId().value());
+            statement.setString(3, card.projectId().value());
+            statement.setString(4, cardStatusToStringAdapter.adapt(card.cardStatus()));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

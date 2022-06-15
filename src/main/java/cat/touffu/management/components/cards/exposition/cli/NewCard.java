@@ -1,7 +1,7 @@
 package cat.touffu.management.components.cards.exposition.cli;
 
 import cat.touffu.management.components.cards.CardsModule;
-import cat.touffu.management.components.cards.application.command.createCardInList.CreateCardInList;
+import cat.touffu.management.components.cards.application.command.createCard.AddCardInProject;
 import cat.touffu.management.kernel.command.CommandBus;
 import picocli.CommandLine;
 
@@ -13,14 +13,17 @@ public class NewCard implements Runnable{
     @CommandLine.Parameters(index = "0", paramLabel = "title", description = "Card title")
     String title;
 
-    @CommandLine.Parameters(index = "1", paramLabel = "list-id", description = "Id of a list")
-    String list_id;
+    @CommandLine.Parameters(index = "1", paramLabel = "list-id", description = "Id of a project")
+    String project_id;
+
+    @CommandLine.Parameters(index = "2", paramLabel = "status", description = "Card status")
+    String status;
 
     CommandBus commandBus = CardsModule.commandBus();
 
     @Override
     public void run() {
-        CreateCardInList command = CreateCardInList.of(title, list_id);
+        AddCardInProject command = AddCardInProject.of(title, project_id, status);
         this.commandBus.setExceptionFilter(new CardCliExceptionFilter());
         this.commandBus.send(command);
     }

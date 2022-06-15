@@ -1,12 +1,11 @@
-package cat.touffu.management.components.list.domain;
+package cat.touffu.management.components.projects.domain;
 
 import cat.touffu.management.kernel.EntityId;
 
 import java.util.Objects;
 import java.util.UUID;
 
-public final class CardId implements EntityId<String> {
-
+public class CardId implements EntityId<String> {
     private final String _value;
 
     private CardId(String value) {
@@ -36,5 +35,10 @@ public final class CardId implements EntityId<String> {
         return new CardId(Objects.requireNonNull(uuid).toString());
     }
 
-
+    @Override
+    public String toString() {
+        return "CardListId{" +
+                "value='" + _value + '\'' +
+                '}';
+    }
 }

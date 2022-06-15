@@ -1,7 +1,6 @@
 package cat.touffu.management;
 
 import cat.touffu.management.components.cards.exposition.cli.NewCard;
-import cat.touffu.management.components.list.exposition.cli.NewListOfCard;
 import cat.touffu.management.components.projects.exposition.cli.ListAllProjects;
 import cat.touffu.management.components.projects.exposition.cli.NewProject;
 import picocli.CommandLine;
@@ -10,7 +9,6 @@ import picocli.CommandLine;
         subcommands = {
                 NewProject.class,
                 ListAllProjects.class,
-                NewListOfCard.class,
                 NewCard.class
         },
         mixinStandardHelpOptions = true,
@@ -24,6 +22,6 @@ public class Cli implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("Touffu management CLI.");
+        System.out.println("Touffu management CLI.  Try --help.");
     }
 }

@@ -1,9 +1,5 @@
 package cat.touffu.management.javafx;
 
-import cat.touffu.management.components.list.ListModule;
-import cat.touffu.management.components.list.application.command.CreateNewListInProject.CreateNewListOfCardsInProject;
-import cat.touffu.management.components.projects.ProjectModule;
-import cat.touffu.management.components.projects.application.command.CreateNewProject.CreateNewProject;
 import cat.touffu.management.kernel.command.CommandBus;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,7 +26,6 @@ public class DialogAddNewListController implements EventHandler<ActionEvent> {
     private TextField textField;
     private VBox global;
 
-    private final CommandBus commandBus = ListModule.commandBus();
 
     public void saveNewList(){
         firstList = new VBox();
@@ -52,7 +47,6 @@ public class DialogAddNewListController implements EventHandler<ActionEvent> {
         counterOfCardInAList.setTranslateY(6);
 
         String listTitle = list_name.getText();
-        addNewList();
         Text TitleOfAList = new Text(listTitle);
         TitleOfAList.setStyle("-fx-font-size: 18; -fx-fill: white");
         TitleOfAList.setTranslateX(25);
@@ -79,30 +73,12 @@ public class DialogAddNewListController implements EventHandler<ActionEvent> {
         stage.close();
     }
 
-    private void addNewList() {
-        try {
-            String listTitle = list_name.getText();
-            checkListTitleInput(listTitle);
-            sendCreateListCommandWithTitle(listTitle);
-        } catch (Exception e) {
-            // TODO error view
-            e.printStackTrace();
-        }
-
-    }
-
     private void checkListTitleInput(String listTitle) throws Exception {
         if(listTitle.trim().length() == 0) {
             throw new Exception("Empty List Title");
         }
     }
 
-    private void sendCreateListCommandWithTitle(String title) {
-        // TODO get the id of the project we are in.
-        final String projectId = "0308eb60-bb8c-422e-a356-a0f5434a5325";
-        CreateNewListOfCardsInProject command = new CreateNewListOfCardsInProject(title, projectId);
-        this.commandBus.send(command);
-    }
 
 
 

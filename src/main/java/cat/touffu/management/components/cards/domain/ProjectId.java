@@ -1,4 +1,4 @@
-package cat.touffu.management.components.list.domain;
+package cat.touffu.management.components.cards.domain;
 
 import cat.touffu.management.kernel.EntityId;
 
@@ -29,10 +29,6 @@ public final class ProjectId implements EntityId<String> {
     }
 
     public static ProjectId of(String id) {
-        return new ProjectId(id);
-    }
-
-    public static ProjectId fromUUID(UUID uuid) {
-        return new ProjectId(Objects.requireNonNull(uuid).toString());
+        return new ProjectId(Objects.requireNonNull(id));
     }
 }

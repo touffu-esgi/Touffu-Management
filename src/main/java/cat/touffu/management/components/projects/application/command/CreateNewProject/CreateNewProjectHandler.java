@@ -1,7 +1,7 @@
 package cat.touffu.management.components.projects.application.command.CreateNewProject;
 
 
-import cat.touffu.management.components.projects.domain.CardListId;
+import cat.touffu.management.components.projects.domain.CardId;
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.kernel.command.CommandHandler;
@@ -20,7 +20,7 @@ public class CreateNewProjectHandler implements CommandHandler<CreateNewProject>
 
     @Override
     public void handle(CreateNewProject command) {
-        Set<CardListId> emptyCardListId = Collections.emptySet();
+        Set<CardId> emptyCardId = Collections.emptySet();
         final Project project = Project.of(
                 projectRepository.newId(),
                 command.title(),

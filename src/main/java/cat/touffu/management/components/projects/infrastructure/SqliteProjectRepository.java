@@ -2,17 +2,20 @@ package cat.touffu.management.components.projects.infrastructure;
 
 import cat.touffu.management.components.projects.adapter.CardListIdsToStringAdapter;
 import cat.touffu.management.components.projects.adapter.StringToCardListIdsAdapter;
-import cat.touffu.management.components.projects.domain.CardListId;
+import cat.touffu.management.components.projects.domain.CardId;
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.components.projects.domain.ProjectId;
 import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.kernel.database.SqliteJdbc;
 import org.apache.commons.lang3.NotImplementedException;
 import org.json.JSONArray;
+import org.json.JSONString;
+import org.json.JSONStringer;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SqliteProjectRepository implements ProjectRepository {
@@ -55,11 +58,11 @@ public class SqliteProjectRepository implements ProjectRepository {
     public void add(Project project) {
         try {
             PreparedStatement statement = sqlite.prepareStatement(
-                    "insert into project(id, title, lists) VALUES (?, ?, ?)"
+                    "insert into project(id, title, card) VALUES (?, ?, ?)"
             );
             statement.setString(1, project.id().value());
             statement.setString(2, project.title());
-            statement.setString(3, cardListIdsToStringAdapter.adapt(project.cardListIds()));
+            statement.setString(3, this.cardsToJsonString(project.cards()));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,10 +73,11 @@ public class SqliteProjectRepository implements ProjectRepository {
     public void update(Project project) {
         try {
             PreparedStatement statement = sqlite.prepareStatement(
-                    "update project set title = ?, lists = ? where id = ?"
+                    "update project set title = ?, cards = ? where id = ?"
             );
+            System.out.println(project.cards());
             statement.setString(1, project.title());
-            statement.setString(2, cardListIdsToStringAdapter.adapt(project.cardListIds()));
+            statement.setString(2, this.cardsToJsonString(project.cards()));
             statement.setString(3, project.id().value());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -81,11 +85,19 @@ public class SqliteProjectRepository implements ProjectRepository {
         }
     }
 
+    private String cardsToJsonString(Set<CardId> cards) {
+        return new JSONArray(
+                cards.stream()
+                        .map(CardId::value)
+                        .collect(Collectors.toList()))
+                .toString();
+    }
+
     @Override
     public Project findById(ProjectId projectId) {
 
         try {
-            PreparedStatement statement = sqlite.prepareStatement("select id, title, lists from project where id = ?");
+            PreparedStatement statement = sqlite.prepareStatement("select id, title, cards from project where id = ?");
             statement.setString(1, projectId.value());
             ResultSet resultSet = statement.executeQuery();
             if(!resultSet.next()) {
@@ -94,7 +106,10 @@ public class SqliteProjectRepository implements ProjectRepository {
             return Project.of(
                     ProjectId.of(resultSet.getString("id")),
                     resultSet.getString("title"),
-                    stringToCardListIdsAdapter.adapt(resultSet.getString("lists"))
+                    new JSONArray(resultSet.getString("cards"))
+                            .toList().stream()
+                            .map(cardId -> CardId.of((String) cardId))
+                            .collect(Collectors.toSet())
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,13 +122,13 @@ public class SqliteProjectRepository implements ProjectRepository {
         List<Project> projects = new ArrayList<>();
         try {
             Statement statement = sqlite.createStatement();
-            ResultSet result = statement.executeQuery("select id, title, lists from project");
+            ResultSet result = statement.executeQuery("select id, title, cards from project");
             while (result.next()) {
                 projects.add(new Project(
                         ProjectId.of(result.getString("id")),
                         result.getString("title"),
-                        new JSONArray(result.getString("lists")).toList().stream()
-                                .map(id -> CardListId.of((String) id))
+                        new JSONArray(result.getString("cards")).toList().stream()
+                                .map(id -> CardId.of((String) id))
                                 .collect(Collectors.toSet())
                 ));
             }
