@@ -1,4 +1,4 @@
-package cat.touffu.management.javafx;
+package cat.touffu.management.javafx.projects;
 
 import cat.touffu.management.components.projects.ProjectModule;
 import cat.touffu.management.components.projects.application.command.CreateNewProject.CreateNewProject;

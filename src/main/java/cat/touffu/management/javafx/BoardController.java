@@ -1,5 +1,6 @@
 package cat.touffu.management.javafx;
 
+import cat.touffu.management.javafx.projects.DialogCreateNewProject;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -54,5 +55,8 @@ public class BoardController {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void addCard(ActionEvent actionEvent) {
     }
 }

@@ -1,6 +1,5 @@
-package cat.touffu.management.javafx;
+package cat.touffu.management.javafx.projects;
 
-import cat.touffu.management.javafx.DialogAddNewListController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

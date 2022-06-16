@@ -32,15 +32,17 @@ public class AddCardInProjectHandler implements CommandHandler<AddCardInProject>
         if(!listExists) {
             throw new ProjectNotFoundException(command.projectId());
         }
-        CardId cardId = cardRepository.newId();
-        ProjectId projectId = ProjectId.of(command.projectId());
-        cardRepository.save(Card.of(
-                cardId,
+        var card = Card.of(
+                cardRepository.newId(),
                 command.title(),
-                projectId,
+                ProjectId.of(command.projectId()),
                 cardStatusFromStringAdapter.adapt(command.status())
-                )
         );
-        applicationEventBus.send(CardCreationDone.of(command.title(), cardId, projectId));
+        cardRepository.save(card);
+        applicationEventBus.send(CardCreationDone.of(
+                command.title(),
+                card.id(),
+                card.projectId())
+        );
     }
 }
