@@ -1,4 +1,4 @@
-package cat.touffu.management.javafx;
+package cat.touffu.management.javafx.board;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,19 +1,20 @@
-package cat.touffu.management.javafx;
+package cat.touffu.management.javafx.board;
 
+import cat.touffu.management.javafx.SettingBoard;
 import cat.touffu.management.javafx.projects.DialogCreateNewProject;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.NotImplementedException;
 
 public class BoardController {
     @FXML
     public Text title_of_board;
-    public HBox HboxOfList;
     private StackPane stack;
 
     public void openBoardSetting(ActionEvent actionEvent) {
@@ -22,19 +23,6 @@ public class BoardController {
                 Application settingBoard = new SettingBoard(title_of_board, this.stack);
                 Stage stage = new Stage();
                 settingBoard.start(stage);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        });
-    }
-
-
-    public void addAList(ActionEvent actionEvent) {
-        Platform.runLater(() -> {
-            try {
-                Stage stage = new Stage();
-                Application addNewList = new DialogAddNewList(HboxOfList);
-                addNewList.start(stage);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -57,6 +45,11 @@ public class BoardController {
     }
 
     public void addCard(ActionEvent actionEvent) {
-        System.out.println("ADD WORKS !");
+        throw new NotImplementedException("Add card");
+    }
+
+
+    public void addProjectInLeftBar(String id, String title) {
+        System.out.println("id = " + id + ", title = " + title);
     }
 }
