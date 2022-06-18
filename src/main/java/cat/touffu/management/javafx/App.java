@@ -8,7 +8,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Platform.runLater(()-> {
-            try {new Board().start(new Stage());}
+            try {Board.getInstance().start(new Stage());}
             catch (Exception e) {e.printStackTrace();}
         });
     }

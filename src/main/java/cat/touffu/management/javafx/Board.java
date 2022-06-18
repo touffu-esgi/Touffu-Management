@@ -6,8 +6,17 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-
 public class Board extends Application {
+
+    private final static Board INSTANCE = new Board();
+
+    public static Board getInstance() {
+        return INSTANCE;
+    }
+
+    private Board(){
+
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
