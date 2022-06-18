@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Board extends Application {
 
-    BoardController controller;
+    public BoardController controller;
     private final StackPane stack;
 
     private final static Board INSTANCE = new Board();

@@ -57,5 +57,6 @@ public class BoardController {
     }
 
     public void addCard(ActionEvent actionEvent) {
+        System.out.println("ADD WORKS !");
     }
 }
