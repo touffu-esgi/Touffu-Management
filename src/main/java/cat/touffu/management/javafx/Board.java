@@ -6,7 +6,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Board extends Application {
+
+    BoardController controller;
+    private final StackPane stack;
 
     private final static Board INSTANCE = new Board();
 
@@ -16,17 +21,20 @@ public class Board extends Application {
 
     private Board(){
 
+        FXMLLoader root = new FXMLLoader(getClass().getResource("board.fxml"));
+        stack = new StackPane();
+
+        try{stack.getChildren().add(root.load());}
+        catch (IOException e) {e.printStackTrace();}
+
+        this.controller = root.getController();
+        this.controller.initData(stack);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("board");
-        StackPane stack = new StackPane();
 
-        FXMLLoader root = new FXMLLoader(getClass().getResource("board.fxml"));
-        stack.getChildren().add(root.load());
-        BoardController boardController = root.getController();
-        boardController.initData(stack);
         Scene scene = new Scene(stack,1512,982, true);
         stage.setMinWidth(1512);
         stage.setMinHeight(982);
