@@ -48,9 +48,8 @@ public class BoardController {
     public void onClickToCreateNewProject(ActionEvent actionEvent) {
         Platform.runLater(() -> {
             try {
-                Stage stage = new Stage();
-                Application createProject = new DialogCreateNewProject();
-                createProject.start(stage);
+                DialogCreateNewProject createProject = new DialogCreateNewProject();
+                createProject.start(new Stage());
             }catch (Exception e){
                 e.printStackTrace();
             }
