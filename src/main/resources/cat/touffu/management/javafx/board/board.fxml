@@ -12,8 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="982.0" maxWidth="1512.0" minHeight="982.0" minWidth="1512.0" prefHeight="982.0" prefWidth="1512.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="cat.touffu.management.javafx.board.BoardController">
+<Pane maxHeight="982.0" maxWidth="1512.0" minHeight="982.0" minWidth="1512.0" prefHeight="982.0" prefWidth="1512.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cat.touffu.management.javafx.board.BoardController">
    <children>
       <HBox layoutY="-2.0" prefHeight="984.0" prefWidth="257.0" style="-fx-background-color: #303030 #303030;">
          <children>
@@ -52,7 +51,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Text>
-                              <Button fx:id="add_board" onAction="#onClickToCreateNewProject" maxHeight="10.0" maxWidth="10.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="50.0" style="-fx-background-color: #303030 #303030;" text="+" textFill="WHITE" translateX="151.0" translateY="8.0">
+                              <Button fx:id="add_board" maxHeight="10.0" maxWidth="10.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#onClickToCreateNewProject" prefHeight="10.0" prefWidth="50.0" style="-fx-background-color: #303030 #303030;" text="+" textFill="WHITE" translateX="151.0" translateY="8.0">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -104,7 +103,7 @@
             </HBox>
             <Pane prefHeight="748.0" prefWidth="1255.0">
                <children>
-                  <VBox fx:id="ToDo" layoutX="52.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40;">
+                  <VBox layoutX="52.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40;">
                      <children>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="349.0">
                            <children>
@@ -115,13 +114,14 @@
                               </Text>
                            </children>
                         </Pane>
+                        <VBox prefHeight="593.0" prefWidth="349.0" fx:id="ToDo" />
                      </children>
                   </VBox>
                   <Button layoutX="1124.0" layoutY="20.0" mnemonicParsing="false" onAction="#addCard" style="-fx-background-color: #3D3D40;" text="add card" textFill="WHITE">
                      <font>
                         <Font size="21.0" />
                      </font></Button>
-                  <VBox fx:id="InProgress" layoutX="456.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40;">
+                  <VBox layoutX="456.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40;">
                      <children>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="349.0">
                            <children>
@@ -132,9 +132,10 @@
                               </Text>
                            </children>
                         </Pane>
+                        <VBox prefHeight="593.0" prefWidth="349.0" fx:id="InProgress" />
                      </children>
                   </VBox>
-                  <VBox fx:id="Done" layoutX="850.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40;">
+                  <VBox layoutX="850.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40;">
                      <children>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="349.0">
                            <children>
@@ -143,6 +144,7 @@
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Text>
+                              <VBox layoutY="60.0" prefHeight="575.0" prefWidth="349.0" fx:id="Done" />
                            </children>
                         </Pane>
                      </children>

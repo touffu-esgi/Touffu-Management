@@ -3,12 +3,14 @@ package cat.touffu.management.javafx.board;
 import cat.touffu.management.components.cards.CardsModule;
 import cat.touffu.management.components.cards.application.query.RetrieveProjects.RetrieveCardsInProject;
 import cat.touffu.management.components.cards.domain.Card;
+import cat.touffu.management.components.cards.domain.CardStatus;
 import cat.touffu.management.components.projects.ProjectModule;
 import cat.touffu.management.components.projects.application.query.RetrieveOneProject.RetrieveOneProject;
 import cat.touffu.management.components.projects.application.query.RetrieveProjects.RetrieveProjects;
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.javafx.SettingBoard;
 import cat.touffu.management.javafx.projects.DialogCreateNewProject;
+import cat.touffu.management.kernel.exception.NotFoundException;
 import cat.touffu.management.kernel.exception.ProjectNotFoundException;
 import cat.touffu.management.kernel.query.QueryBus;
 import javafx.application.Application;
@@ -103,6 +105,37 @@ public class BoardController {
     }
 
     private void fillListsWith(List<Card> cards) {
+        List<Card> todo = cards.stream().filter(c -> c.cardStatus().equals(CardStatus.TODO)).toList();
+        List<Card> inProgress = cards.stream().filter(c -> c.cardStatus().equals(CardStatus.IN_PROGRESS)).toList();
+        List<Card> done = cards.stream().filter(c -> c.cardStatus().equals(CardStatus.DONE)).toList();
+
+        fillListOfIdWithCards("#ToDo", todo);
+        fillListOfIdWithCards("#InProgress", inProgress);
+        fillListOfIdWithCards("#Done", done);
+    }
+
+    private EventHandler<? super MouseEvent> onClickCard() {
+        return new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                throw new NotImplementedException("Click on card");
+            }
+        };
+    }
+
+    private void fillListOfIdWithCards(String id, List<Card> cards) {
+        VBox listContainer = (VBox) this.stack.lookup(id);
+        if(listContainer == null) throw new NotFoundException("Node with id : " + id);
+        List<Text> texts = cards.stream()
+                .map(c -> {
+                    var t = new Text(c.title());
+                    t.setId(c.id().value());
+                    t.setFill(Paint.valueOf("white"));
+                    t.setOnMouseClicked(onClickCard());
+                    return t;
+                })
+                .toList();
+        listContainer.getChildren().addAll(texts);
     }
 
     public StringProperty projectTitleProperty() {

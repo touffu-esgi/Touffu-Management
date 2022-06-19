@@ -6,10 +6,8 @@ import cat.touffu.management.components.cards.domain.Card;
 import cat.touffu.management.components.cards.domain.CardId;
 import cat.touffu.management.components.cards.domain.CardRepository;
 import cat.touffu.management.components.cards.domain.ProjectId;
-import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.kernel.database.SqliteJdbc;
 import org.apache.commons.lang3.NotImplementedException;
-import org.json.JSONArray;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SqliteCardRepository implements CardRepository {
     private final CardStatusFromStringAdapter cardStatusFromStringAdapter = new CardStatusFromStringAdapter();

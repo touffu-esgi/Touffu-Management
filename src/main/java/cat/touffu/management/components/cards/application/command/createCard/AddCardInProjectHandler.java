@@ -28,8 +28,8 @@ public class AddCardInProjectHandler implements CommandHandler<AddCardInProject>
 
     @Override
     public void handle(AddCardInProject command) {
-        Boolean listExists = queryBus.send(new DoesProjectExists(command.projectId()));
-        if(!listExists) {
+        Boolean projectExists = queryBus.send(new DoesProjectExists(command.projectId()));
+        if(!projectExists) {
             throw new ProjectNotFoundException(command.projectId());
         }
         var card = Card.of(

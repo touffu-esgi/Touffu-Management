@@ -9,7 +9,7 @@ public class CardStatusToStringAdapter implements Adapter<CardStatus, String> {
     public String adapt(CardStatus source) {
         switch (source) {
             case TODO: return "todo";
-            case IN_PROGRESS: return "in_progress";
+            case IN_PROGRESS: return "in progress";
             case DONE: return "done";
             default: throw new CardStatusException();
         }
