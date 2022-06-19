@@ -10,7 +10,6 @@ import cat.touffu.management.components.projects.application.query.RetrieveProje
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.javafx.SettingBoard;
 import cat.touffu.management.javafx.projects.DialogCreateNewProject;
-import cat.touffu.management.kernel.exception.NotFoundException;
 import cat.touffu.management.kernel.exception.ProjectNotFoundException;
 import cat.touffu.management.kernel.query.QueryBus;
 import javafx.application.Application;
@@ -28,7 +27,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.NotImplementedException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BoardController {
     @FXML
@@ -38,6 +39,8 @@ public class BoardController {
     private final QueryBus cardQueryBus = CardsModule.queryBus();
     private StringProperty projectTitle = new SimpleStringProperty("");
     private List<Project> projects;
+    @FXML private VBox projectList;
+    private Map<CardStatus, VBox> lists = new HashMap<>();
 
     public void openBoardSetting(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -58,6 +61,11 @@ public class BoardController {
         List<Project> projects = projectQueryBus.send(new RetrieveProjects());
         this.projects = projects;
         projects.forEach(p -> addProjectInLeftBar(p.id().value(), p.title()));
+
+        this.projectList = (VBox) this.stack.lookup("#projectList");
+        this.lists.put(CardStatus.TODO, (VBox) this.stack.lookup("#ToDo"));
+        this.lists.put(CardStatus.IN_PROGRESS, (VBox) this.stack.lookup("#InProgress"));
+        this.lists.put(CardStatus.DONE, (VBox) this.stack.lookup("#Done"));
     }
 
     public void onClickToCreateNewProject(ActionEvent actionEvent) {
@@ -77,12 +85,11 @@ public class BoardController {
 
 
     public void addProjectInLeftBar(String id, String title) {
-        VBox projectList = (VBox) this.stack.lookup("#projectList");
         Text project = new Text(title);
         project.setId(id);
         project.setFill(Paint.valueOf("white"));
         project.setOnMouseClicked(onClickProjectCard());
-        projectList.getChildren().add(project);
+        this.projectList.getChildren().add(project);
     }
 
     private EventHandler<MouseEvent> onClickProjectCard() {
@@ -99,7 +106,6 @@ public class BoardController {
         Project project = projectQueryBus.send(new RetrieveOneProject(id));
         if(project == null) throw new ProjectNotFoundException(id);
         List<Card> cards = cardQueryBus.send(new RetrieveCardsInProject(project.id().value()));
-        System.out.println("cards = " + cards);
         this.projectTitle.setValue(project.title());
         this.fillListsWith(cards);
     }
@@ -109,9 +115,9 @@ public class BoardController {
         List<Card> inProgress = cards.stream().filter(c -> c.cardStatus().equals(CardStatus.IN_PROGRESS)).toList();
         List<Card> done = cards.stream().filter(c -> c.cardStatus().equals(CardStatus.DONE)).toList();
 
-        fillListOfIdWithCards("#ToDo", todo);
-        fillListOfIdWithCards("#InProgress", inProgress);
-        fillListOfIdWithCards("#Done", done);
+        fillListWithCards(this.lists.get(CardStatus.TODO), todo);
+        fillListWithCards(this.lists.get(CardStatus.IN_PROGRESS), inProgress);
+        fillListWithCards(this.lists.get(CardStatus.DONE), done);
     }
 
     private EventHandler<? super MouseEvent> onClickCard() {
@@ -123,9 +129,7 @@ public class BoardController {
         };
     }
 
-    private void fillListOfIdWithCards(String id, List<Card> cards) {
-        VBox listContainer = (VBox) this.stack.lookup(id);
-        if(listContainer == null) throw new NotFoundException("Node with id : " + id);
+    private void fillListWithCards(VBox list, List<Card> cards) {
         List<Text> texts = cards.stream()
                 .map(c -> {
                     var t = new Text(c.title());
@@ -135,7 +139,8 @@ public class BoardController {
                     return t;
                 })
                 .toList();
-        listContainer.getChildren().addAll(texts);
+        list.getChildren().clear();
+        list.getChildren().addAll(texts);
     }
 
     public StringProperty projectTitleProperty() {
