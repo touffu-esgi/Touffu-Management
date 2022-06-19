@@ -16,8 +16,22 @@ public class SimpleEventBus<E extends Event> implements EventBus<E> {
         final List<Subscriber<E>> subscribers = this.subscribers.get(event.getClass());
         final boolean subscribersExists = subscribers != null && !subscribers.isEmpty();
         if (subscribersExists) {
-            subscribers.forEach(subscriber -> subscriber.accept(event));
+            subscribers.forEach(subscriber -> sendEventToSubsciber(event, subscriber));
         }
+    }
+
+    private void sendEventToSubsciber(E event, Subscriber<E> subscriber) {
+        try {
+            subscriber.accept(event);
+        } catch (Exception e) {
+            String subscriberName = subscriber.getClass().getSimpleName();
+            System.out.println(subscriberName + " : " + e.getMessage());
+        }
+    }
+
+
+    private void trySend(E event) {
+
     }
 
     @Override

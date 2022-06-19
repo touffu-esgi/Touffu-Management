@@ -1,5 +1,6 @@
 package cat.touffu.management.components.projects.domain;
 
+import java.util.Objects;
 import java.util.Set;
 
 public record Project(
@@ -19,5 +20,18 @@ public record Project(
 
     public void addCard(CardId card) {
         this.cards.add(card);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return id.value().equals(project.id.value());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id.value());
     }
 }

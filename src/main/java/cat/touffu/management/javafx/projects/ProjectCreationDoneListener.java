@@ -5,6 +5,7 @@ import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.javafx.board.Board;
 import cat.touffu.management.kernel.event.Subscriber;
 import javafx.event.ActionEvent;
+import org.apache.commons.lang3.NotImplementedException;
 
 public record ProjectCreationDoneListener(ProjectRepository repository) implements Subscriber<ProjectCreationDone> {
 

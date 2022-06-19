@@ -31,7 +31,7 @@ public class CreateNewProjectHandler implements CommandHandler<CreateNewProject>
                 command.title(),
                 new HashSet<>()
         );
-        //projectRepository.save(project);
+        projectRepository.save(project);
         this.eventBus.send(ProjectCreationDone.of(
                 project.id(),
                 project.title()

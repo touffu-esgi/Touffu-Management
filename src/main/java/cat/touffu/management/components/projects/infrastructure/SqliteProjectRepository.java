@@ -58,7 +58,7 @@ public class SqliteProjectRepository implements ProjectRepository {
     public void add(Project project) {
         try {
             PreparedStatement statement = sqlite.prepareStatement(
-                    "insert into project(id, title, card) VALUES (?, ?, ?)"
+                    "insert into project(id, title, cards) VALUES (?, ?, ?)"
             );
             statement.setString(1, project.id().value());
             statement.setString(2, project.title());

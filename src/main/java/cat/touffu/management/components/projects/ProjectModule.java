@@ -7,6 +7,8 @@ import cat.touffu.management.components.projects.application.event.CardCreationD
 import cat.touffu.management.components.projects.application.event.ProjectCreationDone;
 import cat.touffu.management.components.projects.application.query.DoesProjectExists.DoesProjectExists;
 import cat.touffu.management.components.projects.application.query.DoesProjectExists.DoesProjectExistsHandler;
+import cat.touffu.management.components.projects.application.query.RetrieveOneProject.RetrieveOneProject;
+import cat.touffu.management.components.projects.application.query.RetrieveOneProject.RetrieveOneProjectHandler;
 import cat.touffu.management.components.projects.application.query.RetrieveProjects.RetrieveProjects;
 import cat.touffu.management.components.projects.application.query.RetrieveProjects.RetrieveProjectsHandler;
 import cat.touffu.management.components.projects.domain.ProjectRepository;
@@ -31,6 +33,7 @@ public class ProjectModule {
     public static ProjectRepository projectRepository() {
         return SqliteProjectRepository.getInstance();
     }
+    private static QueryBus queryBus;
 
     public static CommandBus commandBus() {
         final Map<Class<? extends Command>, CommandHandler> commandHandlerMap = new HashMap<>();
@@ -40,11 +43,14 @@ public class ProjectModule {
     }
 
     public static QueryBus queryBus() {
+        if(queryBus != null) return queryBus;
         final Map<Class<? extends Query>, QueryHandler> queryHandlerMap = new HashMap<>();
         ProjectRepository repository = ProjectModule.projectRepository();
         queryHandlerMap.put(RetrieveProjects.class, new RetrieveProjectsHandler(repository));
+        queryHandlerMap.put(RetrieveOneProject.class, new RetrieveOneProjectHandler(repository));
         queryHandlerMap.put(DoesProjectExists.class, new DoesProjectExistsHandler(repository));
-        return new SimpleQueryBus(queryHandlerMap);
+        queryBus = new SimpleQueryBus(queryHandlerMap);
+        return queryBus;
     }
 
     public static EventBus eventBus() {
