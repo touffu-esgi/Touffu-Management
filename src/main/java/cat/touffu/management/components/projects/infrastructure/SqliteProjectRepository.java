@@ -75,7 +75,6 @@ public class SqliteProjectRepository implements ProjectRepository {
             PreparedStatement statement = sqlite.prepareStatement(
                     "update project set title = ?, cards = ? where id = ?"
             );
-            System.out.println(project.cards());
             statement.setString(1, project.title());
             statement.setString(2, this.cardsToJsonString(project.cards()));
             statement.setString(3, project.id().value());
