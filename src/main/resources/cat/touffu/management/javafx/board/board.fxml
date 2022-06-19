@@ -12,7 +12,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="982.0" maxWidth="1512.0" minHeight="982.0" minWidth="1512.0" prefHeight="982.0" prefWidth="1512.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cat.touffu.management.javafx.board.BoardController">
+<Pane maxHeight="982.0" maxWidth="1512.0" minHeight="982.0" minWidth="1512.0" prefHeight="982.0" prefWidth="1512.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="cat.touffu.management.javafx.board.BoardController">
    <children>
       <HBox layoutY="-2.0" prefHeight="984.0" prefWidth="257.0" style="-fx-background-color: #303030 #303030;">
          <children>
@@ -85,7 +86,7 @@
             </Group>
             <HBox>
                <children>
-                  <Text fx:id="title_of_board" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Title of your amazing project" translateX="29.0" translateY="20.0" wrappingWidth="365.58642578125">
+                  <Text fx:id="title_of_board" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="${controller.projectTitle}" translateX="29.0" translateY="20.0" wrappingWidth="365.58642578125">
                      <font>
                         <Font name="Montserrat Thin" size="20.0" />
                      </font>

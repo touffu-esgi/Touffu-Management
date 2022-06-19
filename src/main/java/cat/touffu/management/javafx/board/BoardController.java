@@ -27,7 +27,7 @@ public class BoardController {
     public Text title_of_board;
     private StackPane stack;
     private final QueryBus projectQueryBus = ProjectModule.queryBus();
-    private StringProperty projectName = new SimpleStringProperty();
+    private StringProperty projectTitle = new SimpleStringProperty("default title");
 
     public void openBoardSetting(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -39,6 +39,9 @@ public class BoardController {
                 e.printStackTrace();
             }
         });
+    }
+
+    public BoardController() {
     }
 
     public void initData(StackPane stack){
@@ -83,10 +86,14 @@ public class BoardController {
     private void selectProject(String id) {
         Project project = projectQueryBus.send(new RetrieveOneProject(id));
         if(project == null) throw new ProjectNotFoundException(id);
-        System.out.println("project getted = " + project);
+        this.projectTitle.setValue(project.title());
     }
 
-    public StringProperty projectNameProperty() {
-        return projectName;
+    public StringProperty projectTitleProperty() {
+        return projectTitle;
+    }
+
+    public String getProjectTitle() {
+        return this.projectTitle.get();
     }
 }
