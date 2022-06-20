@@ -107,7 +107,7 @@
                      <children>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="349.0">
                            <children>
-                              <Text fill="WHITE" layoutX="133.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="À faire" wrappingWidth="81.36474609375">
+                              <Text fill="WHITE" layoutX="133.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To Do" wrappingWidth="81.36474609375">
                                  <font>
                                     <Font name="System Bold" size="30.0" />
                                  </font>
@@ -117,7 +117,7 @@
                         <VBox prefHeight="593.0" prefWidth="349.0" fx:id="ToDo" />
                      </children>
                   </VBox>
-                  <Button layoutX="1124.0" layoutY="20.0" mnemonicParsing="false" onAction="#addCard" style="-fx-background-color: #3D3D40;" text="add card" textFill="WHITE">
+                  <Button layoutX="1124.0" layoutY="20.0" mnemonicParsing="false" onAction="#onClickToAddCard" style="-fx-background-color: #3D3D40;" text="add card" textFill="WHITE">
                      <font>
                         <Font size="21.0" />
                      </font></Button>
@@ -125,7 +125,7 @@
                      <children>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="349.0">
                            <children>
-                              <Text fill="WHITE" layoutX="124.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="En cours" wrappingWidth="113.36474609375">
+                              <Text fill="WHITE" layoutX="124.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In Progress" wrappingWidth="113.36474609375">
                                  <font>
                                     <Font name="System Bold" size="30.0" />
                                  </font>
@@ -139,7 +139,7 @@
                      <children>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="349.0">
                            <children>
-                              <Text fill="WHITE" layoutX="150.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fait" wrappingWidth="48.031494140625">
+                              <Text fill="WHITE" layoutX="150.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Done" wrappingWidth="48.031494140625">
                                  <font>
                                     <Font name="System Bold" size="30.0" />
                                  </font>

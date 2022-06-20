@@ -11,7 +11,6 @@ import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.javafx.card.CardInListController;
 import cat.touffu.management.javafx.card.DialogAddCard;
 import cat.touffu.management.javafx.SettingBoard;
-import cat.touffu.management.javafx.card.DialogAddCardController;
 import cat.touffu.management.javafx.projects.DialogCreateNewProject;
 import cat.touffu.management.kernel.exception.ProjectNotFoundException;
 import cat.touffu.management.kernel.query.QueryBus;
@@ -86,7 +85,7 @@ public class BoardController {
         });
     }
 
-    public void addCard(ActionEvent actionEvent) {
+    public void onClickToAddCard(ActionEvent actionEvent) {
         if(!isOneProjectSelected()) return;
         Platform.runLater(() -> {
             try {
@@ -152,7 +151,6 @@ public class BoardController {
     public void addCardInListByItsStatus(Card card) {
         try {this.lists.get(card.cardStatus()).getChildren().add(newCardBoxFromCard(card));}
         catch (Exception e) {
-            e.printStackTrace();
             // TODO card not added
         }
     }
@@ -162,6 +160,7 @@ public class BoardController {
         Parent root = loader.load();
         CardInListController controller = loader.getController();
         controller.initData(card);
+        root.setOnMouseClicked(onClickCard());
         return root;
     }
 

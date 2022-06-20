@@ -20,7 +20,6 @@ public class DialogAddCard extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
         FXMLLoader root = new FXMLLoader(getClass().getResource("addCardDialog.fxml"));
         this.stack.getChildren().add(root.load());
 
