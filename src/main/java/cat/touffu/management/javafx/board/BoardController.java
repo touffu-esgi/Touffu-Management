@@ -8,8 +8,10 @@ import cat.touffu.management.components.projects.ProjectModule;
 import cat.touffu.management.components.projects.application.query.RetrieveOneProject.RetrieveOneProject;
 import cat.touffu.management.components.projects.application.query.RetrieveProjects.RetrieveProjects;
 import cat.touffu.management.components.projects.domain.Project;
+import cat.touffu.management.javafx.card.CardInListController;
 import cat.touffu.management.javafx.card.DialogAddCard;
 import cat.touffu.management.javafx.SettingBoard;
+import cat.touffu.management.javafx.card.DialogAddCardController;
 import cat.touffu.management.javafx.projects.DialogCreateNewProject;
 import cat.touffu.management.kernel.exception.ProjectNotFoundException;
 import cat.touffu.management.kernel.query.QueryBus;
@@ -20,6 +22,8 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -28,6 +32,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.NotImplementedException;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,13 +132,12 @@ public class BoardController {
     }
 
     private void fillListsWith(List<Card> cards) {
-        List<Card> todo = cards.stream().filter(c -> c.cardStatus().equals(CardStatus.TODO)).toList();
-        List<Card> inProgress = cards.stream().filter(c -> c.cardStatus().equals(CardStatus.IN_PROGRESS)).toList();
-        List<Card> done = cards.stream().filter(c -> c.cardStatus().equals(CardStatus.DONE)).toList();
+        clearAllLists();
+        cards.forEach(this::addCardInListByItsStatus);
+    }
 
-        setListWithCards(this.lists.get(CardStatus.TODO), todo);
-        setListWithCards(this.lists.get(CardStatus.IN_PROGRESS), inProgress);
-        setListWithCards(this.lists.get(CardStatus.DONE), done);
+    private void clearAllLists() {
+        this.lists.values().forEach(list -> list.getChildren().clear());
     }
 
     private EventHandler<? super MouseEvent> onClickCard() {
@@ -145,24 +149,20 @@ public class BoardController {
         };
     }
 
-    public void setListWithCards(VBox list, List<Card> cardsToAdd) {
-        var cards = cardsToAdd.stream()
-                .map(this::newCardBoxFromCard)
-                .toList();
-        list.getChildren().clear();
-        list.getChildren().addAll(cards);
+    public void addCardInListByItsStatus(Card card) {
+        try {this.lists.get(card.cardStatus()).getChildren().add(newCardBoxFromCard(card));}
+        catch (Exception e) {
+            e.printStackTrace();
+            // TODO card not added
+        }
     }
 
-    public void addCardByItsStatus(Card card) {
-        this.lists.get(card.cardStatus()).getChildren().add(newCardBoxFromCard(card));
-    }
-
-    private Text newCardBoxFromCard(Card c) {
-        var t = new Text(c.title());
-        t.setId(c.id().value());
-        t.setFill(Paint.valueOf("white"));
-        t.setOnMouseClicked(onClickCard());
-        return t;
+    private Parent newCardBoxFromCard(Card card) throws IOException {
+        FXMLLoader loader = new FXMLLoader(CardInListController.class.getResource("cardInList.fxml"));
+        Parent root = loader.load();
+        CardInListController controller = loader.getController();
+        controller.initData(card);
+        return root;
     }
 
     public StringProperty projectTitleProperty() {

@@ -48,12 +48,11 @@ public class DialogAddCardController {
         stack.remove(stack.toArray().length-1);
     }
 
-    private void setUpCard(CardStatus status) throws IOException {
+    public void setUpCard(CardStatus status) throws IOException {
         FXMLLoader root = new FXMLLoader(getClass().getResource("cardInList.fxml"));
-        System.out.println(ListOfCard.getValue().toString());
         this.lists.get(status).getChildren().add(root.load());
         CardInListController cardInListController = root.getController();
-        cardInListController.initData(CardDescription.getText());
+        System.out.println("cardInListController = " + cardInListController);
     }
 
     public void initData(Map<CardStatus, VBox> lists, StackPane window){
