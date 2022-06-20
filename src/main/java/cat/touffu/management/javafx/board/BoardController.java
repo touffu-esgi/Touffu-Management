@@ -129,18 +129,20 @@ public class BoardController {
         };
     }
 
-    private void fillListWithCards(VBox list, List<Card> cards) {
-        List<Text> texts = cards.stream()
-                .map(c -> {
-                    var t = new Text(c.title());
-                    t.setId(c.id().value());
-                    t.setFill(Paint.valueOf("white"));
-                    t.setOnMouseClicked(onClickCard());
-                    return t;
-                })
+    private void fillListWithCards(VBox list, List<Card> cardsToAdd) {
+        var cards = cardsToAdd.stream()
+                .map(this::loadCardBoxFromCard)
                 .toList();
         list.getChildren().clear();
-        list.getChildren().addAll(texts);
+        list.getChildren().addAll(cards);
+    }
+
+    private Text loadCardBoxFromCard(Card c) {
+        var t = new Text(c.title());
+        t.setId(c.id().value());
+        t.setFill(Paint.valueOf("white"));
+        t.setOnMouseClicked(onClickCard());
+        return t;
     }
 
     public StringProperty projectTitleProperty() {
