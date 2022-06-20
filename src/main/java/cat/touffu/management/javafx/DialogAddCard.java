@@ -1,17 +1,20 @@
 package cat.touffu.management.javafx;
 
+import cat.touffu.management.components.cards.domain.CardStatus;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DialogAddCard extends Application {
 
     private StackPane stack;
-    private VBox[] lists;
-    public DialogAddCard(StackPane stage, VBox[] lists) {
+    private final Map<CardStatus, VBox> lists;
+    public DialogAddCard(StackPane stage, Map<CardStatus, VBox> lists) {
         this.stack = stage;
         this.lists = lists;
     }

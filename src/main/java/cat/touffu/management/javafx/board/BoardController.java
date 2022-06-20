@@ -8,6 +8,7 @@ import cat.touffu.management.components.projects.ProjectModule;
 import cat.touffu.management.components.projects.application.query.RetrieveOneProject.RetrieveOneProject;
 import cat.touffu.management.components.projects.application.query.RetrieveProjects.RetrieveProjects;
 import cat.touffu.management.components.projects.domain.Project;
+import cat.touffu.management.javafx.DialogAddCard;
 import cat.touffu.management.javafx.SettingBoard;
 import cat.touffu.management.javafx.projects.DialogCreateNewProject;
 import cat.touffu.management.kernel.exception.ProjectNotFoundException;
@@ -80,7 +81,15 @@ public class BoardController {
     }
 
     public void addCard(ActionEvent actionEvent) {
-        throw new NotImplementedException("Add card");
+        Platform.runLater(() -> {
+            try {
+                Application dialogAddCard = new DialogAddCard(this.stack, this.lists);
+                Stage stage = new Stage();
+                dialogAddCard.start(stage);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
 
