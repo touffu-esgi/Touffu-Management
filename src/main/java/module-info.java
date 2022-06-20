@@ -15,5 +15,6 @@ module touffu.management {
     opens cat.touffu.management.javafx.projects to javafx.fxml, javafx.graphics;
     exports cat.touffu.management.javafx.board;
     opens cat.touffu.management.javafx.board to javafx.fxml, javafx.graphics;
-    exports cat.touffu.management.javafx.CardInListController;
+    exports cat.touffu.management.javafx.card;
+    opens cat.touffu.management.javafx.card to javafx.fxml, javafx.graphics;
 }

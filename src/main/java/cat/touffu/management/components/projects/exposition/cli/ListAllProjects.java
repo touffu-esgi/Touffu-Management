@@ -17,7 +17,7 @@ public class ListAllProjects implements Runnable{
 
     @Override
     public void run() {
-        final List<Project> projects = queryBus.send(new RetrieveProjects());
+        final List<Project> projects = queryBus.request(new RetrieveProjects());
         final String response = CliProjectsListResponseAdapter.adapt(projects);
         System.out.println(response);
     }

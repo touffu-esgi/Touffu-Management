@@ -1,9 +1,7 @@
-package cat.touffu.management.components.cards.application.query.RetrieveProjects;
+package cat.touffu.management.components.cards.application.query.RetrieveCardsInProject;
 
 import cat.touffu.management.components.cards.domain.Card;
 import cat.touffu.management.components.cards.domain.CardRepository;
-import cat.touffu.management.components.projects.domain.Project;
-import cat.touffu.management.components.projects.domain.ProjectRepository;
 import cat.touffu.management.kernel.query.QueryHandler;
 
 import java.util.List;
@@ -16,7 +14,7 @@ public class RetrieveCardsInProjectHandler implements QueryHandler<RetrieveCards
     }
 
     @Override
-    public List<Card> handle(RetrieveCardsInProject command) {
-        return cardRepository.findInProject(command.projectId());
+    public List<Card> handle(RetrieveCardsInProject query) {
+        return cardRepository.findInProject(query.projectId());
     }
 }

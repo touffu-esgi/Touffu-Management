@@ -5,14 +5,13 @@ import cat.touffu.management.components.projects.application.command.CreateNewPr
 import cat.touffu.management.kernel.command.CommandBus;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 
 public class DialogCreateNewProjectController{
 
-    public DialogCreateNewProject app;
-
-
     public TextField list_name;
     private final CommandBus commandBus = ProjectModule.commandBus();
+    private StackPane window;
 
     public void saveNewList(ActionEvent actionEvent) throws Exception {
         String value = list_name.getText();
@@ -20,13 +19,17 @@ public class DialogCreateNewProjectController{
         this.close();
     }
 
+    public void init(StackPane window) {
+        this.window = window;
+    }
+
     public void onCancel(ActionEvent actionEvent) throws Exception {
         this.close();
     }
 
     private void close() throws Exception {
-        this.app.stage.close();
-        this.app.stop();
+        var stack = window.getChildren();
+        stack.remove(stack.toArray().length-1);
     }
 
 }

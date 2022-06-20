@@ -8,7 +8,7 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefWidth="390.0"
       spacing="15.0" style="-fx-border-color: black"
-      stylesheets="style.css" xmlns="http://javafx.com/javafx/15.0.1"
+      stylesheets="../style.css" xmlns="http://javafx.com/javafx/15.0.1"
       fx:controller="cat.touffu.management.javafx.LoginController">
     <children>
         <HBox alignment="BASELINE_LEFT" spacing="10.0">

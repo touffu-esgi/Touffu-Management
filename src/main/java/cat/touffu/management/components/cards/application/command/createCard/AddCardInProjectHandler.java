@@ -1,10 +1,8 @@
 package cat.touffu.management.components.cards.application.command.createCard;
 
 import cat.touffu.management.components.cards.adapter.CardStatusFromStringAdapter;
-import cat.touffu.management.components.cards.adapter.CardStatusToStringAdapter;
 import cat.touffu.management.components.cards.application.event.CardCreationDone;
 import cat.touffu.management.components.cards.domain.Card;
-import cat.touffu.management.components.cards.domain.CardId;
 import cat.touffu.management.components.cards.domain.CardRepository;
 import cat.touffu.management.components.cards.domain.ProjectId;
 import cat.touffu.management.components.projects.application.query.DoesProjectExists.DoesProjectExists;
@@ -28,7 +26,7 @@ public class AddCardInProjectHandler implements CommandHandler<AddCardInProject>
 
     @Override
     public void handle(AddCardInProject command) {
-        Boolean projectExists = queryBus.send(new DoesProjectExists(command.projectId()));
+        Boolean projectExists = queryBus.request(new DoesProjectExists(command.projectId()));
         if(!projectExists) {
             throw new ProjectNotFoundException(command.projectId());
         }

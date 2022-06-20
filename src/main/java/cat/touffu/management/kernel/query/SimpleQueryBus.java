@@ -7,7 +7,7 @@ public record SimpleQueryBus(
 ) implements QueryBus {
 
     @Override
-    public <TQuery extends Query, TResponse> TResponse send(TQuery query) {
+    public <TQuery extends Query, TResponse> TResponse request(TQuery query) {
         return dispatch(query);
     }
 

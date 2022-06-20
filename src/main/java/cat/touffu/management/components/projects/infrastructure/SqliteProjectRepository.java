@@ -94,7 +94,6 @@ public class SqliteProjectRepository implements ProjectRepository {
 
     @Override
     public Project findById(ProjectId projectId) {
-
         try {
             PreparedStatement statement = sqlite.prepareStatement("select id, title, cards from project where id = ?");
             statement.setString(1, projectId.value());

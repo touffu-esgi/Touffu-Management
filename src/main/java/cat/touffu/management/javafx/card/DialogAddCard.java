@@ -1,4 +1,4 @@
-package cat.touffu.management.javafx;
+package cat.touffu.management.javafx.card;
 
 import cat.touffu.management.components.cards.domain.CardStatus;
 import javafx.application.Application;
@@ -7,7 +7,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class DialogAddCard extends Application {
@@ -22,13 +21,11 @@ public class DialogAddCard extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        stage.setTitle("add Card");
-
         FXMLLoader root = new FXMLLoader(getClass().getResource("addCardDialog.fxml"));
         this.stack.getChildren().add(root.load());
 
-        AddCardController cardController = root.getController();
-        cardController.initData(lists, this.stack);
+        DialogAddCardController cardController = root.getController();
+        cardController.initData(lists, stack);
         root.setController(cardController);
     }
 }

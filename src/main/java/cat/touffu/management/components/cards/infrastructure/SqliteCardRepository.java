@@ -75,7 +75,21 @@ public class SqliteCardRepository implements CardRepository {
 
     @Override
     public Card findById(CardId cardId) {
-        throw new NotImplementedException("find by id");
+        try {
+            PreparedStatement statement = sqlite.prepareStatement("select title, project, status from card where id = ?");
+            statement.setString(1, cardId.value());
+            ResultSet resultSet = statement.executeQuery();
+            if(!resultSet.next()) return null;
+            return Card.of(
+                    cardId,
+                    resultSet.getString("title"),
+                    ProjectId.of(resultSet.getString("project")),
+                    cardStatusFromStringAdapter.adapt(resultSet.getString("status"))
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

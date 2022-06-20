@@ -1,4 +1,4 @@
-package cat.touffu.management.javafx.CardInListController;
+package cat.touffu.management.javafx.card;
 
 import javafx.scene.text.Text;
 

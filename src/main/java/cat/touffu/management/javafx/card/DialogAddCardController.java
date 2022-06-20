@@ -1,10 +1,12 @@
-package cat.touffu.management.javafx;
+package cat.touffu.management.javafx.card;
 
-import cat.touffu.management.components.cards.adapter.CardStatusException;
+import cat.touffu.management.components.cards.CardsModule;
 import cat.touffu.management.components.cards.adapter.CardStatusFromStringAdapter;
+import cat.touffu.management.components.cards.application.command.createCard.AddCardInProject;
 import cat.touffu.management.components.cards.domain.CardStatus;
-import cat.touffu.management.javafx.CardInListController.CardInListController;
-import cat.touffu.management.kernel.exception.NotFoundException;
+import cat.touffu.management.javafx.board.Board;
+import cat.touffu.management.javafx.board.BoardController;
+import cat.touffu.management.kernel.command.CommandBus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,26 +20,32 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddCardController {
+public class DialogAddCardController {
     public TextField CardDescription;
     public ChoiceBox ListOfCard;
     private Map<CardStatus, VBox> lists = new HashMap<>();
-    private StackPane stack;
     private final CardStatusFromStringAdapter cardStatusFromStringAdapter = new CardStatusFromStringAdapter();
+    private final CommandBus cardCommandBus = CardsModule.commandBus();
+    private StackPane window;
 
     private CardStatus witchListFromString(String choice){
         return cardStatusFromStringAdapter.adapt(choice);
     }
 
     public void saveCard(ActionEvent actionEvent) throws IOException {
-        stack.getChildren().remove(stack.getChildren().toArray().length - 1);
-        try {
-            setUpCard(witchListFromString(ListOfCard.getValue().toString()));
-        } catch (CardStatusException e) {
-            // TODO error UI display
-            throw new NotFoundException(e.getMessage());
-        }
+        String cardTitle = CardDescription.getText();
+        var projectId = Board.getInstance().controller.getSelectedProject().id().value();
+        cardCommandBus.send(new AddCardInProject(
+                cardTitle,
+                projectId,
+                ListOfCard.getValue().toString())
+        );
+        this.close();
+    }
 
+    private void close() {
+        var stack = window.getChildren();
+        stack.remove(stack.toArray().length-1);
     }
 
     private void setUpCard(CardStatus status) throws IOException {
@@ -48,9 +56,9 @@ public class AddCardController {
         cardInListController.initData(CardDescription.getText());
     }
 
-    public void initData(Map<CardStatus, VBox> lists, StackPane stack){
+    public void initData(Map<CardStatus, VBox> lists, StackPane window){
         this.lists = lists;
-        this.stack = stack;
+        this.window = window;
         setUpChoiceBox();
     }
 
@@ -60,6 +68,6 @@ public class AddCardController {
     }
 
     public void CancelAddCard(ActionEvent actionEvent) {
-        System.out.println("out");
+        this.close();
     }
 }
