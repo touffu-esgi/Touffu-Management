@@ -3,6 +3,9 @@ package cat.touffu.management.kernel;
 import java.util.List;
 
 public interface Repository<Entity, EntityId> {
+
+    boolean exists(EntityId id);
+
     void save(Entity entity);
 
     void add(Entity entity);

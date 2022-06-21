@@ -34,21 +34,26 @@ public class SqliteCardRepository implements CardRepository {
     public static CardRepository getInstance() {
         return INSTANCE;
     }
-    
+
     @Override
-    public void save(Card card) {
+    public boolean exists(CardId cardId) {
         try {
             PreparedStatement statement = sqlite.prepareStatement("select id from card where id = ?");
-            statement.setString(1, card.id().value());
+            statement.setString(1, cardId.value());
             ResultSet resultSet = statement.executeQuery();
-            boolean idExists = resultSet.next();
-            if (idExists) {
-                update(card);
-            } else {
-                add(card);
-            }
+            return resultSet.next();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public void save(Card card) {
+        if (this.exists(card.id())) {
+            update(card);
+        } else {
+            add(card);
         }
     }
 
@@ -70,7 +75,18 @@ public class SqliteCardRepository implements CardRepository {
 
     @Override
     public void update(Card card) {
-        throw new NotImplementedException("update");
+        try {
+            PreparedStatement statement = sqlite.prepareStatement(
+                    "update card set title = ?, project = ?, status = ? where id = ?"
+            );
+            statement.setString(1, card.title());
+            statement.setString(2, card.projectId().value());
+            statement.setString(3, cardStatusToStringAdapter.adapt(card.cardStatus()));
+            statement.setString(4, card.id().value());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

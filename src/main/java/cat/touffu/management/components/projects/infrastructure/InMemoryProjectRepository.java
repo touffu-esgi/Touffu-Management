@@ -22,6 +22,11 @@ public class InMemoryProjectRepository implements ProjectRepository {
     }
 
     @Override
+    public boolean exists(ProjectId projectId) {
+        return false;
+    }
+
+    @Override
     public void save(Project project) {
         projectStore.put(project.id(), project);
     }

@@ -2,7 +2,9 @@ package cat.touffu.management.javafx.board;
 
 import cat.touffu.management.components.cards.CardsModule;
 import cat.touffu.management.components.cards.application.query.RetrieveCardsInProject.RetrieveCardsInProject;
+import cat.touffu.management.components.cards.application.query.RetrieveOneCard.RetrieveOneCard;
 import cat.touffu.management.components.cards.domain.Card;
+import cat.touffu.management.components.cards.domain.CardId;
 import cat.touffu.management.components.cards.domain.CardStatus;
 import cat.touffu.management.components.projects.ProjectModule;
 import cat.touffu.management.components.projects.application.query.RetrieveOneProject.RetrieveOneProject;
@@ -22,14 +24,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,6 +48,7 @@ public class BoardController {
     private List<Project> projects;
     @FXML private VBox projectList;
     private Map<CardStatus, VBox> lists = new HashMap<>();
+    private Map<CardId, CardInListController> cardsControllers = new HashMap<>();
 
     public void openBoardSetting(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -89,7 +91,7 @@ public class BoardController {
         if(!isOneProjectSelected()) return;
         Platform.runLater(() -> {
             try {
-                Application dialogAddCard = new DialogAddCard(this.stack, this.lists);
+                Application dialogAddCard = new DialogAddCard(this.stack, null);
                 Stage stage = new Stage();
                 dialogAddCard.start(stage);
             }catch (Exception e){
@@ -143,25 +145,44 @@ public class BoardController {
         return new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                throw new NotImplementedException("Click on card");
+                var id = mouseEvent.getPickResult().getIntersectedNode().getId();
+                openUpdateCardDialog(id);
             }
         };
     }
 
+    private void openUpdateCardDialog(String id) {
+        Card card = cardQueryBus.request(new RetrieveOneCard(id));
+        if(card == null) return;
+        Platform.runLater(() -> {
+            try {
+                Application dialogAddCard = new DialogAddCard(this.stack, card);
+                dialogAddCard.start(new Stage());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+    }
+
     public void addCardInListByItsStatus(Card card) {
-        try {this.lists.get(card.cardStatus()).getChildren().add(newCardBoxFromCard(card));}
+        try {
+            var newCardController = newCardControllerFromCard(card);
+            this.lists.get(card.cardStatus()).getChildren().add(newCardController.getView());
+            this.cardsControllers.put(card.id(), newCardController);
+        }
         catch (Exception e) {
             // TODO card not added
         }
     }
 
-    private Parent newCardBoxFromCard(Card card) throws IOException {
+    private CardInListController newCardControllerFromCard(Card card) throws IOException {
         FXMLLoader loader = new FXMLLoader(CardInListController.class.getResource("cardInList.fxml"));
-        Parent root = loader.load();
+        Node root = loader.load();
         CardInListController controller = loader.getController();
-        controller.initData(card);
+        controller.initData(card, root);
+        root.setId(card.id().value());
         root.setOnMouseClicked(onClickCard());
-        return root;
+        return controller;
     }
 
     public StringProperty projectTitleProperty() {
@@ -174,5 +195,9 @@ public class BoardController {
 
     public Project getSelectedProject() {
         return selectedProject;
+    }
+
+    public void updateCard(Card card) {
+        this.cardsControllers.get(card.id()).contentCard.setText(card.title());
     }
 }

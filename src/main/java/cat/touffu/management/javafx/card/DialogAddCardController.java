@@ -1,9 +1,12 @@
 package cat.touffu.management.javafx.card;
 
 import cat.touffu.management.components.cards.CardsModule;
+import cat.touffu.management.components.cards.adapter.CardStatusException;
 import cat.touffu.management.components.cards.adapter.CardStatusFromStringAdapter;
 import cat.touffu.management.components.cards.adapter.CardStatusToStringAdapter;
 import cat.touffu.management.components.cards.application.command.createCard.AddCardInProject;
+import cat.touffu.management.components.cards.application.command.updateCard.UpdateCard;
+import cat.touffu.management.components.cards.domain.Card;
 import cat.touffu.management.components.cards.domain.CardStatus;
 import cat.touffu.management.javafx.board.Board;
 import cat.touffu.management.kernel.command.CommandBus;
@@ -23,25 +26,47 @@ import java.util.Objects;
 public class DialogAddCardController {
     public TextField CardDescription;
     public ComboBox<StatusChoice> listOfStatus;
-    private Map<CardStatus, VBox> lists = new HashMap<>();
     private final CardStatusFromStringAdapter cardStatusFromStringAdapter = new CardStatusFromStringAdapter();
     private final CardStatusToStringAdapter cardStatusToStringAdapter = new CardStatusToStringAdapter();
     private final CommandBus cardCommandBus = CardsModule.commandBus();
     private StackPane window;
+    private final ObservableList<StatusChoice> statusChoices = FXCollections.observableArrayList(
+            new StatusChoice(CardStatus.TODO, "To Do"),
+            new StatusChoice(CardStatus.IN_PROGRESS, "In Progress"),
+            new StatusChoice(CardStatus.DONE, "Done")
+    );
+    private Card card;
 
     private CardStatus witchListFromString(String choice){
         return cardStatusFromStringAdapter.adapt(choice);
     }
 
     public void saveCard(ActionEvent actionEvent) throws IOException {
+        boolean cardIsPresent = this.card != null;
+        if (cardIsPresent)
+            updateCard(card.id().value());
+        else
+            addCardInProject();
+
+        this.close();
+    }
+
+    private void addCardInProject() {
         String cardTitle = CardDescription.getText();
         var projectId = Board.getInstance().controller.getSelectedProject().id().value();
         cardCommandBus.send(new AddCardInProject(
                 cardTitle,
                 projectId,
-                cardStatusToStringAdapter.adapt(listOfStatus.getValue().status))
+                cardStatusToStringAdapter.adapt(listOfStatus.getValue().status()))
         );
-        this.close();
+    }
+
+    private void updateCard(String id) {
+        cardCommandBus.send(new UpdateCard(
+                card.id().value(),
+                CardDescription.getText(),
+                cardStatusToStringAdapter.adapt(listOfStatus.getValue().status())
+        ));
     }
 
     private void close() {
@@ -49,26 +74,33 @@ public class DialogAddCardController {
         stack.remove(stack.toArray().length-1);
     }
 
-    public void initData(Map<CardStatus, VBox> lists, StackPane window){
-        this.lists = lists;
+    public void initData(StackPane window, Card card){
         this.window = window;
+        this.card = card;
         setUpChoiceBox();
+
+        if(card != null) setUpFieldWithCardToUpdate(card);
+    }
+
+    private void setUpFieldWithCardToUpdate(Card card) {
+        this.CardDescription.setText(card.title());
+        this.listOfStatus.setValue(getStatusChoiceByStatus(card.cardStatus()));
     }
 
     private void setUpChoiceBox() {
-
-        ObservableList<StatusChoice> statusChoices = FXCollections.observableArrayList(
-                new StatusChoice(CardStatus.TODO, "To Do"),
-                new StatusChoice(CardStatus.IN_PROGRESS, "In Progress"),
-                new StatusChoice(CardStatus.DONE, "Done")
-        );
-
         var cellFactory = getStatusChoiceCellFactory();
 
         this.listOfStatus.setItems(statusChoices);
         this.listOfStatus.setButtonCell(cellFactory.call(null));
-        this.listOfStatus.setValue(statusChoices.get(0));
+        this.listOfStatus.setValue(getStatusChoiceByStatus(CardStatus.TODO));
         this.listOfStatus.setCellFactory(cellFactory);
+    }
+
+    private StatusChoice getStatusChoiceByStatus(CardStatus status) {
+        return this.statusChoices.stream()
+                .filter(choice -> choice.status().equals(status))
+                .findFirst()
+                .orElseThrow(()-> new CardStatusException(status.toString() + " is not a choice handled." ));
     }
 
     private Callback<ListView<StatusChoice>, ListCell<StatusChoice>> getStatusChoiceCellFactory() {
@@ -92,25 +124,7 @@ public class DialogAddCardController {
         };
     }
 
-    public void CancelAddCard(ActionEvent actionEvent) {
+    public void CancelSaveCard(ActionEvent actionEvent) {
         this.close();
-    }
-
-    private record StatusChoice(
-            CardStatus status,
-            String text
-    ) {
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            StatusChoice that = (StatusChoice) o;
-            return status == that.status;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(status);
-        }
     }
 }

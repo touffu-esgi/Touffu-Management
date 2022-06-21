@@ -38,19 +38,24 @@ public class SqliteProjectRepository implements ProjectRepository {
     }
 
     @Override
-    public void save(Project project) {
+    public boolean exists(ProjectId id) {
         try {
             PreparedStatement statement = sqlite.prepareStatement("select id from project where id = ?");
-            statement.setString(1, project.id().value());
+            statement.setString(1, id.value());
             ResultSet resultSet = statement.executeQuery();
-            boolean idExists = resultSet.next();
-            if (idExists) {
-                update(project);
-            } else {
-                add(project);
-            }
+            return resultSet.next();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public void save(Project project) {
+        if (this.exists(project.id())) {
+            update(project);
+        } else {
+            add(project);
         }
     }
 

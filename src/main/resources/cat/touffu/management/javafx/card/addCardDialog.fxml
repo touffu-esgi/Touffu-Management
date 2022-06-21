@@ -35,7 +35,7 @@
             <Font name="Montserrat Thin" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="CancelAddCard" layoutX="213.0" layoutY="561.0" mnemonicParsing="false" onAction="#CancelAddCard" prefHeight="28.0" prefWidth="131.0" style="-fx-background-color: #ABA7B8; -fx-background-radius: 5;" text="Cancel" textFill="WHITE">
+      <Button fx:id="CancelAddCard" layoutX="213.0" layoutY="561.0" mnemonicParsing="false" onAction="#CancelSaveCard" prefHeight="28.0" prefWidth="131.0" style="-fx-background-color: #ABA7B8; -fx-background-radius: 5;" text="Cancel" textFill="WHITE">
          <font>
             <Font name="Montserrat Thin" size="14.0" />
          </font>
