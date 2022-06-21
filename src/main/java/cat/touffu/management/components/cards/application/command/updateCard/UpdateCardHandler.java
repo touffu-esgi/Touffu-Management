@@ -1,6 +1,7 @@
 package cat.touffu.management.components.cards.application.command.updateCard;
 
 import cat.touffu.management.components.cards.adapter.CardStatusFromStringAdapter;
+import cat.touffu.management.components.cards.adapter.CardStatusToStringAdapter;
 import cat.touffu.management.components.cards.application.command.createCard.AddCardInProject;
 import cat.touffu.management.components.cards.application.event.CardCreationDone;
 import cat.touffu.management.components.cards.application.event.CardUpdateDone;
@@ -20,6 +21,7 @@ public class UpdateCardHandler implements CommandHandler<UpdateCard> {
     private final CardRepository cardRepository;
     private final EventBus<ApplicationEvent> applicationEventBus;
     private final CardStatusFromStringAdapter cardStatusFromStringAdapter = new CardStatusFromStringAdapter();
+    private final CardStatusToStringAdapter cardStatusToStringAdapter = new CardStatusToStringAdapter();
 
     public UpdateCardHandler(CardRepository cardRepository, EventBus<ApplicationEvent> applicationEventBus) {
         this.cardRepository = cardRepository;
@@ -28,8 +30,6 @@ public class UpdateCardHandler implements CommandHandler<UpdateCard> {
 
     @Override
     public void handle(UpdateCard command) {
-        System.out.println("Handle update card");
-        System.out.println("command = " + command);
         var old = cardRepository.findById(CardId.of(command.id()));
         var cardExists = old != null;
         if(!cardExists) throw new NotFoundException(command.id());
@@ -44,7 +44,7 @@ public class UpdateCardHandler implements CommandHandler<UpdateCard> {
         applicationEventBus.send(CardUpdateDone.of(
                 command.title(),
                 card.id().value(),
-                card.projectId().value()
+                cardStatusToStringAdapter.adapt(card.cardStatus())
                 )
         );
     }

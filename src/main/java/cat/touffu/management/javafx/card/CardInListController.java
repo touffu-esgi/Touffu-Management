@@ -8,14 +8,20 @@ import javafx.scene.text.Text;
 public class CardInListController {
     public Text contentCard;
     private Node view;
+    private Card card;
 
 
     public void initData(Card card, Node view){
+        this.card = card;
         this.contentCard.setText(card.title());
         this.view = view;
     }
 
     public Node getView() {
         return view;
+    }
+
+    public Card getCard() {
+        return card;
     }
 }

@@ -11,16 +11,16 @@ public record CardUpdateDone(
         ZonedDateTime occurredDate,
         String cardId,
         String title,
-        String projectId
+        String status
 ) implements ApplicationEvent {
 
-    public static CardUpdateDone of(String title, String cardId, String projectId) {
+    public static CardUpdateDone of(String title, String cardId, String status) {
         return new CardUpdateDone(
                 EventId.create(),
                 ZonedDateTime.now(),
                 cardId,
                 title,
-                projectId
+                status
         );
     }
 }

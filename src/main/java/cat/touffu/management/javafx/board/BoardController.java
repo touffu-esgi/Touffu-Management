@@ -33,6 +33,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -197,7 +198,26 @@ public class BoardController {
         return selectedProject;
     }
 
-    public void updateCard(String id, String title) {
-        this.cardsControllers.get(id).contentCard.setText(title);
+    public void updateCard(Card card) {
+        var oldCardController = this.cardsControllers.get(card.id().value());
+        oldCardController.contentCard.setText(card.title());
+        boolean statusHasChanged = !oldCardController.getCard().cardStatus().equals(card.cardStatus());
+        if(statusHasChanged) changeStatusOfCard(card);
+    }
+
+    private void changeStatusOfCard(Card card) {
+        this.removeCardFromOldListById(card.id().value());
+        this.addCardInListByItsStatus(card);
+    }
+
+    private void removeCardFromOldListById(String id) {
+        var oldStatus = this.cardsControllers.get(id).getCard().cardStatus();
+        var oldList = this.lists.get(oldStatus);
+        var oldCard = oldList.getChildren().stream()
+                .filter(card -> card.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Card " + id + "not in list " + oldStatus) );
+        oldList.getChildren().remove(oldCard);
+        this.cardsControllers.remove(id);
     }
 }
