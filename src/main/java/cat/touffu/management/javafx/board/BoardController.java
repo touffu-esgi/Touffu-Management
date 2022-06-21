@@ -105,16 +105,6 @@ public class BoardController {
         return controller;
     }
 
-    private EventHandler<MouseEvent> onClickProjectCard() {
-        return new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                var id = mouseEvent.getPickResult().getIntersectedNode().getId();
-                selectProject(id);
-            }
-        };
-    }
-
     public void selectProject(String id) {
         Project project = projectQueryBus.request(new RetrieveOneProject(id));
         if(project == null) throw new ProjectNotFoundException(id);
@@ -122,6 +112,7 @@ public class BoardController {
         try{
             this.removeBoard();
             this.loadKanbanBoardOf(project);
+            this.focusOnSelectedProjectCard();
         }
         catch (IOException e) {e.printStackTrace();}
     }
@@ -143,60 +134,4 @@ public class BoardController {
         this.projectsControllers.values().forEach(p -> p.setSelected(false));
         this.projectsControllers.get(this.kanbanBoard.getProject().id().value()).setSelected(true);
     }
-
-    private EventHandler<? super MouseEvent> onClickCard() {
-        return new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                var id = mouseEvent.getPickResult().getIntersectedNode().getId();
-                openUpdateCardDialog(id);
-            }
-        };
-    }
-
-    private void openUpdateCardDialog(String id) {
-        Card card = cardQueryBus.request(new RetrieveOneCard(id));
-        if(card == null) return;
-        Platform.runLater(() -> {
-            try {
-                Application dialogAddCard = new DialogAddCard(this.stack, card);
-                dialogAddCard.start(new Stage());
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private CardInListController newCardControllerFromCard(Card card) throws IOException {
-        FXMLLoader loader = new FXMLLoader(CardInListController.class.getResource("cardInList.fxml"));
-        Node root = loader.load();
-        CardInListController controller = loader.getController();
-        controller.initData(card, root);
-        root.setId(card.id().value());
-        root.setOnMouseClicked(onClickCard());
-        return controller;
-    }
-
-    public void updateCard(Card card) {
-        var oldCardController = this.cardsControllers.get(card.id().value());
-        oldCardController.contentCard.setText(card.title());
-        boolean statusHasChanged = !oldCardController.getCard().cardStatus().equals(card.cardStatus());
-        if(statusHasChanged) changeStatusOfCard(card);
-    }
-
-    private void changeStatusOfCard(Card card) {
-        //this.removeCardFromOldListById(card.id().value());
-        //this.addCardInListByItsStatus(card);
-    }
-
-    /*private void removeCardFromOldListById(String id) {
-        var oldStatus = this.cardsControllers.get(id).getCard().cardStatus();
-        var oldList = this.lists.get(oldStatus);
-        var oldCard = oldList.getChildren().stream()
-                .filter(card -> card.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Card " + id + "not in list " + oldStatus) );
-        oldList.getChildren().remove(oldCard);
-        this.cardsControllers.remove(id);
-    }*/
 }

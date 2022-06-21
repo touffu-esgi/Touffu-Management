@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -39,15 +40,14 @@ public class KanbanBoard {
     }
 
     public void onClickToAddCard(ActionEvent actionEvent) {
-        throw new NotImplementedException("onClickToAddCard");
-        /*Platform.runLater(() -> {
+        Platform.runLater(() -> {
             try {
-                Application dialogAddCard = new DialogAddCard(null, null);
+                Application dialogAddCard = new DialogAddCard(Board.getInstance().controller.stack, null);
                 dialogAddCard.start(new Stage());
             }catch (Exception e){
                 e.printStackTrace();
             }
-        });*/
+        });
     }
 
     public void init(Node board, Project project) {
@@ -108,7 +108,30 @@ public class KanbanBoard {
         Platform.runLater(()-> {
             try {
                 new DialogAddCard(Board.getInstance().controller.stack, card).start(new Stage());
-            } catch (Exception e){}
+            } catch (Exception ignored){}
         });
+    }
+
+    public void updateCard(Card card) {
+        var oldCardController = this.cardsControllers.get(card.id().value());
+        oldCardController.contentCard.setText(card.title());
+        boolean statusHasChanged = !oldCardController.getCard().cardStatus().equals(card.cardStatus());
+        if(statusHasChanged) changeStatusOfCard(card);
+    }
+
+    private void changeStatusOfCard(Card card) {
+        this.removeCardFromOldListById(card.id().value());
+        this.addCardInListByItsStatus(card);
+    }
+
+    private void removeCardFromOldListById(String id) {
+        var oldStatus = this.cardsControllers.get(id).getCard().cardStatus();
+        var oldList = this.lists.get(oldStatus);
+        var oldCard = oldList.getChildren().stream()
+                .filter(card -> card.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Card " + id + "not in list " + oldStatus) );
+        oldList.getChildren().remove(oldCard);
+        this.cardsControllers.remove(id);
     }
 }

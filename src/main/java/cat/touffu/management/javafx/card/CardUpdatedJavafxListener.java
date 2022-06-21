@@ -25,6 +25,6 @@ public record CardUpdatedJavafxListener() implements Subscriber<CardUpdateDone> 
                 null,
                 cardStatusFromStringAdapter.adapt(event.status())
                 );
-        Board.getInstance().controller.updateCard(card);
+        Board.getInstance().controller.kanbanBoard.updateCard(card);
     }
 }
