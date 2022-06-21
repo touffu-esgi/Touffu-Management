@@ -26,8 +26,6 @@ public class LeftBarProjectCardController {
     }
 
     public void setSelected(boolean selected) {
-        //if(this.isSelected == selected) return; // didn't change
-
         isSelected = selected;
         this.updateBackGroundColor();
     }

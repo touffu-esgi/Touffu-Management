@@ -12,6 +12,7 @@ import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.javafx.card.CardInListController;
 import cat.touffu.management.javafx.card.DialogAddCard;
 import cat.touffu.management.javafx.SettingBoard;
+import cat.touffu.management.javafx.kanban.KanbanBoard;
 import cat.touffu.management.javafx.projects.DialogCreateNewProject;
 import cat.touffu.management.javafx.projects.LeftBarProjectCardController;
 import cat.touffu.management.kernel.exception.ProjectNotFoundException;
@@ -39,6 +40,7 @@ import java.util.Map;
 public class BoardController {
     @FXML
     public Text title_of_board;
+    public VBox main;
     private StackPane stack;
     private final QueryBus projectQueryBus = ProjectModule.queryBus();
     private final QueryBus cardQueryBus = CardsModule.queryBus();
@@ -49,6 +51,8 @@ public class BoardController {
     private Map<CardStatus, VBox> lists = new HashMap<>();
     private Map<String, CardInListController> cardsControllers = new HashMap<>();
     private Map<String, LeftBarProjectCardController> projectsControllers = new HashMap<>();
+
+    private KanbanBoard kanbanBoard;
 
     public void openBoardSetting(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -92,8 +96,7 @@ public class BoardController {
         Platform.runLater(() -> {
             try {
                 Application dialogAddCard = new DialogAddCard(this.stack, null);
-                Stage stage = new Stage();
-                dialogAddCard.start(stage);
+                dialogAddCard.start(new Stage());
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -140,11 +143,23 @@ public class BoardController {
     public void selectProject(String id) {
         Project project = projectQueryBus.request(new RetrieveOneProject(id));
         if(project == null) throw new ProjectNotFoundException(id);
-        List<Card> cards = cardQueryBus.request(new RetrieveCardsInProject(project.id().value()));
+
+        try{this.loadKanbanBoardOf(project);}
+        catch (IOException e) {e.printStackTrace();}
+
+        /*List<Card> cards = cardQueryBus.request(new RetrieveCardsInProject(project.id().value()));
         this.projectTitle.setValue(project.title());
         this.selectedProject = project;
         this.focusOnSelectedProjectCard();
-        this.clearAndFillListsWith(cards);
+        this.clearAndFillListsWith(cards);*/
+    }
+
+    private void loadKanbanBoardOf(Project project) throws IOException {
+        var loader = new FXMLLoader(KanbanBoard.class.getResource("kanban-board.fxml"));
+        Node board = loader.load();
+        this.kanbanBoard = loader.getController();
+        this.kanbanBoard.init(board, project);
+        this.main.getChildren().add(board);
     }
 
     private void focusOnSelectedProjectCard() {
