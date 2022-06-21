@@ -15,7 +15,6 @@ public record CardUpdatedJavafxListener() implements Subscriber<CardUpdateDone> 
 
     @Override
     public void accept(CardUpdateDone event) {
-        Card card = queryBus.request(new RetrieveOneCard(event.cardId()));
-        Board.getInstance().controller.updateCard(card);
+        Board.getInstance().controller.updateCard(event.cardId(), event.title());
     }
 }

@@ -48,7 +48,7 @@ public class BoardController {
     private List<Project> projects;
     @FXML private VBox projectList;
     private Map<CardStatus, VBox> lists = new HashMap<>();
-    private Map<CardId, CardInListController> cardsControllers = new HashMap<>();
+    private Map<String, CardInListController> cardsControllers = new HashMap<>();
 
     public void openBoardSetting(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -168,7 +168,7 @@ public class BoardController {
         try {
             var newCardController = newCardControllerFromCard(card);
             this.lists.get(card.cardStatus()).getChildren().add(newCardController.getView());
-            this.cardsControllers.put(card.id(), newCardController);
+            this.cardsControllers.put(card.id().value(), newCardController);
         }
         catch (Exception e) {
             // TODO card not added
@@ -197,7 +197,7 @@ public class BoardController {
         return selectedProject;
     }
 
-    public void updateCard(Card card) {
-        this.cardsControllers.get(card.id()).contentCard.setText(card.title());
+    public void updateCard(String id, String title) {
+        this.cardsControllers.get(id).contentCard.setText(title);
     }
 }

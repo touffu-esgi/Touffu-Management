@@ -42,8 +42,8 @@ public class UpdateCardHandler implements CommandHandler<UpdateCard> {
         );
         cardRepository.save(card);
         applicationEventBus.send(CardUpdateDone.of(
-                card.id().value(),
                 command.title(),
+                card.id().value(),
                 card.projectId().value()
                 )
         );
