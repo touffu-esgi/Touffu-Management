@@ -41,7 +41,7 @@ public class BoardController {
     @FXML
     public Text title_of_board;
     public VBox main;
-    private StackPane stack;
+    public StackPane stack;
     private final QueryBus projectQueryBus = ProjectModule.queryBus();
     private final QueryBus cardQueryBus = CardsModule.queryBus();
     private StringProperty projectTitle = new SimpleStringProperty("");
@@ -144,14 +144,16 @@ public class BoardController {
         Project project = projectQueryBus.request(new RetrieveOneProject(id));
         if(project == null) throw new ProjectNotFoundException(id);
 
-        try{this.loadKanbanBoardOf(project);}
+        try{
+            this.removeBoard();
+            this.loadKanbanBoardOf(project);
+        }
         catch (IOException e) {e.printStackTrace();}
+    }
 
-        /*List<Card> cards = cardQueryBus.request(new RetrieveCardsInProject(project.id().value()));
-        this.projectTitle.setValue(project.title());
-        this.selectedProject = project;
-        this.focusOnSelectedProjectCard();
-        this.clearAndFillListsWith(cards);*/
+    private void removeBoard() {
+        this.main.getChildren().clear();
+        // TODO free controllers
     }
 
     private void loadKanbanBoardOf(Project project) throws IOException {
@@ -253,5 +255,9 @@ public class BoardController {
                 .orElseThrow(() -> new RuntimeException("Card " + id + "not in list " + oldStatus) );
         oldList.getChildren().remove(oldCard);
         this.cardsControllers.remove(id);
+    }
+
+    public void onClickOnCard(String id) {
+        this.kanbanBoard.onClickOnCard(id);
     }
 }

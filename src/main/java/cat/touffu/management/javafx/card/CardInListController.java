@@ -1,8 +1,10 @@
 package cat.touffu.management.javafx.card;
 
 import cat.touffu.management.components.cards.domain.Card;
+import cat.touffu.management.javafx.board.Board;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 public class CardInListController {
@@ -23,5 +25,10 @@ public class CardInListController {
 
     public Card getCard() {
         return card;
+    }
+
+    public void onClickCard(MouseEvent mouseEvent) {
+        var id = mouseEvent.getPickResult().getIntersectedNode().getId();
+        Board.getInstance().controller.onClickOnCard(id);
     }
 }
