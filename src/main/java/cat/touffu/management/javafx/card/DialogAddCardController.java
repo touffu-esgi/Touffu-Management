@@ -14,8 +14,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -29,6 +32,7 @@ public class DialogAddCardController {
     private final CardStatusFromStringAdapter cardStatusFromStringAdapter = new CardStatusFromStringAdapter();
     private final CardStatusToStringAdapter cardStatusToStringAdapter = new CardStatusToStringAdapter();
     private final CommandBus cardCommandBus = CardsModule.commandBus();
+    public Text title_dialog;
     private StackPane window;
     private final ObservableList<StatusChoice> statusChoices = FXCollections.observableArrayList(
             new StatusChoice(CardStatus.TODO, "To Do"),
@@ -83,6 +87,7 @@ public class DialogAddCardController {
     }
 
     private void setUpFieldWithCardToUpdate(Card card) {
+        this.title_dialog.setText("Update card");
         this.CardDescription.setText(card.title());
         this.listOfStatus.setValue(getStatusChoiceByStatus(card.cardStatus()));
     }
@@ -116,6 +121,8 @@ public class DialogAddCardController {
                         if (item == null || empty) {
                             setGraphic(null);
                         } else {
+                            setTextFill(Color.WHITE);
+                            setBackground(Background.fill(Color.valueOf("#252525")));
                             setText(item.text());
                         }
                     }

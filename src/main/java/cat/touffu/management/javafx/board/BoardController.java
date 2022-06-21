@@ -124,7 +124,7 @@ public class BoardController {
         };
     }
 
-    private void selectProject(String id) {
+    public void selectProject(String id) {
         Project project = projectQueryBus.request(new RetrieveOneProject(id));
         if(project == null) throw new ProjectNotFoundException(id);
         List<Card> cards = cardQueryBus.request(new RetrieveCardsInProject(project.id().value()));

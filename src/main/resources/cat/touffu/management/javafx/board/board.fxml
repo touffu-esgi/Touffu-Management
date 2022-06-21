@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,14 +22,14 @@
                <children>
                   <VBox layoutY="-1.0" prefHeight="986.0" prefWidth="248.0">
                      <children>
-                        <HBox>
+                        <HBox prefHeight="54.0" prefWidth="261.0">
                            <children>
                               <ImageView fitHeight="51.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" translateX="18.0" translateY="20.0">
                                  <image>
                                     <Image url="@../v1_1_icon.png" />
                                  </image>
                               </ImageView>
-                              <VBox translateX="30.0" translateY="20.0">
+                              <VBox prefHeight="36.0" prefWidth="83.0" translateX="30.0" translateY="20.0">
                                  <children>
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Touffu" wrappingWidth="74.97681427001953" x="79.0" y="43.0">
                                        <font>
@@ -44,7 +46,7 @@
                            </children>
                         </HBox>
                         <Line endX="154.46446228027344" endY="-3.3137059211730957" startX="-101.41421508789062" startY="-3.3137083053588867" stroke="#252525" strokeWidth="3.0" translateY="36.0" />
-                        <HBox prefHeight="128.0" prefWidth="261.0" translateY="38.0">
+                        <HBox prefHeight="111.0" prefWidth="261.0" translateY="38.0">
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Mont;" text="Projects" translateX="18.0" translateY="26.0">
                                  <font>
@@ -58,9 +60,18 @@
                               </Button>
                            </children>
                         </HBox>
-                        <VBox fx:id="projectList" prefHeight="320.0" prefWidth="261.0">
-
-                        </VBox>
+                        <VBox fx:id="projectList" alignment="TOP_CENTER" prefHeight="333.0" prefWidth="253.0">
+                           <children>
+                              <HBox id="leftbar-project-card" maxWidth="222.0" prefHeight="36.0" prefWidth="222.0" style="-fx-background-color: #3D3D40; -fx-background-radius: 5; -fx-alignment: center-left;">
+                                 <children>
+                                    <Label text="Project" textFill="WHITE">
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children></VBox>
                      </children>
                   </VBox>
                </children>
@@ -85,9 +96,9 @@
             </Group>
             <HBox>
                <children>
-                  <Text fx:id="title_of_board" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="${controller.projectTitle}" translateX="29.0" translateY="20.0" wrappingWidth="365.58642578125">
+                  <Text fx:id="title_of_board" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Project title" translateX="29.0" translateY="20.0" wrappingWidth="365.58642578125">
                      <font>
-                        <Font name="Montserrat Thin" size="20.0" />
+                        <Font name="System Bold" size="30.0" />
                      </font>
                   </Text>
                   <Button mnemonicParsing="false" onAction="#openBoardSetting" prefHeight="23.0" prefWidth="23.0" style="-fx-background-color: #252525;" translateX="840.0" translateY="25.0">
@@ -103,48 +114,49 @@
             </HBox>
             <Pane prefHeight="748.0" prefWidth="1255.0">
                <children>
-                  <VBox layoutX="52.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40;">
+                  <VBox layoutX="52.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40; -fx-background-radius: 5;">
                      <children>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="349.0">
                            <children>
-                              <Text fill="WHITE" layoutX="133.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To Do" wrappingWidth="81.36474609375">
+                              <Text fill="WHITE" layoutX="16.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To do" wrappingWidth="81.36474609375">
                                  <font>
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Text>
                            </children>
                         </Pane>
-                        <VBox prefHeight="593.0" prefWidth="349.0" fx:id="ToDo" />
+                        <VBox fx:id="ToDo" prefHeight="593.0" prefWidth="349.0" spacing="8.0" />
                      </children>
                   </VBox>
                   <Button layoutX="1124.0" layoutY="20.0" mnemonicParsing="false" onAction="#onClickToAddCard" style="-fx-background-color: #3D3D40;" text="add card" textFill="WHITE">
                      <font>
                         <Font size="21.0" />
-                     </font></Button>
-                  <VBox layoutX="456.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40;">
+                     </font>
+                  </Button>
+                  <VBox layoutX="456.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40; -fx-background-radius: 5;">
                      <children>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="349.0">
                            <children>
-                              <Text fill="WHITE" layoutX="124.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In Progress" wrappingWidth="113.36474609375">
+                              <Text fill="WHITE" layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In progress" wrappingWidth="152.36474609375">
                                  <font>
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Text>
                            </children>
                         </Pane>
-                        <VBox prefHeight="593.0" prefWidth="349.0" fx:id="InProgress" />
+                        <VBox fx:id="InProgress" prefHeight="593.0" prefWidth="349.0" spacing="8.0" />
                      </children>
                   </VBox>
-                  <VBox layoutX="850.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40;">
+                  <VBox layoutX="850.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40; -fx-background-radius: 5;">
                      <children>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="349.0">
                            <children>
-                              <Text fill="WHITE" layoutX="150.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Done" wrappingWidth="48.031494140625">
+                              <Text fill="WHITE" layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Done" wrappingWidth="74.97681427001953">
                                  <font>
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Text>
-                              <VBox layoutY="60.0" prefHeight="575.0" prefWidth="349.0" fx:id="Done" />
+                              <VBox fx:id="Done" layoutY="60.0" prefHeight="575.0" prefWidth="349.0" spacing="8.0" />
                            </children>
                         </Pane>
                      </children>
