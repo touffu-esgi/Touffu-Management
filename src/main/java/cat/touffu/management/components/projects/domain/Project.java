@@ -1,5 +1,7 @@
 package cat.touffu.management.components.projects.domain;
 
+import cat.touffu.management.kernel.exception.ProjectException;
+
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ public record Project(
 
 
     public static Project of(ProjectId id, String title, Set<CardId> cards) {
+        if(title.isBlank()) throw new ProjectException("Empty title");
         return new Project(id, title, cards);
     }
 

@@ -4,7 +4,6 @@ import cat.touffu.management.components.cards.CardsModule;
 import cat.touffu.management.components.cards.application.query.RetrieveCardsInProject.RetrieveCardsInProject;
 import cat.touffu.management.components.cards.application.query.RetrieveOneCard.RetrieveOneCard;
 import cat.touffu.management.components.cards.domain.Card;
-import cat.touffu.management.components.cards.domain.CardId;
 import cat.touffu.management.components.cards.domain.CardStatus;
 import cat.touffu.management.components.projects.ProjectModule;
 import cat.touffu.management.components.projects.application.query.RetrieveOneProject.RetrieveOneProject;
@@ -14,6 +13,7 @@ import cat.touffu.management.javafx.card.CardInListController;
 import cat.touffu.management.javafx.card.DialogAddCard;
 import cat.touffu.management.javafx.SettingBoard;
 import cat.touffu.management.javafx.projects.DialogCreateNewProject;
+import cat.touffu.management.javafx.projects.LeftBarProjectCardController;
 import cat.touffu.management.kernel.exception.ProjectNotFoundException;
 import cat.touffu.management.kernel.query.QueryBus;
 import javafx.application.Application;
@@ -28,12 +28,10 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +48,7 @@ public class BoardController {
     @FXML private VBox projectList;
     private Map<CardStatus, VBox> lists = new HashMap<>();
     private Map<String, CardInListController> cardsControllers = new HashMap<>();
+    private Map<String, LeftBarProjectCardController> projectsControllers = new HashMap<>();
 
     public void openBoardSetting(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -69,7 +68,7 @@ public class BoardController {
         this.stack = stack;
         List<Project> projects = projectQueryBus.request(new RetrieveProjects());
         this.projects = projects;
-        projects.forEach(p -> addProjectInLeftBar(p.id().value(), p.title()));
+        projects.forEach(this::addProjectInLeftBar);
 
         this.projectList = (VBox) this.stack.lookup("#projectList");
         this.lists.put(CardStatus.TODO, (VBox) this.stack.lookup("#ToDo"));
@@ -106,12 +105,26 @@ public class BoardController {
     }
 
 
-    public void addProjectInLeftBar(String id, String title) {
-        Text project = new Text(title);
-        project.setId(id);
-        project.setFill(Paint.valueOf("white"));
-        project.setOnMouseClicked(onClickProjectCard());
-        this.projectList.getChildren().add(project);
+    public void addProjectInLeftBar(Project p) {
+        try {
+            var projectController = newProjectCardControllerOf(p);
+            var view = projectController.getView();
+            this.projectList.getChildren().add(view);
+            this.projectsControllers.put(p.id().value(), projectController);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            // TODO project not added
+        }
+    }
+
+    private LeftBarProjectCardController newProjectCardControllerOf(Project p) throws IOException {
+        FXMLLoader loader = new FXMLLoader(LeftBarProjectCardController.class.getResource("leftbar-project-card.fxml"));
+        Node root = loader.load();
+        LeftBarProjectCardController controller = loader.getController();
+        controller.init(root, p);
+        root.setId(p.id().value());
+        return controller;
     }
 
     private EventHandler<MouseEvent> onClickProjectCard() {
@@ -130,10 +143,16 @@ public class BoardController {
         List<Card> cards = cardQueryBus.request(new RetrieveCardsInProject(project.id().value()));
         this.projectTitle.setValue(project.title());
         this.selectedProject = project;
-        this.fillListsWith(cards);
+        this.focusOnSelectedProjectCard();
+        this.clearAndFillListsWith(cards);
     }
 
-    private void fillListsWith(List<Card> cards) {
+    private void focusOnSelectedProjectCard() {
+        this.projectsControllers.values().forEach(p -> p.setSelected(false));
+        this.projectsControllers.get(this.selectedProject.id().value()).setSelected(true);
+    }
+
+    private void clearAndFillListsWith(List<Card> cards) {
         clearAllLists();
         cards.forEach(this::addCardInListByItsStatus);
     }

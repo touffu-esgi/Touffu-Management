@@ -15,6 +15,10 @@ public class DialogCreateNewProjectController{
 
     public void saveNewList(ActionEvent actionEvent) throws Exception {
         String value = list_name.getText();
+        if(value.isBlank()) {
+            return;
+            // TODO display error msg
+        }
         commandBus.send(new CreateNewProject(value));
         this.close();
     }
