@@ -57,7 +57,7 @@ public class DialogAddCardController {
 
     private void addCardInProject() {
         String cardTitle = CardDescription.getText();
-        var projectId = Board.getInstance().controller.getSelectedProject().id().value();
+        var projectId = Board.getInstance().controller.kanbanBoard.getProject().id().value();
         cardCommandBus.send(new AddCardInProject(
                 cardTitle,
                 projectId,

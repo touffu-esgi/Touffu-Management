@@ -29,6 +29,6 @@ public class CardInListController {
 
     public void onClickCard(MouseEvent mouseEvent) {
         var id = mouseEvent.getPickResult().getIntersectedNode().getId();
-        Board.getInstance().controller.onClickOnCard(id);
+        Board.getInstance().controller.kanbanBoard.onClickOnCard(id);
     }
 }

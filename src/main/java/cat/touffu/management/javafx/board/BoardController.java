@@ -44,15 +44,11 @@ public class BoardController {
     public StackPane stack;
     private final QueryBus projectQueryBus = ProjectModule.queryBus();
     private final QueryBus cardQueryBus = CardsModule.queryBus();
-    private StringProperty projectTitle = new SimpleStringProperty("");
-    private Project selectedProject;
-    private List<Project> projects;
     @FXML private VBox projectList;
-    private Map<CardStatus, VBox> lists = new HashMap<>();
     private Map<String, CardInListController> cardsControllers = new HashMap<>();
     private Map<String, LeftBarProjectCardController> projectsControllers = new HashMap<>();
 
-    private KanbanBoard kanbanBoard;
+    public KanbanBoard kanbanBoard;
 
     public void openBoardSetting(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -71,13 +67,9 @@ public class BoardController {
     public void initData(StackPane stack){
         this.stack = stack;
         List<Project> projects = projectQueryBus.request(new RetrieveProjects());
-        this.projects = projects;
         projects.forEach(this::addProjectInLeftBar);
 
         this.projectList = (VBox) this.stack.lookup("#projectList");
-        this.lists.put(CardStatus.TODO, (VBox) this.stack.lookup("#ToDo"));
-        this.lists.put(CardStatus.IN_PROGRESS, (VBox) this.stack.lookup("#InProgress"));
-        this.lists.put(CardStatus.DONE, (VBox) this.stack.lookup("#Done"));
     }
 
     public void onClickToCreateNewProject(ActionEvent actionEvent) {
@@ -90,23 +82,6 @@ public class BoardController {
             }
         });
     }
-
-    public void onClickToAddCard(ActionEvent actionEvent) {
-        if(!isOneProjectSelected()) return;
-        Platform.runLater(() -> {
-            try {
-                Application dialogAddCard = new DialogAddCard(this.stack, null);
-                dialogAddCard.start(new Stage());
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private boolean isOneProjectSelected() {
-        return !this.projectTitle.get().isBlank();
-    }
-
 
     public void addProjectInLeftBar(Project p) {
         try {
@@ -166,16 +141,7 @@ public class BoardController {
 
     private void focusOnSelectedProjectCard() {
         this.projectsControllers.values().forEach(p -> p.setSelected(false));
-        this.projectsControllers.get(this.selectedProject.id().value()).setSelected(true);
-    }
-
-    private void clearAndFillListsWith(List<Card> cards) {
-        clearAllLists();
-        cards.forEach(this::addCardInListByItsStatus);
-    }
-
-    private void clearAllLists() {
-        this.lists.values().forEach(list -> list.getChildren().clear());
+        this.projectsControllers.get(this.kanbanBoard.getProject().id().value()).setSelected(true);
     }
 
     private EventHandler<? super MouseEvent> onClickCard() {
@@ -201,17 +167,6 @@ public class BoardController {
         });
     }
 
-    public void addCardInListByItsStatus(Card card) {
-        try {
-            var newCardController = newCardControllerFromCard(card);
-            this.lists.get(card.cardStatus()).getChildren().add(newCardController.getView());
-            this.cardsControllers.put(card.id().value(), newCardController);
-        }
-        catch (Exception e) {
-            // TODO card not added
-        }
-    }
-
     private CardInListController newCardControllerFromCard(Card card) throws IOException {
         FXMLLoader loader = new FXMLLoader(CardInListController.class.getResource("cardInList.fxml"));
         Node root = loader.load();
@@ -222,18 +177,6 @@ public class BoardController {
         return controller;
     }
 
-    public StringProperty projectTitleProperty() {
-        return projectTitle;
-    }
-
-    public String getProjectTitle() {
-        return this.projectTitle.get();
-    }
-
-    public Project getSelectedProject() {
-        return selectedProject;
-    }
-
     public void updateCard(Card card) {
         var oldCardController = this.cardsControllers.get(card.id().value());
         oldCardController.contentCard.setText(card.title());
@@ -242,11 +185,11 @@ public class BoardController {
     }
 
     private void changeStatusOfCard(Card card) {
-        this.removeCardFromOldListById(card.id().value());
-        this.addCardInListByItsStatus(card);
+        //this.removeCardFromOldListById(card.id().value());
+        //this.addCardInListByItsStatus(card);
     }
 
-    private void removeCardFromOldListById(String id) {
+    /*private void removeCardFromOldListById(String id) {
         var oldStatus = this.cardsControllers.get(id).getCard().cardStatus();
         var oldList = this.lists.get(oldStatus);
         var oldCard = oldList.getChildren().stream()
@@ -255,9 +198,5 @@ public class BoardController {
                 .orElseThrow(() -> new RuntimeException("Card " + id + "not in list " + oldStatus) );
         oldList.getChildren().remove(oldCard);
         this.cardsControllers.remove(id);
-    }
-
-    public void onClickOnCard(String id) {
-        this.kanbanBoard.onClickOnCard(id);
-    }
+    }*/
 }

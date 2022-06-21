@@ -9,6 +9,7 @@ import cat.touffu.management.javafx.board.Board;
 import cat.touffu.management.javafx.card.CardInListController;
 import cat.touffu.management.javafx.card.DialogAddCard;
 import cat.touffu.management.kernel.query.QueryBus;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,15 @@ public class KanbanBoard {
     }
 
     public void onClickToAddCard(ActionEvent actionEvent) {
+        throw new NotImplementedException("onClickToAddCard");
+        /*Platform.runLater(() -> {
+            try {
+                Application dialogAddCard = new DialogAddCard(null, null);
+                dialogAddCard.start(new Stage());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });*/
     }
 
     public void init(Node board, Project project) {
@@ -47,6 +57,10 @@ public class KanbanBoard {
         this.title_of_board.setText(this.project.title());
         this.loadLists();
         this.getCardsOfProjectAndFillLists();
+    }
+
+    public Project getProject() {
+        return project;
     }
 
     private void loadLists() {

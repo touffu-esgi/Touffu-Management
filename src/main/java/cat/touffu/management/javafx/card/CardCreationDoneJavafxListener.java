@@ -15,6 +15,6 @@ public record CardCreationDoneJavafxListener() implements Subscriber<CardCreatio
     @Override
     public void accept(CardCreationDone event) {
         Card card = queryBus.request(new RetrieveOneCard(event.cardId().value()));
-        Board.getInstance().controller.addCardInListByItsStatus(card);
+        Board.getInstance().controller.kanbanBoard.addCardInListByItsStatus(card);
     }
 }
