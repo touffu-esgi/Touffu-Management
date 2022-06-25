@@ -45,4 +45,8 @@ public class LeftBarProjectCardController {
     public Node getView() {
         return root;
     }
+
+    public Project getProject() {
+        return project;
+    }
 }
