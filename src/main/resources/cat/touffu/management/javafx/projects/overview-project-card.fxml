@@ -9,9 +9,9 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="360.0" style="-fx-background-color: #3D3D40; -fx-background-radius: 8;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cat.touffu.management.javafx.projects.OverviewProjectCard">
    <children>
-      <StackPane prefHeight="160.0" prefWidth="360.0" style="-fx-background-color: #252525; -fx-background-radius: 8;">
+      <StackPane prefHeight="160.0" prefWidth="360.0" style="-fx-background-color: #c4c4c4">
          <children>
-            <Pane fx:id="image" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 8;" />
+            <Pane fx:id="image" prefHeight="200.0" prefWidth="200.0"/>
          </children>
       </StackPane>
       <Label fx:id="title" text="Title" textFill="WHITE">
