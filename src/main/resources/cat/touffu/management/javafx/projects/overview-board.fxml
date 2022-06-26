@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <VBox fx:id="lines" prefHeight="982.0" prefWidth="1243.0" spacing="20.0" style="-fx-background-color: #252525;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cat.touffu.management.javafx.projects.OverviewBoard">
    <children>
@@ -19,13 +17,6 @@
         <rowConstraints>
           <RowConstraints maxHeight="30.0" minHeight="260.0" prefHeight="260.0" vgrow="SOMETIMES" />
         </rowConstraints>
-         <children>
-            <Button mnemonicParsing="false" onMouseClicked="#onClickAddProject" prefHeight="260.0" prefWidth="360.0" style="-fx-background-color: #252525; -fx-border-color: white; -fx-border-radius: 8; -fx-border-style: segments(6, 6, 6, 6)  line-cap round segments(6, 6, 6, 6)  line-cap round;" text="+ Add a project" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-         </children>
       </GridPane>
    </children>
    <padding>
