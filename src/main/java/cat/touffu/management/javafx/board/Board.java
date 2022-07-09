@@ -24,11 +24,12 @@ public class Board extends Application {
         FXMLLoader root = new FXMLLoader(getClass().getResource("board.fxml"));
         stack = new StackPane();
 
-        try{stack.getChildren().add(root.load());}
-        catch (IOException e) {e.printStackTrace();}
-
-        this.controller = root.getController();
-        this.controller.initData(stack);
+        try{
+            stack.getChildren().add(root.load());
+            this.controller = root.getController();
+            this.controller.initData(stack);
+        }
+        catch (IOException e) { }
     }
 
     @Override
