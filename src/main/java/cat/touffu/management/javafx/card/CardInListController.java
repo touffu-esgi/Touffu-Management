@@ -2,7 +2,6 @@ package cat.touffu.management.javafx.card;
 
 import cat.touffu.management.components.cards.domain.Card;
 import cat.touffu.management.javafx.board.Board;
-import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;

@@ -81,14 +81,14 @@
                 </VBox>
                 <VBox layoutX="850.0" layoutY="81.0" prefHeight="634.0" prefWidth="349.0" style="-fx-background-color: #3D3D40; -fx-background-radius: 5;">
                     <children>
-                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="349.0">
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="349.0">
                             <children>
                                 <Text fill="WHITE" layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Done" wrappingWidth="74.97681427001953">
                                     <font>
                                         <Font name="System Bold" size="30.0" />
                                     </font>
                                 </Text>
-                                <VBox fx:id="Done" layoutY="60.0" prefHeight="575.0" prefWidth="349.0" spacing="8.0" />
+                                <VBox fx:id="Done" layoutY="42.0" prefHeight="593.0" prefWidth="349.0" spacing="8.0" />
                             </children>
                         </Pane>
                     </children>
