@@ -14,6 +14,7 @@ import cat.touffu.management.javafx.projects.OverviewBoard;
 import cat.touffu.management.kernel.exception.ProjectNotFoundException;
 import cat.touffu.management.kernel.query.QueryBus;
 import cat.touffu.management.plugin.JavaFxPlugin;
+import cat.touffu.management.plugin.PluginHandler;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -47,7 +48,7 @@ public class BoardController {
 
     public KanbanBoard kanbanBoard;
     private OverviewBoard overviewBoard;
-    private Stream<JavaFxPlugin> plugins;
+    private final PluginHandler pluginHandler = new PluginHandler();
 
     public void openBoardSetting(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -69,56 +70,17 @@ public class BoardController {
         try {
             this.loadLeftBarWith(projects);
             this.loadOverviewBoard();
-            this.loadPlugins(this.getPluginFiles());
-            this.displayPlugins();
+
+            this.pluginHandler.loadPlugins();
+            this.pluginHandler.selectPluginByName("TestPlugin");
+            this.pluginHandler.displayCurrentPlugin(this.stack);
+            
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
 
         this.projectList = (VBox) this.stack.lookup("#projectList");
-    }
-
-    private void displayPlugins() {
-        this.plugins.forEach(this::displayPlugin);
-    }
-
-    private void displayPlugin(JavaFxPlugin plugin) {
-        try {
-            this.stack.getChildren().add(plugin.getView().load());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void loadPlugins(List<File> plugins){
-        this.plugins = plugins.stream().map(this::loadPlugin);
-    }
-
-    private JavaFxPlugin loadPlugin(File plugin) {
-        try {
-            var url = new URL("file:///" + plugin.getAbsolutePath());
-            var loader = new URLClassLoader(new URL[]{url}, getClass().getClassLoader());
-
-            var pluginClass = Class.forName("Plugin", true, loader);
-            return (JavaFxPlugin)pluginClass.getConstructor().newInstance();
-        } catch (Exception e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
-        }
-        return null;
-    }
-
-    private List<File> getPluginFiles() throws IOException {
-        final String pluginDirectoryPath = "plugins";
-        File directory = new File(pluginDirectoryPath);
-        if (!(directory.exists() || directory.mkdirs())) {
-            throw new IOException("Unable to access or create Plugins directory.");
-        }
-        var plugins = directory.listFiles((file, name)->name.endsWith(".jar"));
-        return plugins != null
-                ? List.of(plugins)
-                : List.of();
     }
 
     private void loadLeftBarWith(List<Project> projects) {
