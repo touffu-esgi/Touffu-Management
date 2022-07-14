@@ -5,6 +5,7 @@ import cat.touffu.management.components.cards.application.query.RetrieveCardsInP
 import cat.touffu.management.components.cards.domain.Card;
 import cat.touffu.management.components.cards.domain.CardStatus;
 import cat.touffu.management.components.projects.domain.Project;
+import cat.touffu.management.javafx.Controller;
 import cat.touffu.management.javafx.board.Board;
 import cat.touffu.management.javafx.card.CardInListController;
 import cat.touffu.management.javafx.card.DialogAddCard;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class KanbanBoard {
+public class KanbanBoard extends Controller {
     public Button change_cover;
     public Text title_of_board;
     private Node root;

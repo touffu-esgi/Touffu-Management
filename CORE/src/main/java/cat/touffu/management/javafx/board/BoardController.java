@@ -31,10 +31,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class BoardController {
     @FXML
@@ -49,6 +47,7 @@ public class BoardController {
 
     public KanbanBoard kanbanBoard;
     private OverviewBoard overviewBoard;
+    private Stream<JavaFxPlugin> plugins;
 
     public void openBoardSetting(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -71,6 +70,7 @@ public class BoardController {
             this.loadLeftBarWith(projects);
             this.loadOverviewBoard();
             this.loadPlugins(this.getPluginFiles());
+            this.displayPlugins();
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -79,21 +79,34 @@ public class BoardController {
         this.projectList = (VBox) this.stack.lookup("#projectList");
     }
 
-    private void loadPlugins(List<File> plugins){
-        plugins.forEach(this::loadPlugin);
+    private void displayPlugins() {
+        this.plugins.forEach(this::displayPlugin);
     }
 
-    private void loadPlugin(File plugin) {
+    private void displayPlugin(JavaFxPlugin plugin) {
+        try {
+            this.stack.getChildren().add(plugin.getView().load());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void loadPlugins(List<File> plugins){
+        this.plugins = plugins.stream().map(this::loadPlugin);
+    }
+
+    private JavaFxPlugin loadPlugin(File plugin) {
         try {
             var url = new URL("file:///" + plugin.getAbsolutePath());
             var loader = new URLClassLoader(new URL[]{url}, getClass().getClassLoader());
 
-            var pluginClass = Class.forName("TestPlugin", true, loader);
-            var instance = (JavaFxPlugin)pluginClass.getConstructor().newInstance();
-            System.out.println("instance = " + instance.getName());
+            var pluginClass = Class.forName("Plugin", true, loader);
+            return (JavaFxPlugin)pluginClass.getConstructor().newInstance();
         } catch (Exception e) {
             System.out.println("e.getMessage() = " + e.getMessage());
         }
+        return null;
     }
 
     private List<File> getPluginFiles() throws IOException {
