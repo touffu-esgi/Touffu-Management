@@ -30,3 +30,6 @@ out/
 
 # Database
 db.sqlite
+
+#Plugins
+/Plugins/
