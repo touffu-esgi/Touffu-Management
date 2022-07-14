@@ -62,6 +62,21 @@
 
                            </children>
                         </VBox>
+                        <HBox prefHeight="62.0" prefWidth="261.0">
+                           <children>
+                              <Text fill="WHITE" onMouseClicked="#onClickToOpenOverview" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Mont;" text="Plugins" translateX="18.0" translateY="26.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Text>
+                              <Button maxHeight="50.0" maxWidth="61.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onMouseClicked="#onClickRefreshPlugins" prefHeight="50.0" prefWidth="61.0" style="-fx-background-color: #303030 #303030;" text="refresh" textFill="WHITE" translateX="151.0" translateY="8.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <VBox fx:id="pluginList" prefHeight="222.0" prefWidth="261.0" />
                      </children>
                   </VBox>
                </children>

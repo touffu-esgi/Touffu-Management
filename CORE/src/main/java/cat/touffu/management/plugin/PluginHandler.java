@@ -26,8 +26,12 @@ public class PluginHandler {
                 : List.of();
     }
 
-    public void loadPlugins() throws IOException {
-        this.loadPluginFiles();
+    public void loadPlugins() {
+        try {
+            this.loadPluginFiles();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.plugins = this.jars.stream()
                 .map(this::loadPlugin)
                 .toList();
@@ -48,7 +52,7 @@ public class PluginHandler {
 
     public void displayPluginOnView(JavaFxPlugin plugin, Pane view) {
         try {
-            view.getChildren().add(plugin.getView().load());
+            view.getChildren().add(plugin.getView());
             this.current = plugin;
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,4 +73,18 @@ public class PluginHandler {
     public List<JavaFxPlugin> getPlugins() {
         return plugins;
     }
+
+    public boolean oneSelected() {
+        return this.current != null;
+    }
+
+    public void clearSelected() {
+        if(this.oneSelected())
+            this.current = null;
+    }
+
+    public JavaFxPlugin getCurrent() {
+        return current;
+    }
+
 }

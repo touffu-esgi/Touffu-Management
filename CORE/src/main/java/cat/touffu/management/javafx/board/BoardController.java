@@ -18,6 +18,7 @@ import cat.touffu.management.plugin.PluginHandler;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -27,13 +28,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.*;
-import java.util.stream.Stream;
 
 public class BoardController {
     @FXML
@@ -42,6 +38,7 @@ public class BoardController {
     public StackPane stack;
     private final QueryBus projectQueryBus = ProjectModule.queryBus();
     private final QueryBus cardQueryBus = CardsModule.queryBus();
+    public VBox pluginList;
     @FXML private VBox projectList;
     private Map<String, CardInListController> cardsControllers = new HashMap<>();
     private Map<String, LeftBarProjectCardController> projectsControllers = new HashMap<>();
@@ -66,15 +63,13 @@ public class BoardController {
 
     public void initData(StackPane stack) {
         this.stack = stack;
-        List<Project> projects = projectQueryBus.request(new RetrieveProjects());
         try {
-            this.loadLeftBarWith(projects);
+            this.pluginHandler.loadPlugins();
+
+            this.loadLeftBarWithProjects();
+            this.loadLeftBarWithPlugins();
             this.loadOverviewBoard();
 
-            this.pluginHandler.loadPlugins();
-            this.pluginHandler.selectPluginByName("TestPlugin");
-            this.pluginHandler.displayCurrentPlugin(this.stack);
-            
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -83,8 +78,17 @@ public class BoardController {
         this.projectList = (VBox) this.stack.lookup("#projectList");
     }
 
-    private void loadLeftBarWith(List<Project> projects) {
+    private void loadLeftBarWithProjects() {
+        List<Project> projects = projectQueryBus.request(new RetrieveProjects());
         projects.forEach(this::addProjectInLeftBar);
+    }
+
+    private void loadLeftBarWithPlugins() {
+        this.pluginList.getChildren().clear();
+        this.pluginHandler.loadPlugins();
+        this.pluginHandler
+                .getPlugins()
+                .forEach(this::addPluginInLeftBar);
     }
 
     public void onClickToCreateNewProject(ActionEvent actionEvent) {
@@ -111,8 +115,35 @@ public class BoardController {
         }
         catch (Exception e) {
             e.printStackTrace();
-            // TODO project not added
         }
+    }
+
+    private void addPluginInLeftBar(JavaFxPlugin plugin) {
+        var pluginName = plugin.getName();
+        var t = new Text(pluginName);
+        t.setId(pluginName);
+        t.setOnMouseClicked(onClickSelectPlugin());
+        this.pluginList.getChildren().add(t);
+    }
+
+    private EventHandler<MouseEvent> onClickSelectPlugin() {
+        return mouseEvent -> {
+            String name = mouseEvent.getPickResult().getIntersectedNode().getId();
+            Board.getInstance().controller.selectPluginByName(name);
+        };
+    }
+
+    private void selectPluginByName(String name) {
+        this.clearPluginSelected();
+        this.pluginHandler.selectPluginByName(name);
+        this.pluginHandler.displayCurrentPlugin(this.stack);
+    }
+
+    private void clearPluginSelected() {
+        if(!this.pluginHandler.oneSelected()) return;
+        var children = this.stack.getChildren();
+        children.remove(children.size()-1);
+        this.pluginHandler.clearSelected();
     }
 
     private LeftBarProjectCardController newProjectCardControllerOf(Project p) throws IOException {
@@ -168,5 +199,10 @@ public class BoardController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void onClickRefreshPlugins(MouseEvent mouseEvent) {
+        this.clearPluginSelected();
+        this.loadLeftBarWithPlugins();
     }
 }

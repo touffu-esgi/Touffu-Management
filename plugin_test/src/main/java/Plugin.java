@@ -4,15 +4,23 @@ import javafx.scene.Node;
 import cat.touffu.management.javafx.Controller;
 import javafx.scene.layout.Pane;
 
+import java.io.IOException;
+
 public class Plugin implements JavaFxPlugin {
 
     private final Controller controller;
-    private final FXMLLoader view;
+    private Node view;
 
     public Plugin() {
         this.controller = new ControllerTest();
-        this.view = new FXMLLoader(getClass().getResource("hello.fxml"));
-        view.setController(this.controller);
+        var loader = new FXMLLoader(getClass().getResource("hello.fxml"));
+        loader.setController(this.controller);
+
+        try {
+            this.view = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -26,7 +34,7 @@ public class Plugin implements JavaFxPlugin {
     }
 
     @Override
-    public FXMLLoader getView() {
+    public Node getView() {
         return this.view;
     }
 }
