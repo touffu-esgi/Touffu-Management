@@ -13,6 +13,7 @@ import cat.touffu.management.javafx.projects.LeftBarProjectCardController;
 import cat.touffu.management.javafx.projects.OverviewBoard;
 import cat.touffu.management.kernel.exception.ProjectNotFoundException;
 import cat.touffu.management.kernel.query.QueryBus;
+import cat.touffu.management.plugin.JavaFxPlugin;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -25,7 +26,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,11 +70,42 @@ public class BoardController {
         try {
             this.loadLeftBarWith(projects);
             this.loadOverviewBoard();
+            this.loadPlugins(this.getPluginFiles());
         } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
 
         this.projectList = (VBox) this.stack.lookup("#projectList");
+    }
+
+    private void loadPlugins(List<File> plugins){
+        plugins.forEach(this::loadPlugin);
+    }
+
+    private void loadPlugin(File plugin) {
+        try {
+            var url = new URL("file:///" + plugin.getAbsolutePath());
+            var loader = new URLClassLoader(new URL[]{url}, getClass().getClassLoader());
+
+            var pluginClass = Class.forName("TestPlugin", true, loader);
+            var instance = (JavaFxPlugin)pluginClass.getConstructor().newInstance();
+            System.out.println("instance = " + instance.getName());
+        } catch (Exception e) {
+            System.out.println("e.getMessage() = " + e.getMessage());
+        }
+    }
+
+    private List<File> getPluginFiles() throws IOException {
+        final String pluginDirectoryPath = "plugins";
+        File directory = new File(pluginDirectoryPath);
+        if (!(directory.exists() || directory.mkdirs())) {
+            throw new IOException("Unable to access or create Plugins directory.");
+        }
+        var plugins = directory.listFiles((file, name)->name.endsWith(".jar"));
+        return plugins != null
+                ? List.of(plugins)
+                : List.of();
     }
 
     private void loadLeftBarWith(List<Project> projects) {
