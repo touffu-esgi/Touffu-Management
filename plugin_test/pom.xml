@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cat.touffu.management</groupId>
-    <artifactId>hello_plugin</artifactId>
+    <artifactId>test_plugin</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <properties>
