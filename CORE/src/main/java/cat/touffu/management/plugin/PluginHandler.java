@@ -1,6 +1,5 @@
 package cat.touffu.management.plugin;
 
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
@@ -15,7 +14,7 @@ public class PluginHandler {
     private JavaFxPlugin current = null;
 
     private void loadPluginFiles() throws IOException {
-        final String pluginDirectoryPath = "plugins";
+        final String pluginDirectoryPath = "Plugins";
         File directory = new File(pluginDirectoryPath);
         if (!(directory.exists() || directory.mkdirs())) {
             throw new IOException("Unable to access or create Plugins directory.");
@@ -33,19 +32,19 @@ public class PluginHandler {
             e.printStackTrace();
         }
         this.plugins = this.jars.stream()
-                .map(this::loadPlugin)
+                .map(this::loadPluginFromJar)
                 .toList();
     }
 
-    private JavaFxPlugin loadPlugin(File plugin) {
+    private JavaFxPlugin loadPluginFromJar(File jar) {
         try {
-            var url = new URL("file:///" + plugin.getAbsolutePath());
+            var url = new URL("file:///" + jar.getAbsolutePath());
             var loader = new URLClassLoader(new URL[]{url}, getClass().getClassLoader());
 
             var pluginClass = Class.forName("Plugin", true, loader);
             return (JavaFxPlugin)pluginClass.getConstructor().newInstance();
         } catch (Exception e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }

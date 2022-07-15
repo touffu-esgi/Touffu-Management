@@ -1,3 +1,4 @@
+import cat.touffu.management.javafx.board.Board;
 import cat.touffu.management.plugin.JavaFxPlugin;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

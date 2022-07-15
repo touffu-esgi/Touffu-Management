@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox id="leftbarPluginCard" maxWidth="222.0" onMouseClicked="#onSelectPlugin" prefHeight="36.0" prefWidth="222.0" style="-fx-background-radius: 5;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="cat.touffu.management.javafx.plugins.LeftBarPluginCardController">
+<children>
+    <Label fx:id="text" style="-fx-background-radius: 5;" text="Plugin" textFill="WHITE">
+        <HBox.margin>
+            <Insets />
+        </HBox.margin>
+    </Label>
+</children>
+   <padding>
+      <Insets left="15.0" top="10.0" />
+   </padding>
+</HBox>

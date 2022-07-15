@@ -8,6 +8,7 @@ import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.javafx.card.CardInListController;
 import cat.touffu.management.javafx.SettingBoard;
 import cat.touffu.management.javafx.kanban.KanbanBoard;
+import cat.touffu.management.javafx.plugins.LeftBarPluginCardController;
 import cat.touffu.management.javafx.projects.DialogCreateNewProject;
 import cat.touffu.management.javafx.projects.LeftBarProjectCardController;
 import cat.touffu.management.javafx.projects.OverviewBoard;
@@ -45,7 +46,9 @@ public class BoardController {
 
     public KanbanBoard kanbanBoard;
     private OverviewBoard overviewBoard;
+
     private final PluginHandler pluginHandler = new PluginHandler();
+    private final HashMap<String, LeftBarPluginCardController> pluginControllers = new HashMap<>();
 
     public void openBoardSetting(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -64,8 +67,6 @@ public class BoardController {
     public void initData(StackPane stack) {
         this.stack = stack;
         try {
-            this.pluginHandler.loadPlugins();
-
             this.loadLeftBarWithProjects();
             this.loadLeftBarWithPlugins();
             this.loadOverviewBoard();
@@ -119,24 +120,26 @@ public class BoardController {
     }
 
     private void addPluginInLeftBar(JavaFxPlugin plugin) {
-        var pluginName = plugin.getName();
-        var t = new Text(pluginName);
-        t.setId(pluginName);
-        t.setOnMouseClicked(onClickSelectPlugin());
-        this.pluginList.getChildren().add(t);
+        var controller = LeftBarPluginCardController.of(plugin);
+        if(controller == null) return;
+        var view = controller.getView();
+
+        pluginList.getChildren().add(view);
+        this.pluginControllers.put(plugin.getName(), controller);
     }
 
     private EventHandler<MouseEvent> onClickSelectPlugin() {
         return mouseEvent -> {
             String name = mouseEvent.getPickResult().getIntersectedNode().getId();
-            Board.getInstance().controller.selectPluginByName(name);
+            this.selectPluginByName(name);
         };
     }
 
-    private void selectPluginByName(String name) {
+    public void selectPluginByName(String name) {
         this.clearPluginSelected();
         this.pluginHandler.selectPluginByName(name);
         this.pluginHandler.displayCurrentPlugin(this.stack);
+        this.focusOnSelectedPluginCard();
     }
 
     private void clearPluginSelected() {
@@ -204,5 +207,10 @@ public class BoardController {
     public void onClickRefreshPlugins(MouseEvent mouseEvent) {
         this.clearPluginSelected();
         this.loadLeftBarWithPlugins();
+    }
+
+    private void focusOnSelectedPluginCard() {
+        this.pluginControllers.values().forEach(p -> p.setSelected(false));
+        this.pluginControllers.get(this.pluginHandler.getCurrent().getName()).setSelected(true);
     }
 }
