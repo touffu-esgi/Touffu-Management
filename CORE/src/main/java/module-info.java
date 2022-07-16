@@ -7,6 +7,7 @@ module touffu.management {
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
+    requires unirest.java;
 
     opens cat.touffu.management.javafx to javafx.fxml, javafx.graphics;
     exports cat.touffu.management;

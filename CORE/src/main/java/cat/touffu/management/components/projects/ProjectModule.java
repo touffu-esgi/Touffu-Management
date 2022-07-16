@@ -10,6 +10,7 @@ import cat.touffu.management.components.projects.application.query.RetrieveOnePr
 import cat.touffu.management.components.projects.application.query.RetrieveProjects.RetrieveProjects;
 import cat.touffu.management.components.projects.application.query.RetrieveProjects.RetrieveProjectsHandler;
 import cat.touffu.management.components.projects.domain.ProjectRepository;
+import cat.touffu.management.components.projects.infrastructure.RestApiProjectRepository;
 import cat.touffu.management.components.projects.infrastructure.SqliteProjectRepository;
 import cat.touffu.management.javafx.projects.ProjectCreationDoneListener;
 import cat.touffu.management.kernel.command.Command;
@@ -29,7 +30,7 @@ import java.util.Map;
 public class ProjectModule {
 
     public static ProjectRepository projectRepository() {
-        return SqliteProjectRepository.getInstance();
+        return RestApiProjectRepository.getInstance();
     }
     private static QueryBus queryBus;
 

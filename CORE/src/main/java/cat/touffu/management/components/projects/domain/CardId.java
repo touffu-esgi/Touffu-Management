@@ -1,8 +1,11 @@
 package cat.touffu.management.components.projects.domain;
 
 import cat.touffu.management.kernel.EntityId;
+import org.json.JSONArray;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 public class CardId implements EntityId<String> {
@@ -10,6 +13,13 @@ public class CardId implements EntityId<String> {
 
     private CardId(String value) {
         this._value = value;
+    }
+
+    public static Set<CardId> ofJsonArray(JSONArray cards) {
+        Set<CardId> ids = new HashSet<>();
+        for(int i = 0; i < cards.length(); i++)
+            ids.add(CardId.of(cards.get(i).toString()));
+        return ids;
     }
 
     public String value() {
