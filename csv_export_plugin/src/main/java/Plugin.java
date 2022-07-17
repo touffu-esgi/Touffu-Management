@@ -15,11 +15,8 @@ public class Plugin implements JavaFxPlugin {
         var loader = new FXMLLoader(getClass().getResource("view.fxml"));
         loader.setController(this.controller);
 
-        try {
-            this.view = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        try {this.view = loader.load();}
+        catch (IOException e) {e.printStackTrace();}
     }
 
     @Override
