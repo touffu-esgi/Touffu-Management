@@ -1,4 +1,5 @@
 package cat.touffu.management.javafx;
 
-public class Controller {
+public interface Controller {
+    void init();
 }

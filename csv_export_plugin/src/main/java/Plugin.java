@@ -10,14 +10,15 @@ public class Plugin implements JavaFxPlugin {
     private final Controller controller;
     private Node view;
 
-    public Plugin() {
-        this.controller = new ControllerCsv();
+    public Plugin() throws IOException {
         var loader = new FXMLLoader(getClass().getResource("view.fxml"));
-        loader.setController(this.controller);
+        this.controller = new ControllerCsv();
 
-        try {this.view = loader.load();}
-        catch (IOException e) {e.printStackTrace();}
+        loader.setController(this.controller);
+        this.view = loader.load();
+        this.controller.init();
     }
+
 
     @Override
     public String getName() {

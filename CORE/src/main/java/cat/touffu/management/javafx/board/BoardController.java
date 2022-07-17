@@ -80,8 +80,11 @@ public class BoardController {
     }
 
     private void loadLeftBarWithProjects() {
-        List<Project> projects = projectQueryBus.request(new RetrieveProjects());
-        projects.forEach(this::addProjectInLeftBar);
+        this.getProjects().forEach(this::addProjectInLeftBar);
+    }
+
+    public List<Project> getProjects() {
+        return projectQueryBus.request(new RetrieveProjects());
     }
 
     private void loadLeftBarWithPlugins() {

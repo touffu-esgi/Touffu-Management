@@ -42,7 +42,8 @@ public class PluginHandler {
             var loader = new URLClassLoader(new URL[]{url}, getClass().getClassLoader());
 
             var pluginClass = Class.forName("Plugin", true, loader);
-            return (JavaFxPlugin)pluginClass.getConstructor().newInstance();
+            var instance = (JavaFxPlugin)pluginClass.getConstructor().newInstance();
+            return instance;
         } catch (Exception e) {
             e.printStackTrace();
         }

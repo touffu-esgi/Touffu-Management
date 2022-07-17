@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class KanbanBoard extends Controller {
+public class KanbanBoard implements Controller {
     public Button change_cover;
     public Text title_of_board;
     private Node root;
@@ -133,5 +133,10 @@ public class KanbanBoard extends Controller {
                 .orElseThrow(() -> new RuntimeException("Card " + id + "not in list " + oldStatus) );
         oldList.getChildren().remove(oldCard);
         this.cardsControllers.remove(id);
+    }
+
+
+    public void init() {
+
     }
 }

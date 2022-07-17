@@ -23,4 +23,5 @@ module touffu.management {
     opens cat.touffu.management.javafx.plugins to javafx.fxml, javafx.graphics;
 
     exports cat.touffu.management.plugin;
+    exports cat.touffu.management.components.projects.domain;
 }
