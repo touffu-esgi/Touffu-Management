@@ -1,7 +1,8 @@
 package cat.touffu.management.components.projects.domain;
 
 import cat.touffu.management.kernel.EntityId;
-import org.json.JSONArray;
+import kong.unirest.json.JSONArray;
+
 
 import java.util.HashSet;
 import java.util.Objects;

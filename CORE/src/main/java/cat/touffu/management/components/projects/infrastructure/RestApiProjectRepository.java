@@ -1,26 +1,21 @@
 package cat.touffu.management.components.projects.infrastructure;
 
-import cat.touffu.management.components.projects.domain.CardId;
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.components.projects.domain.ProjectId;
 import cat.touffu.management.components.projects.domain.ProjectRepository;
 
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
-import kong.unirest.*;
+import cat.touffu.management.kernel.database.RestApi;
 import org.apache.commons.lang3.NotImplementedException;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import cat.touffu.management.components.projects.infrastructure.JsonAdapters.*;
 
 public class RestApiProjectRepository implements ProjectRepository {
 
     private final static RestApiProjectRepository INSTANCE = new RestApiProjectRepository();
+    private final static RestApi API = RestApi.instance();
+    private final static String base = "/projects";
 
     private RestApiProjectRepository() {
     }
@@ -36,12 +31,12 @@ public class RestApiProjectRepository implements ProjectRepository {
 
     @Override
     public void save(Project project) {
-        throw new NotImplementedException("save project");
+        this.add(project);
     }
 
     @Override
     public void add(Project project) {
-        throw new NotImplementedException("add project");
+        API.post(base, new ProjectJsonAdapter(), project);
     }
 
     @Override
@@ -51,24 +46,13 @@ public class RestApiProjectRepository implements ProjectRepository {
 
     @Override
     public Project findById(ProjectId projectId) {
-        throw new NotImplementedException("find project by id");
+        var route = base + "/" + projectId.value();
+        return API.get(route, new ProjectJsonAdapter());
     }
 
     @Override
     public List<Project> findAll() {
-        //HttpResponse<JsonNode> res = Unirest
-        var res = Unirest.get("http://localhost:1234/projects").asJson();
-        var arr = res.getBody().getArray();
-        List<JSONObject> projects = new ArrayList<>();
-        for (int i = 0; i < arr.length(); i++) projects.add(new JSONObject(arr.get(i).toString()));
-
-        var tt = projects.stream().map(p -> Project.of(
-                ProjectId.of(p.getString("id")),
-                p.getString("title"),
-                CardId.ofJsonArray(p.getJSONArray("cards"))
-        )).toList();
-        System.out.println("tt = " + tt);
-        return tt;
+        return API.get(base, new ListOfProjectsJsonAdapter());
     }
 
     @Override
