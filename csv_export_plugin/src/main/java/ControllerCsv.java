@@ -75,7 +75,6 @@ public class ControllerCsv implements Controller {
     private String getDirectoryToSave() {
         final var chooser = new DirectoryChooser();
         final var selected = chooser.showDialog(new Stage());
-        System.out.println(selected.getAbsolutePath());
         return selected.getAbsolutePath();
     }
 
