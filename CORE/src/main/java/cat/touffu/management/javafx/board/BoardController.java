@@ -1,6 +1,8 @@
 package cat.touffu.management.javafx.board;
 
 import cat.touffu.management.components.cards.CardsModule;
+import cat.touffu.management.components.cards.application.query.RetrieveCardsInProject.RetrieveCardsInProject;
+import cat.touffu.management.components.cards.domain.Card;
 import cat.touffu.management.components.projects.ProjectModule;
 import cat.touffu.management.components.projects.application.query.RetrieveOneProject.RetrieveOneProject;
 import cat.touffu.management.components.projects.application.query.RetrieveProjects.RetrieveProjects;
@@ -68,7 +70,7 @@ public class BoardController {
         this.stack = stack;
         try {
             this.loadLeftBarWithProjects();
-            this.loadLeftBarWithPlugins();
+            //this.loadLeftBarWithPlugins();
             this.loadOverviewBoard();
 
         } catch (IOException e) {
@@ -85,6 +87,10 @@ public class BoardController {
 
     public List<Project> getProjects() {
         return projectQueryBus.request(new RetrieveProjects());
+    }
+
+    public List<Card> getCards(String projectId) {
+        return cardQueryBus.request(new RetrieveCardsInProject(projectId));
     }
 
     private void loadLeftBarWithPlugins() {

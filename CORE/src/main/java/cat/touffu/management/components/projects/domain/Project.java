@@ -37,4 +37,13 @@ public record Project(
     public int hashCode() {
         return Objects.hash(id.value());
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id.value() +
+                ", title='" + title + '\'' +
+                ", cards=" + cards +
+                '}';
+    }
 }

@@ -1,8 +1,11 @@
+import cat.touffu.management.components.projects.domain.Project;
+
 import java.util.Objects;
 
 public record ProjectChoice(
         String id,
-        String title
+        String title,
+        Project entity
 ) {
     @Override
     public boolean equals(Object o) {

@@ -24,4 +24,5 @@ module touffu.management {
 
     exports cat.touffu.management.plugin;
     exports cat.touffu.management.components.projects.domain;
+    exports cat.touffu.management.components.cards.domain;
 }
