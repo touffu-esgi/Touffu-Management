@@ -12,10 +12,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class ControllerCsv implements Controller {
@@ -56,7 +62,28 @@ public class ControllerCsv implements Controller {
 
     public void onExport(Project project, List<Card> cards) {
         var json = projectToJson(project, cards);
-        System.out.println(json.toString(4));
+        var jsonStr = json.toString(4);
+        var filename = project.title() + "_" + (new Date()).getTime() + ".json";
+        var path = this.getDirectoryToSave() + "/" + filename;
+        try {
+            this.saveJson(path, jsonStr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getDirectoryToSave() {
+        final var chooser = new DirectoryChooser();
+        final var selected = chooser.showDialog(new Stage());
+        System.out.println(selected.getAbsolutePath());
+        return selected.getAbsolutePath();
+    }
+
+    private void saveJson(String filename, String json) throws IOException {
+        try(var writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write(json);
+        };
+
     }
 
     private JSONObject projectToJson(Project project, List<Card> cards) {
