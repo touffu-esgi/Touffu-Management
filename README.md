@@ -5,6 +5,16 @@
 Thématique : aide à la personne - soins et promenades d'animaux de compagnie pour les personnes dépendantes
 
 ---
+### Démarrer le projet
+
+```shell
+$ mvn install
+$ java -cp CORE/target/CORE-0.1.0-shaded.jar cat.touffu.management.javafx.Main
+```
+
+---
+
+---
 
 ### Développeurs
 

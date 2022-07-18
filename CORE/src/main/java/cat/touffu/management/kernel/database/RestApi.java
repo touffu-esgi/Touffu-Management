@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class RestApi {
     private final static RestApi INSTANCE = new RestApi();
-    private final static String apiUrl = "http://localhost:1234";
+    private final static String apiUrl = "http://152.228.219.241:1234";
 
     private RestApi() {}
 
