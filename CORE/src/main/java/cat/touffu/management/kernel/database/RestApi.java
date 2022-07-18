@@ -33,4 +33,12 @@ public class RestApi {
                 .fields(adapter.adapt(toSend))
                 .asJson();
     }
+
+    public <T> void patch(String route, JsonAdapter<T> adapter, T toSend) {
+        var json = adapter.adapt(toSend);
+        Unirest.patch(fullUrlOf(route))
+                .header("accept", "application/json")
+                .fields(adapter.adapt(toSend))
+                .asJson();
+    }
 }

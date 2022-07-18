@@ -1,6 +1,7 @@
 package cat.touffu.management.components.cards.infrastructure;
 
 import cat.touffu.management.components.cards.adapter.CardStatusFromStringAdapter;
+import cat.touffu.management.components.cards.adapter.CardStatusToStringAdapter;
 import cat.touffu.management.components.cards.domain.Card;
 import cat.touffu.management.components.cards.domain.CardId;
 import cat.touffu.management.components.cards.domain.ProjectId;
@@ -10,6 +11,7 @@ import kong.unirest.json.JSONObject;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +52,14 @@ public class JsonAdapters {
 
         @Override
         public Map<String, Object> adapt(Card card) {
-            throw new NotImplementedException("card to map for rest api");
+            var statusAdapter = new CardStatusToStringAdapter();
+            var map = new HashMap<String, Object>();
+            map.put("id", card.id().value());
+            map.put("title", card.title());
+            map.put("projetId", card.projectId().value());
+            map.put("cardStatus", statusAdapter.adapt(card.cardStatus()));
+
+            return map;
         }
     }
 }

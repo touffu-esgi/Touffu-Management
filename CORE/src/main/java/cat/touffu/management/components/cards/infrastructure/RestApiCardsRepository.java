@@ -41,17 +41,18 @@ public class RestApiCardsRepository implements CardRepository {
 
     @Override
     public void save(Card card) {
-
+        this.update(card);
     }
 
     @Override
     public void add(Card card) {
-
+        this.update(card);
     }
 
     @Override
     public void update(Card card) {
-
+        var route = base + "/" + card.id().value();
+        API.patch(route, new CardJsonAdapter(), card);
     }
 
     @Override
