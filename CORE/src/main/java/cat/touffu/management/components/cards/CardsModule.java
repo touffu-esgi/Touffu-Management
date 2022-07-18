@@ -11,6 +11,7 @@ import cat.touffu.management.components.cards.application.query.RetrieveCardsInP
 import cat.touffu.management.components.cards.application.query.RetrieveOneCard.RetrieveOneCard;
 import cat.touffu.management.components.cards.application.query.RetrieveOneCard.RetrieveOneCardHandler;
 import cat.touffu.management.components.cards.domain.CardRepository;
+import cat.touffu.management.components.cards.infrastructure.RestApiCardsRepository;
 import cat.touffu.management.components.cards.infrastructure.SqliteCardRepository;
 import cat.touffu.management.components.projects.ProjectModule;
 import cat.touffu.management.components.projects.application.event.CardCreationDoneListener;
@@ -36,7 +37,7 @@ public class CardsModule {
 
 
     public static CardRepository cardsRepository() {
-        return SqliteCardRepository.getInstance();
+        return RestApiCardsRepository.getInstance();
     }
 
     public static EventBus<ApplicationEvent> applicationEventBus() {
