@@ -19,11 +19,6 @@
                         <Image url="@../books_banner.jpg" />
                     </image>
                 </ImageView>
-                <Button id="change_cover" fx:id="change_cover" layoutX="1106.0" layoutY="148.0" minHeight="35.0" minWidth="135.0" mnemonicParsing="false" style="-fx-background-color: #E5E5E5;" text="Change cover" textOverrun="CLIP">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Button>
             </children>
         </Group>
         <HBox>
