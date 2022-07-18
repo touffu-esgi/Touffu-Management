@@ -12,7 +12,7 @@ public class Plugin implements JavaFxPlugin {
 
     public Plugin() throws IOException {
         var loader = new FXMLLoader(getClass().getResource("view.fxml"));
-        this.controller = new ControllerCsv();
+        this.controller = new ControllerJson();
 
         loader.setController(this.controller);
         this.view = loader.load();
@@ -22,7 +22,7 @@ public class Plugin implements JavaFxPlugin {
 
     @Override
     public String getName() {
-        return "CsvExportPlugin";
+        return "JsonExport";
     }
 
     @Override

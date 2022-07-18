@@ -1,5 +1,4 @@
 import cat.touffu.management.components.cards.domain.Card;
-import cat.touffu.management.components.projects.domain.CardId;
 import cat.touffu.management.components.projects.domain.Project;
 import cat.touffu.management.javafx.Controller;
 import cat.touffu.management.javafx.board.Board;
@@ -24,7 +23,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-public class ControllerCsv implements Controller {
+public class ControllerJson implements Controller {
 
     @FXML() public ComboBox<ProjectChoice> select_project;
     @FXML() public Button export_button;

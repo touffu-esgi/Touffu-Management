@@ -11,7 +11,7 @@
     <modules>
         <module>CORE</module>
         <module>plugin_test</module>
-        <module>csv_export_plugin</module>
+        <module>json_export_plugin</module>
     </modules>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
