@@ -17,7 +17,8 @@ import picocli.CommandLine;
 public class Cli implements Runnable{
 
     public static void main(String[] args) {
-        CommandLine.run(new Cli(), args);
+        int exitCode = new CommandLine(new Cli()).execute(args);
+        System.exit(exitCode);
     }
 
     @Override

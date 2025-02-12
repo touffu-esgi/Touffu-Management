@@ -33,7 +33,7 @@
                                           <Font name="Montserrat Thin" size="24.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Montserat; -fx-font-size: 14; -fx-font-style: Bold;" text="Management" wrappingWidth="82.9296875">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Montserat; -fx-font-size: 14;" text="Management" wrappingWidth="82.9296875">
                                        <font>
                                           <Font name="Monospaced Bold" size="14.0" />
                                        </font>

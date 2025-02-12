@@ -7,11 +7,17 @@ Thématique : aide à la personne - soins et promenades d'animaux de compagnie p
 ---
 ### Démarrer le projet
 
+JavaFX ui :
 ```shell
-$ mvn install
-$ java -cp CORE/target/CORE-0.1.0-shaded.jar cat.touffu.management.javafx.Main
+mvn install
+java -cp CORE/target/CORE-0.1.0-shaded.jar cat.touffu.management.javafx.Main
 ```
 
+CLI:
+```shell
+mvn install
+java -cp CORE/target/CORE-0.1.0-shaded.jar cat.touffu.management.Cli --help
+```
 ---
 
 ---
